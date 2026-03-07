@@ -470,7 +470,8 @@ body {
   display: block;
 }
 
-.highlight-card picture {
+.highlight-card picture,
+.highlight-card > .highlight-media {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
@@ -485,6 +486,10 @@ body {
   display: block;
   object-fit: cover;
   object-position: center;
+}
+
+.highlight-card > .highlight-media {
+  height: auto;
 }
 
 .highlight-card h3 {
@@ -723,10 +728,11 @@ body {
 }
 
 .pi-avatar {
-  width: 140px;
-  height: 180px;
+  width: 204px;
+  height: 235px;
   border-radius: 12px;
   object-fit: cover;
+  object-position: center top;
   flex-shrink: 0;
   border: 3px solid var(--color-border);
   box-shadow: var(--shadow);
