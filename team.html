@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team | X-Sleep Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="site-title">
+        <span class="x-letter">X</span>-Sleep Lab
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <a href="index.html"        data-i18n="nav.home">Home</a>
+        <a href="team.html" class="active" data-i18n="nav.team">Team</a>
+        <a href="research.html"     data-i18n="nav.research">Research</a>
+        <a href="publications.html" data-i18n="nav.publications">Publications</a>
+        <a href="news.html"         data-i18n="nav.news">News</a>
+        <a href="join.html"         data-i18n="nav.join">Join Us</a>
+        <span class="lang-switch">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="zh">中文</button>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-hero-label" data-i18n="team.piLabel">Principal Investigator</p>
+      <h1 data-i18n="team.pageTitle">Our Team</h1>
+      <p data-i18n="team.pageSub">A group of curious minds dedicated to understanding the sleeping brain.</p>
+    </div>
+  </div>
+
+  <nav class="breadcrumb">
+    <a href="index.html" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">/</span>
+    <span data-i18n="team.breadcrumb">Team</span>
+  </nav>
+
+  <section class="team-section">
+
+    <!-- PI Card -->
+    <p class="team-section-title" data-i18n="team.piLabel">Principal Investigator</p>
+    <div class="pi-card">
+      <img class="pi-avatar" id="pi-avatar"
+           src="https://api.dicebear.com/7.x/avataaars/svg?seed=XiaTao&backgroundColor=b6e3f4"
+           alt="Xia Tao"
+           width="150" height="150">
+      <div class="pi-info">
+        <h2>
+          <span data-i18n="team.piName">Xia Tao</span>
+          <span style="font-size:1.1rem; font-weight:500; color:var(--color-text-light); margin-left:10px;" data-i18n="team.piNameZh">夏涛</span>
+        </h2>
+        <p class="pi-role" data-i18n="team.piRole">Principal Investigator</p>
+        <p class="pi-affiliation" data-i18n="team.piAffiliation">
+          State Key Laboratory of Cognitive Science and Mental Health<br>
+          Institute of Psychology, Chinese Academy of Sciences (IPCAS)
+        </p>
+        <p class="pi-bio" data-i18n="team.piBio">Dr. Tao Xia received his Ph.D. from the University of Hong Kong (HKU), where he studied sleep-based memory modulation and targeted memory reactivation (TMR). He is now a Principal Investigator at the Institute of Psychology, Chinese Academy of Sciences. His research lies at the intersection of sleep neuroscience, emotional memory, and brain-computer interfaces, with the goal of developing non-invasive tools to reshape memory and improve mental health.</p>
+        <div class="pi-links">
+          <a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener" class="pi-link-btn" data-i18n="team.piRGLink">ResearchGate</a>
+          <a href="publications.html" class="pi-link-btn">Publications →</a>
+          <a href="mailto:xiatao@psych.ac.cn" class="pi-link-btn">xiatao@psych.ac.cn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graduate Students — rendered by content.js -->
+    <p class="team-section-title" data-i18n="team.gradLabel">Current Members</p>
+    <div class="team-grid" id="grad-grid"></div>
+
+    <!-- Research Assistants — rendered by content.js -->
+    <p class="team-section-title" style="margin-top: 44px;" data-i18n="team.raLabel">Research Assistants</p>
+    <div class="team-grid" id="ra-grid"></div>
+
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name"><span class="x-letter">X</span>-Sleep Lab</div>
+        <p data-i18n="footer.desc">Sleep is where experience is sculpted.</p>
+        <p>Institute of Psychology, Chinese Academy of Sciences</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.navTitle">Navigation</h4>
+        <ul>
+          <li><a href="index.html"        data-i18n="nav.home">Home</a></li>
+          <li><a href="team.html"         data-i18n="nav.team">Team</a></li>
+          <li><a href="research.html"     data-i18n="nav.research">Research</a></li>
+          <li><a href="publications.html" data-i18n="nav.publications">Publications</a></li>
+          <li><a href="news.html"         data-i18n="nav.news">News</a></li>
+          <li><a href="join.html"         data-i18n="nav.join">Join Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contactTitle">Contact</h4>
+        <ul>
+          <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
+          <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
+        </ul>
+        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">16 Lincui Road, Chaoyang District, Beijing 100101</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
+      <p data-i18n="footer.labName">X-Sleep Lab · Institute of Psychology, CAS</p>
+    </div>
+  </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/md-loader.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/lang-switch.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>

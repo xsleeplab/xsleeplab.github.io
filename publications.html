@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications | X-Sleep Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="site-title">
+        <span class="x-letter">X</span>-Sleep Lab
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <a href="index.html"        data-i18n="nav.home">Home</a>
+        <a href="team.html"         data-i18n="nav.team">Team</a>
+        <a href="research.html"     data-i18n="nav.research">Research</a>
+        <a href="publications.html" class="active" data-i18n="nav.publications">Publications</a>
+        <a href="news.html"         data-i18n="nav.news">News</a>
+        <a href="join.html"         data-i18n="nav.join">Join Us</a>
+        <span class="lang-switch">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="zh">中文</button>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1 data-i18n="publications.pageTitle">Publications</h1>
+      <p data-i18n="publications.pageSub">Selected publications from X-Sleep Lab.</p>
+      <p style="margin-top: 14px;">
+        <a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener noreferrer" data-i18n="publications.researchGate" style="font-weight:600;">Full list on ResearchGate →</a>
+      </p>
+    </div>
+  </div>
+
+  <nav class="breadcrumb">
+    <a href="index.html" data-i18n="breadcrumb.home">Home</a>
+    <span class="sep">/</span>
+    <span data-i18n="publications.breadcrumb">Publications</span>
+  </nav>
+
+  <section class="pub-section">
+
+    <!-- Year blocks rendered by content.js -->
+    <div id="pub-list"></div>
+
+    <div class="pub-year-block">
+      <h2 class="pub-year" style="border-bottom:none;" data-i18n="publications.confTitle">Conference Presentations</h2>
+      <p style="color:var(--color-text-light); font-size:0.96rem;" data-i18n="publications.confPlaceholder">Conference presentations will be listed here.</p>
+    </div>
+
+    <div class="pub-year-block">
+      <h2 class="pub-year" style="border-bottom:none;" data-i18n="publications.awardsTitle">Awards &amp; Grants</h2>
+      <p style="color:var(--color-text-light); font-size:0.96rem;" data-i18n="publications.awardsText">Funding sources and awards will be listed here.</p>
+    </div>
+
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name"><span class="x-letter">X</span>-Sleep Lab</div>
+        <p data-i18n="footer.desc">Sleep is where experience is sculpted.</p>
+        <p>Institute of Psychology, Chinese Academy of Sciences</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.navTitle">Navigation</h4>
+        <ul>
+          <li><a href="index.html"        data-i18n="nav.home">Home</a></li>
+          <li><a href="team.html"         data-i18n="nav.team">Team</a></li>
+          <li><a href="research.html"     data-i18n="nav.research">Research</a></li>
+          <li><a href="publications.html" data-i18n="nav.publications">Publications</a></li>
+          <li><a href="news.html"         data-i18n="nav.news">News</a></li>
+          <li><a href="join.html"         data-i18n="nav.join">Join Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contactTitle">Contact</h4>
+        <ul>
+          <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
+          <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
+        </ul>
+        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">16 Lincui Road, Chaoyang District, Beijing 100101</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
+      <p data-i18n="footer.labName">X-Sleep Lab · Institute of Psychology, CAS</p>
+    </div>
+  </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/md-loader.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/lang-switch.js"></script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
