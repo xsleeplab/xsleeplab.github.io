@@ -1,6 +1,4 @@
-# 睡眠与认知实验室网站
-
-睡眠与记忆研究实验室的官方网站，设计参考了 [UCI Cognitive Neuroscience of Sleep Lab](https://sleep.bio.uci.edu/lab-members/) 和 [HKU SCNLab](https://www.psychology.hku.hk/scnlab/knowledgeexchange.html)。
+# X-Sleep实验室网站
 
 ## 网站结构
 
