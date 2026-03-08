@@ -12,7 +12,7 @@
   }
 
   function getPage() {
-    const path = window.location.pathname + window.location.href;
+    const path = window.location.pathname;
     if (path.includes('team'))         return 'team';
     if (path.includes('research'))     return 'research';
     if (path.includes('publications')) return 'publications';
@@ -72,8 +72,6 @@
       setText('index.aboutLabel',   idx.aboutLabel);
       setText('index.aboutTitle',   idx.aboutTitle);
       setText('index.about1',       idx.about1);
-      setText('index.about2',       idx.about2);
-      setText('index.about3',       idx.about3);
       setText('index.statsLabel',   idx.statsLabel);
       setText('index.stat1Num',     idx.stat1Num);
       setText('index.stat1Label',   idx.stat1Label);

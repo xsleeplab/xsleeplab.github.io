@@ -364,11 +364,12 @@ body {
   padding: 28px 24px;
   text-align: center;
   box-shadow: var(--shadow);
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .stat-card:hover {
-  box-shadow: var(--shadow-hover);
   border-color: var(--color-accent);
   transform: translateY(-2px);
 }
@@ -551,13 +552,14 @@ body {
   border-radius: var(--radius);
   padding: 24px;
   box-shadow: var(--shadow);
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   display: block;
+  will-change: transform;
 }
 
 .news-strip-card:hover {
-  box-shadow: var(--shadow-md);
   border-color: var(--color-accent);
   transform: translateY(-2px);
 }
@@ -719,7 +721,9 @@ body {
   display: flex;
   gap: 40px;
   align-items: flex-start;
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .pi-card:hover {
@@ -813,12 +817,13 @@ body {
   border-radius: var(--radius);
   padding: 28px 20px;
   text-align: center;
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--shadow);
+  will-change: transform;
 }
 
 .member-card:hover {
-  box-shadow: var(--shadow-hover);
   border-color: var(--color-accent);
   transform: translateY(-8px);
 }
@@ -891,10 +896,12 @@ body {
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-.research-item:hover { box-shadow: var(--shadow-hover); transform: translateY(-5px); }
+.research-item:hover { transform: translateY(-5px); border-color: var(--color-accent); }
 
 .research-item::before {
   content: '';
@@ -1034,13 +1041,14 @@ em { color: var(--color-text-light); }
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: var(--transition);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  will-change: transform;
 }
 
 .news-card:hover {
-  box-shadow: var(--shadow-hover);
   transform: translateY(-8px);
   border-color: var(--color-accent);
 }
