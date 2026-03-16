@@ -66,7 +66,7 @@
       setText('index.slide2Sub',    idx.slide2Sub);
       setText('index.slide2Cta',    idx.slide2Cta);
       setText('index.slide3Tag',    idx.slide3Tag);
-      setText('index.slide3Title',  idx.slide3Title);
+      setHTML('index.slide3Title',  idx.slide3Title);
       setText('index.slide3Sub',    idx.slide3Sub);
       setText('index.slide3Cta',    idx.slide3Cta);
       setText('index.aboutLabel',   idx.aboutLabel);
@@ -117,6 +117,7 @@
       setText('team.piBio',          tm.piBio);
       setText('team.piRGLink',       tm.piRGLink);
       setText('team.piGSLink',       tm.piGSLink);
+      setText('team.piORCIDLink',    tm.piORCIDLink);
       setText('team.gradLabel',      tm.gradLabel);
       setText('team.raLabel',        tm.raLabel);
       setText('team.undergradLabel', tm.undergradLabel);

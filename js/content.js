@@ -27,7 +27,7 @@ const SITE_CONTENT = {
     },
     {
       year: 2025,
-      html: '<strong>Liu, J.*</strong>, Chen, D., <strong>Xia, T.</strong>, Zeng, S., Xue, G., &amp; Hu, X.* (2025). Slow-wave sleep and REM sleep differentially contribute to memory representational transformation. <em>Communications Biology</em>, 8, 1407. <a href="https://doi.org/10.1038/s42003-025-08812-3" target="_blank" rel="noopener">[DOI]</a>'
+      html: 'Liu, J.*, Chen, D., <strong>Xia, T.</strong>, Zeng, S., Xue, G., &amp; Hu, X.* (2025). Slow-wave sleep and REM sleep differentially contribute to memory representational transformation. <em>Communications Biology</em>, 8, 1407. <a href="https://doi.org/10.1038/s42003-025-08812-3" target="_blank" rel="noopener">[DOI]</a>'
     },
     {
       year: 2024,
@@ -43,7 +43,7 @@ const SITE_CONTENT = {
     },
     {
       year: 2024,
-      html: '<strong>Zhao, J.</strong>, <strong>Xia, T.</strong>, &amp; <strong>Hu, C.</strong> (2024). The status quo, challenges, and recommendations of pre-registration in psychological science. <em>Advances in Psychological Science</em>, 32(5), 715–727. <span style="font-size:0.86em; color:var(--color-primary-mid); font-style:italic;">(in Chinese)</span> <a href="https://doi.org/10.3724/SP.J.1042.2024.00715" target="_blank" rel="noopener">[DOI]</a>'
+      html: 'Zhao, J., <strong>Xia, T.</strong>, &amp; Hu, C. (2024). The status quo, challenges, and recommendations of pre-registration in psychological science. <em>Advances in Psychological Science</em>, 32(5), 715–727. <span style="font-size:0.86em; color:var(--color-primary-mid); font-style:italic;">(in Chinese)</span> <a href="https://doi.org/10.3724/SP.J.1042.2024.00715" target="_blank" rel="noopener">[DOI]</a>'
     },
     {
       year: 2023,
@@ -60,15 +60,15 @@ const SITE_CONTENT = {
     {
       year: 2023,
       html: 'Jin, R., <strong>Xia, T.</strong>, Gawronski, B., &amp; Hu, X.* (2023). Attitudinal Effects of Stimulus Co-occurrence and Stimulus Relations: Sleep Supports Propositional Learning Via Memory Consolidation. <em>Social Psychological and Personality Science</em>, 14(1), 51–59. <a href="https://doi.org/10.1177/19485506221078012" target="_blank" rel="noopener">[DOI]</a>'
-    },
-    {
-      year: 2018,
-      html: '<strong>夏涛</strong>, 庄理平, 徐晓惠, 齐正阳, &amp; 罗文波. (2018). 大脑如何表征情绪: 基于 fMRI 的多变量模式分析证据. <em>科学通报</em>, 63(3), 7.'
     }
   ],
 
-  /* ---- Preprints (to be filled later) ---- */
-  preprints: [],
+  /* ---- Preprints (newest first) ---- */
+  preprints: [
+    {
+      html: 'Chen, D., <strong>Xia, T.</strong>, Liu, J., Zhang, Y., Zuo, X., Wu, H., Lai, C. S. W., &amp; Hu, X. (2026). Reactivating conflicting evaluative memories during sleep reduces decision ambivalence. <em>Preprint</em>. <a href="https://doi.org/10.64898/2026.03.11.710434" target="_blank" rel="noopener">[DOI]</a>'
+    }
+  ],
 
   /* ---- News Items (newest first)
    * homepageSlot: 1|2|3 → shown on homepage in that order
@@ -77,6 +77,17 @@ const SITE_CONTENT = {
    * readMore: { en, zh } for custom button text
    ---- */
   news: [
+    {
+      tag:      { en: 'Recruiting · 2026', zh: '诚聘英才 · 2026' },
+      title:    { en: 'X-Sleep Lab is Recruiting a Research Assistant (1 opening)', zh: 'X-Sleep Lab 诚招科研助理（1 名）' },
+      desc:     { en: 'We are looking for 1 motivated research assistant to support ongoing sleep neuroscience projects at the Institute of Psychology, Chinese Academy of Sciences.', zh: '诚招 1 名科研助理，协助中科院心理所 X-Sleep Lab 开展睡眠认知神经科学相关研究项目。' },
+      date:     { en: '2026', zh: '2026年' },
+      emoji:    '🔬',
+      gradient: 'linear-gradient(135deg, #1A2E3D 0%, #3D607A 100%)',
+      link:     'join.html',
+      readMore: { en: 'See open positions →', zh: '查看招聘信息 →' },
+      homepageSlot: 3
+    },
     {
       tag:      { en: 'New Publication · 2026', zh: '新论文 · 2026' },
       title:    { en: 'How sleeping minds decide: State-specific reconfigurations of lexical decision-making', zh: '睡眠中的心智决策：词汇决策加工的状态特异性重构' },
@@ -101,17 +112,6 @@ const SITE_CONTENT = {
       readMore: { en: 'Read paper →', zh: '阅读论文 →' },
       homepageLink: 'news.html',
       homepageSlot: 1
-    },
-    {
-      tag:      { en: 'Recruiting · 2026', zh: '诚聘英才 · 2026' },
-      title:    { en: 'X-Sleep Lab is Recruiting PhD Students &amp; Research Assistants', zh: 'X-Sleep Lab 诚招博士生及研究助理' },
-      desc:     { en: 'We are looking for motivated individuals to join our team at the Institute of Psychology, Chinese Academy of Sciences.', zh: '诚邀对睡眠认知神经科学充满热情的优秀人才加入中科院心理所 X-Sleep Lab。' },
-      date:     { en: '2026', zh: '2026年' },
-      emoji:    '🔬',
-      gradient: 'linear-gradient(135deg, #1A2E3D 0%, #3D607A 100%)',
-      link:     'join.html',
-      readMore: { en: 'See open positions →', zh: '查看招聘信息 →' },
-      homepageSlot: 3
     },
     {
       tag:      { en: 'New Publication · PNAS 2024', zh: '新论文 · PNAS 2024' },
@@ -146,25 +146,18 @@ const SITE_CONTENT = {
         title:    { en: 'Ph.D. Candidate',    zh: '博士在读' },
         education:'B.Sc.',
         email:    'baoyr@psych.ac.cn',
-        research: { en: 'Sleep &amp; memory modulation', zh: '睡眠与记忆调控' }
+        research: { en: 'Sleep &amp; memory modulation', zh: '睡眠与记忆调控' },
+        photo:    'home_pic/byr.png'
       },
-      {
-        seed:     'grad2x',
-        name:     { en: 'Graduate Student B', zh: '研究生 B' },
-        title:    { en: 'Ph.D. Candidate',    zh: '博士研究生' },
-        education:'B.Sc.',
-        email:    'student2@psych.ac.cn',
-        research: { en: 'Closed-loop sleep BCI systems', zh: '闭环睡眠脑机接口系统' }
-      }
     ],
     ra: [
       {
         seed:     'rax',
-        name:     { en: 'Research Assistant', zh: '研究助理' },
+        name:     { en: 'This could be you', zh: '也许就是你' },
         title:    { en: 'Research Assistant',  zh: '研究助理' },
-        education:'B.Sc.',
-        email:    'ra@psych.ac.cn',
-        research: { en: 'EEG data collection &amp; analysis', zh: 'EEG 数据采集与分析' }
+        education:'',
+        email:    'xiatao@psych.ac.cn',
+        research: { en: 'We are recruiting — <a href="join.html">Join us →</a>', zh: '正在招募中 — <a href="join.html">加入我们 →</a>' }
       }
     ],
     undergrad: [
