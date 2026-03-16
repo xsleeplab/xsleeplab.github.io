@@ -62,7 +62,7 @@ const translations = {
       piNameZh:         '夏涛',
       piRole:           'Principal Investigator',
       piAffiliation:    'State Key Laboratory of Cognitive Science and Mental Health\nInstitute of Psychology, Chinese Academy of Sciences (IPCAS)',
-      piBio:            'Dr. Tao Xia received his Ph.D. from the University of Hong Kong (HKU), where he studied sleep-based memory modulation and targeted memory reactivation (TMR). He is now a Principal Investigator at the Institute of Psychology, Chinese Academy of Sciences. His research lies at the intersection of sleep neuroscience, emotional memory, and brain-computer interfaces, with the goal of developing non-invasive tools to reshape memory and improve mental health.',
+      piBio:            'Dr. Tao Xia received his Ph.D. from the University of Hong Kong (HKU), where he studied sleep-based memory modulation and targeted memory reactivation (TMR). Currently, his research focuses on the intersection of sleep neuroscience, emotional memory, and brain-computer interfaces, with the goal of developing non-invasive tools to reshape memory and improve mental health.',
       piRGLink:         'ResearchGate',
       piGSLink:         'Google Scholar',
       piORCIDLink:      'ORCID',
