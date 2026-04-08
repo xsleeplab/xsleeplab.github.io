@@ -149,8 +149,26 @@ const SITE_CONTENT = {
         research: { en: 'Sleep &amp; memory modulation', zh: '睡眠与记忆调控' },
         photo:    'home_pic/byr.png'
       },
+      {
+        seed:     'chenjiahe',
+        name:     { en: 'Jiahe Chen 陈嘉禾', zh: 'Jiahe Chen 陈嘉禾' },
+        title:    { en: 'Visiting Graduate Student', zh: '访问研究生' },
+        education:'B.Sc.',
+        email:    '',
+        research: { en: 'Sleep BCI &amp; memory consolidation', zh: '睡眠脑机接口与记忆巩固' },
+        photo:    'home_pic/chenjiahe.png'
+      },
     ],
     ra: [
+      {
+        seed:     'linxiaoai',
+        name:     { en: 'Xiaoai Lin 蔺小艾', zh: 'Xiaoai Lin 蔺小艾' },
+        title:    { en: 'Research Assistant', zh: '研究助理' },
+        education:'B.Sc.',
+        email:    '',
+        research: { en: 'Sleep &amp; memory editing', zh: '睡眠与记忆编辑' },
+        photo:    'home_pic/linxiaoai.png'
+      },
       {
         seed:     'rax',
         name:     { en: 'This could be you', zh: '也许就是你' },

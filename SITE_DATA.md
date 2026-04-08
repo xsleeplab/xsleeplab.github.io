@@ -177,6 +177,18 @@ research_en: Sleep & memory modulation
 research_zh: 睡眠与记忆调控
 seed: baoyiru
 
+### Chen Jiahe
+name_en: Jiahe Chen 陈嘉禾
+name_zh: Jiahe Chen 陈嘉禾
+photo: home_pic/chenjiahe.png
+title_en: Visiting Graduate Student
+title_zh: 访问研究生
+education: B.Sc.
+email: (none)
+research_en: Sleep BCI & memory consolidation
+research_zh: 睡眠脑机接口与记忆巩固
+seed: chenjiahe
+
 ### Graduate Student B
 name_en: Graduate Student B
 name_zh: 研究生 B
@@ -191,6 +203,18 @@ seed: grad2x
 
 ## TEAM_RA
 # Research Assistants. Same format as grad students.
+
+### Lin Xiaoai
+name_en: Xiaoai Lin 蔺小艾
+name_zh: Xiaoai Lin 蔺小艾
+photo: home_pic/linxiaoai.png
+title_en: Research Assistant
+title_zh: 研究助理
+education: B.Sc.
+email: (none)
+research_en: Sleep & memory editing
+research_zh: 睡眠与记忆编辑
+seed: linxiaoai
 
 ### Research Assistant
 name_en: Research Assistant
