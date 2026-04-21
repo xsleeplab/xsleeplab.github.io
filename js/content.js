@@ -152,11 +152,20 @@ const SITE_CONTENT = {
       {
         seed:     'chenjiahe',
         name:     { en: 'Jiahe Chen 陈嘉禾', zh: 'Jiahe Chen 陈嘉禾' },
-        title:    { en: 'Visiting Graduate Student', zh: '访问研究生' },
+        title:    { en: 'Visiting Graduate Student · Beijing Normal University', zh: '访问研究生 · 北京师范大学' },
         education:'B.Sc.',
         email:    '',
         research: { en: 'Sleep BCI &amp; memory consolidation', zh: '睡眠脑机接口与记忆巩固' },
         photo:    'home_pic/chenjiahe.png'
+      },
+      {
+        seed:     'zhangtiantong',
+        name:     { en: 'Tiantong Zhang 张天彤', zh: 'Tiantong Zhang 张天彤' },
+        title:    { en: 'Visiting Graduate Student · Beijing Forestry University', zh: '访问研究生 · 北京林业大学' },
+        education:'B.Sc.',
+        email:    '',
+        research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
+        photo:    'home_pic/zhangtiantong.png'
       },
     ],
     ra: [
