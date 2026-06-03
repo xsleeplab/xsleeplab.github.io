@@ -66,7 +66,10 @@ const SITE_CONTENT = {
   /* ---- Preprints (newest first) ---- */
   preprints: [
     {
-      html: 'Chen, D., <strong>Xia, T.</strong>, Liu, J., Zhang, Y., Zuo, X., Wu, H., Lai, C. S. W., &amp; Hu, X. (2026). Reactivating conflicting evaluative memories during sleep reduces decision ambivalence. <em>Preprint</em>. <a href="https://doi.org/10.64898/2026.03.11.710434" target="_blank" rel="noopener">[DOI]</a>'
+      html: '<strong>Xia, T.#*</strong>, Jin, X.#, Chen, D., Zuo, X., Yao, Y., Zhang, Y., Yuan, T., Zhang, Z., Li, X., Lai, C. S. W., &amp; Hu, X.* (2026). Closed-loop auditory stimulation during sleep shapes cortical responses and memory consolidation depending on spindle timing. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.05.29.728629" target="_blank" rel="noopener">[DOI]</a>'
+    },
+    {
+      html: 'Chen, D., <strong>Xia, T.</strong>, Liu, J., Zhang, Y., Zuo, X., Wu, H., Lai, C. S. W., &amp; Hu, X. (2026). Reactivating conflicting evaluative memories during sleep reduces decision ambivalence. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.03.11.710434" target="_blank" rel="noopener">[DOI]</a>'
     }
   ],
 
@@ -195,6 +198,17 @@ const SITE_CONTENT = {
         education:'B.Sc. (in progress)',
         email:    'ug@psych.ac.cn',
         research: { en: 'Sleep, memory &amp; behavior', zh: '睡眠、记忆与行为' }
+      }
+    ],
+    intern: [
+      {
+        seed:     'hanxue',
+        name:     { en: 'Xue Han 韩雪', zh: 'Xue Han 韩雪' },
+        title:    { en: 'Undergraduate Intern · China Women\'s University', zh: '本科实习生 · 中华女子学院' },
+        education:'B.Sc. (in progress)',
+        email:    '',
+        research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
+        photo:    'home_pic/hanxue.png'
       }
     ]
   }

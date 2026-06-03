@@ -120,6 +120,7 @@
       setText('team.piORCIDLink',    tm.piORCIDLink);
       setText('team.gradLabel',      tm.gradLabel);
       setText('team.raLabel',        tm.raLabel);
+      setText('team.internLabel',    tm.internLabel);
       setText('team.undergradLabel', tm.undergradLabel);
       setText('team.alumniLink',     tm.alumniLink);
       /* Member cards — rendered from content.js */
@@ -144,7 +145,6 @@
       setText('research.item2Text',  rs.item2Text);
       setText('research.item2Papers',rs.item2Papers);
       setText('research.item2p1',    rs.item2p1);
-      setText('research.item2p2',    rs.item2p2);
       setText('research.item3Num',   rs.item3Num);
       setText('research.item3Title', rs.item3Title);
       setText('research.item3Text',  rs.item3Text);

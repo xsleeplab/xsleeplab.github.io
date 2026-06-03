@@ -143,6 +143,13 @@
         return _memberCard(m, lang);
       }).join('');
     }
+
+    var internGrid = document.getElementById('intern-grid');
+    if (internGrid) {
+      internGrid.innerHTML = (_data.members.intern || []).map(function (m) {
+        return _memberCard(m, lang);
+      }).join('');
+    }
   }
 
   /* ── Expose globals ─────────────────────────────────────────────── */
