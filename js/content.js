@@ -19,7 +19,11 @@ const SITE_CONTENT = {
   publications: [
     {
       year: 2026,
-      html: '<strong>Xia, T.*</strong>, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, &amp; Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. <em>PLoS Computational Biology</em>. <span style="font-size:0.86em; color:var(--color-primary-mid); font-style:italic;">(in press)</span>'
+      html: 'Tsang, Y.C.#, <strong>Xia, T.#*</strong>, Leung, W., &amp; Hu, X.* (2026). Temporal proximity to sleep determines emotional memory interference. <em>Learning &amp; Memory</em>, 33(5), a054156. <a href="https://doi.org/10.1101/lm.054156.125" target="_blank" rel="noopener">[DOI]</a>'
+    },
+    {
+      year: 2026,
+      html: '<strong>Xia, T.*</strong>, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, &amp; Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. <em>PLoS Computational Biology</em>, 22(2), e1014007. <a href="https://doi.org/10.1371/journal.pcbi.1014007" target="_blank" rel="noopener">[DOI]</a>'
     },
     {
       year: 2025,
