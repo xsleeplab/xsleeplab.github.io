@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>睡眠脑电实验参与者须知 | X-Sleep Lab</title>
+  <meta name="description" content="X-Sleep Lab 睡眠脑电实验参与者须知 — 设备说明、环境介绍、准备事项、实验流程与地点。中国科学院心理研究所。">
+  <meta property="og:title" content="睡眠脑电实验参与者须知 | X-Sleep Lab">
+  <meta property="og:description" content="X-Sleep Lab 睡眠脑电实验参与者须知 — 设备说明、环境介绍、准备事项、实验流程与地点。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xsleeplab.cn/index2.html">
+  <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
+
+  <!-- Fonts (same family as main site) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================================
+       Participant Guide — page-specific styles
+       Layered on top of css/style.css
+       ===================================================== */
+
+    /* Override Chinese body fallback so long instructional text uses
+       platform sans, not a decorative display font. */
+    html[lang="zh-CN"] body,
+    html[lang="zh-CN"] .participant-section p,
+    html[lang="zh-CN"] .info-card p,
+    html[lang="zh-CN"] .check-body p,
+    html[lang="zh-CN"] .t-step p {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB',
+                   'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* ----- Hero ----- */
+    .participant-hero { padding: 76px 32px 64px; }
+
+    /* Chinese-tuned override for inherited page-hero-label
+       (main style has uppercase + 0.16em letter-spacing — wrong for Chinese) */
+    .participant-hero .page-hero-label {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: none;
+    }
+
+    .participant-hero h1 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 2.9rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.25;
+      color: var(--color-white);
+      margin-bottom: 18px;
+    }
+    .participant-hero h1 em {
+      font-style: normal;
+      font-weight: 400;
+      opacity: 0.78;
+      margin-left: 6px;
+    }
+    .participant-hero p {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 640px;
+    }
+
+    /* ----- Info strip (3 facts) ----- */
+    .info-strip {
+      background: var(--color-bg-alt);
+      border-bottom: 1px solid var(--color-border);
+      padding: 22px 32px;
+    }
+    .info-strip-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .info-item { flex: 1; min-width: 0; }
+    .info-label {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--color-primary-mid);
+      margin-bottom: 4px;
+    }
+    .info-text {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+    .info-divider {
+      width: 1px;
+      height: 38px;
+      background: var(--color-border);
+      flex-shrink: 0;
+    }
+
+    /* ----- Main content ----- */
+    .participant-main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+    .participant-section { margin-bottom: 64px; }
+    .participant-section:last-child { margin-bottom: 0; }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-primary-mid);
+      margin-bottom: 14px;
+    }
+
+    .participant-section h2 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.78rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      line-height: 1.28;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+    }
+    .participant-section h2 em {
+      font-style: normal;
+      color: var(--color-primary-mid);
+      font-weight: 500;
+      margin: 0 2px;
+    }
+
+    .participant-section .lead {
+      font-size: 1.04rem;
+      line-height: 1.78;
+      color: var(--color-text-light);
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+
+    /* ----- Card grids ----- */
+    .card-grid { display: grid; gap: 20px; }
+    .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    /* ----- Info card (reusable) ----- */
+    .info-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 26px 26px 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .info-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-primary) 100%);
+    }
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
+    }
+    .info-card-icon {
+      font-size: 1.55rem;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .info-card h3 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.16rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .info-card p {
+      font-size: 0.96rem;
+      line-height: 1.78;
+      color: var(--color-text);
+      margin-bottom: 14px;
+    }
+    .info-card p:last-of-type { margin-bottom: 14px; }
+    .info-card-tag {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 4px 10px;
+    }
+
+    /* ----- Checklist ----- */
+    .checklist {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .check-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 22px 26px;
+      border-bottom: 1px solid var(--color-bg-alt);
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-glyph {
+      font-size: 1.4rem;
+      line-height: 1;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .check-body { flex: 1; min-width: 0; }
+    .check-body h3 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+    .check-body p {
+      font-size: 0.96rem;
+      line-height: 1.78;
+      color: var(--color-text-light);
+      margin: 0;
+    }
+    .check-body ul {
+      margin: 10px 0 0;
+      padding-left: 22px;
+      font-size: 0.94rem;
+      color: var(--color-text-light);
+      line-height: 1.85;
+    }
+    .check-body ul li { margin-bottom: 4px; }
+
+    /* ----- Timeline ----- */
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 24px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 9px; top: 10px; bottom: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--color-accent), var(--color-border));
+    }
+    .t-step { position: relative; padding-bottom: 6px; }
+    .t-dot {
+      position: absolute;
+      left: -32px; top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      box-shadow: 0 0 0 4px var(--color-bg);
+    }
+    .t-num {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--color-primary-mid);
+      margin-bottom: 6px;
+    }
+    .t-step h3 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.16rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .t-step p {
+      font-size: 0.97rem;
+      line-height: 1.78;
+      color: var(--color-text);
+      margin-bottom: 10px;
+      max-width: 720px;
+    }
+    .t-time {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ----- Branching note ----- */
+    .branch-note {
+      background: linear-gradient(135deg, rgba(138, 172, 191, 0.10), rgba(74, 101, 128, 0.04));
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: 0.97rem;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+    .branch-note .branch-num {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--color-primary-dark);
+      margin-right: 8px;
+    }
+
+    /* ----- Location card ----- */
+    .location-card { padding: 30px 32px; }
+    .location-name {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .location-addr {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--color-text-light);
+    }
+
+    /* ----- Contact card ----- */
+    .contact-card { padding: 30px 32px; }
+    .contact-name {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .contact-role {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.92rem;
+      color: var(--color-text-light);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+      margin-bottom: 12px;
+    }
+    .contact-email:hover { border-bottom-color: var(--color-primary); }
+    .contact-email svg { flex-shrink: 0; }
+    .contact-dept {
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.88rem;
+      color: var(--color-text-light);
+      line-height: 1.55;
+    }
+
+    /* ----- Responsive ----- */
+    @media (max-width: 768px) {
+      .participant-hero { padding: 52px 20px 44px; }
+      .participant-hero p { font-size: 1rem; }
+
+      .info-strip { padding: 18px 20px; }
+      .info-strip-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .info-divider { display: none; }
+
+      .participant-main { padding: 44px 20px 60px; }
+      .participant-section { margin-bottom: 48px; }
+      .participant-section h2 { font-size: 1.45rem; }
+
+      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+
+      .info-card { padding: 22px 22px 20px; }
+      .check-item { padding: 18px 20px; gap: 14px; }
+      .location-card, .contact-card { padding: 24px; }
+      .timeline { padding-left: 30px; }
+      .t-dot { left: -28px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== HEADER (shared with main site) ========== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="site-title">
+        <span class="x-letter">X</span>-Sleep Lab
+      </a>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="team.html">Team</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="news.html">News</a>
+        <a href="participate.html" class="active">Participate</a>
+        <a href="join.html">Join Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== PAGE HERO ========== -->
+  <div class="page-hero participant-hero">
+    <div class="page-hero-inner">
+      <p class="page-hero-label">参与者须知 · 中国科学院心理研究所</p>
+      <h1>睡眠脑电实验<em>参与者须知</em></h1>
+      <p>欢迎您参与我们的研究。请在实验开始前仔细阅读以下全部说明，如有任何不清楚的地方，欢迎随时联系研究员。</p>
+    </div>
+  </div>
+
+  <!-- ========== INFO STRIP (3 facts) ========== -->
+  <section class="info-strip">
+    <div class="info-strip-inner">
+      <div class="info-item">
+        <div class="info-label">伦理审批</div>
+        <div class="info-text">经中国科学院心理研究所伦理委员会批准</div>
+      </div>
+      <div class="info-divider"></div>
+      <div class="info-item">
+        <div class="info-label">实验类型</div>
+        <div class="info-text">EEG · 行为实验</div>
+      </div>
+      <div class="info-divider"></div>
+      <div class="info-item">
+        <div class="info-label">安全性</div>
+        <div class="info-text">完全非侵入式 · 无已知健康风险</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="participant-main">
+
+    <!-- ETHICS & CONSENT -->
+    <section class="participant-section" id="ethics">
+      <h2>伦理审查与<em>知情同意</em></h2>
+      <p class="lead">
+        本实验室所有研究均已通过机构伦理审查委员会的审查与批准。在开始任何实验之前，您将收到详细的知情同意书，说明研究程序、时长、潜在风险及报酬。参与完全出于自愿，您可以随时退出而不受任何影响。
+      </p>
+    </section>
+
+    <!-- EQUIPMENT -->
+    <section class="participant-section" id="equipment">
+      <h2><em>实验设备</em>说明</h2>
+      <p class="lead">
+        根据您参与的研究，实验可能使用以下一种或两种系统。研究员将提前确认适用于您的设备。
+      </p>
+
+      <div class="card-grid card-grid-2">
+        <article class="info-card">
+          <div class="info-card-icon">🧠</div>
+          <h3>脑电图（EEG）</h3>
+          <p>
+            实验过程中，您将佩戴一顶专用的脑电帽（EEG）。研究员会在帽子上的小孔注入少量可溶解的淀粉胶液，以保证电极与头皮良好接触，从而记录高质量的脑电信号。脑电记录完全非侵入式，没有任何已知健康风险。唯一可能的不便是胶状液体会沾在头皮上，因此实验结束后，我们会提供淋浴设施（浴室、洗发露和毛巾），让您清洗干净后再离开实验室。
+          </p>
+          <span class="info-card-tag">无已知风险</span>
+        </article>
+
+        <article class="info-card">
+          <div class="info-card-icon">👁️</div>
+          <h3>高清头戴显示器</h3>
+          <p>
+            您将佩戴 GOOVIS 虚拟现实眼镜。研究员会帮助调整头带和镜片，使佩戴舒适并保证视觉清晰。眼镜支持屈光度调节（近视/远视）和瞳距调节，即使不戴自己的眼镜，也能看清虚拟场景。眼镜通过微型高分辨率显示屏呈现内容，您可通过头部运动和视线观察画面。该设备完全非侵入式，无任何已知健康风险，实验结束后可安全取下。
+          </p>
+          <span class="info-card-tag">非侵入式 · 需佩戴</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ENVIRONMENT -->
+    <section class="participant-section" id="environment">
+      <h2>睡眠<em>环境</em>说明</h2>
+      <p class="lead">
+        我们为实验准备了舒适的睡眠环境。实验室内配备干净整洁的卧室和卫生间，确保您在实验期间可以安心休息。
+      </p>
+
+      <div class="card-grid card-grid-3">
+        <article class="info-card">
+          <div class="info-card-icon">🛏️</div>
+          <h3>床上用品</h3>
+          <p>床单、被褥和枕头均经过清洗消毒，并为每位参与者单独更换。</p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-card-icon">🚿</div>
+          <h3>洗浴设施</h3>
+          <p>卫生间提供淋浴、洗发水、沐浴露、拖鞋、毛巾和吹风机。实验结束后，您可以在浴室清洗头发。</p>
+        </article>
+
+        <article class="info-card">
+          <div class="info-card-icon">🍞</div>
+          <h3>用餐安排</h3>
+          <p>参加完晚间实验后，实验室会提供简单早餐（如牛奶和面包），确保您有充足能量。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PREPARATION -->
+    <section class="participant-section" id="preparation">
+      <h2><em>实验前</em>准备事项</h2>
+      <p class="lead">
+        以下简单的准备工作有助于我们采集到清晰、高质量的数据，并让实验过程更顺畅。
+      </p>
+
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-glyph">💄</div>
+          <div class="check-body">
+            <h3>当天不要化妆</h3>
+            <p>请避免在实验当天化妆，粉底、遮瑕膏等面部产品会影响电极放置及面部周围的信号质量。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-glyph">👓</div>
+          <div class="check-body">
+            <h3>不要佩戴隐形眼镜</h3>
+            <p>如果您近视，请佩戴框架眼镜，避免隐形眼镜影响实验体验。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-glyph">😴</div>
+          <div class="check-body">
+            <h3>保持前一晚充足睡眠</h3>
+            <p>请在实验前一晚保持正常的睡眠作息。睡眠不足会大幅改变大脑电活动模式，可能影响所采集数据的有效性。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-glyph">🍽️</div>
+          <div class="check-body">
+            <h3>避免空腹或过量进食</h3>
+            <p>请在来实验室前正常进餐。饥饿可能在实验过程中引起不适和注意力分散；同时请避免在实验前立即大量进食，以免产生困意。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-glyph">🚫</div>
+          <div class="check-body">
+            <h3>实验前 24 小时避免咖啡、酒精和吸烟</h3>
+            <p>请在实验前 24 小时内不要饮用咖啡、酒精或浓茶，也不要吸烟，以确保实验状态稳定，保证数据质量。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-glyph">🧴</div>
+          <div class="check-body">
+            <h3>可自带的小物品</h3>
+            <p>您不需要特别准备什么。如果想让自己在实验期间更舒服、更容易入睡，可以带一些小东西：</p>
+            <ul>
+              <li>牙刷和牙膏：实验室不提供，请自备。</li>
+              <li>睡衣：带上自己舒服的睡衣，更容易休息好。</li>
+              <li>毛巾：实验室会提供干净毛巾，习惯用自己的也可以带。</li>
+              <li>其他必要洗漱用品。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCEDURE -->
+    <section class="participant-section" id="procedure">
+      <h2><em>实验流程</em>说明</h2>
+      <p class="lead">
+        从您抵达实验室到离开的完整流程概览。
+      </p>
+
+      <div class="timeline">
+        <div class="t-step">
+          <div class="t-dot"></div>
+          <div class="t-num">第一步</div>
+          <h3>到达与知情同意</h3>
+          <p>
+            您抵达心理研究所南楼（和谐楼）门口后，请致电主试（电话已附在您的确认邮件中）。随后，主试将引导您进入实验室，请先阅读并签署知情同意书。在实验开始前，主试会向您介绍实验流程和注意事项，如有任何不清楚的地方，请随时向主试提问。
+          </p>
+          <span class="t-time">⏱ 约 15 分钟</span>
+        </div>
+      </div>
+
+      <div class="branch-note">
+        <span class="branch-num">第二步</span>根据您参与的研究类型，接下来您将参与下列两种流程之一：
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <article class="info-card">
+          <div class="info-card-icon">🌞</div>
+          <h3>午睡实验</h3>
+          <p>
+            参与实验前，请先自行洗头并保持头发干燥（避免使用护发素），以确保脑电帽覆盖区域清洁。随后，主试将进行行为实验，并帮助您佩戴脑电帽，调整电极位置与阻抗，以保证高质量的脑电信号。
+          </p>
+          <p>
+            实验过程中，您将躺在实验室准备的床上进行午睡，全程保持安静和放松。主试将在门外的控制室通过监控设备观察脑电信号，并记录实验情况。实验结束后，您可以使用实验室提供的淋浴设施清洗头发，并领取报酬。
+          </p>
+          <span class="info-card-tag">午睡流程</span>
+        </article>
+
+        <article class="info-card">
+          <div class="info-card-icon">🌙</div>
+          <h3>晚睡实验</h3>
+          <p>
+            晚睡实验流程与午睡类似：实验前请先自行洗头并保持头发干燥（避免使用护发素）、保证前一晚的充足睡眠，并在实验前 24 小时避免饮用咖啡、浓茶、饮酒及吸烟。研究员将协助您佩戴脑电帽，并调整电极位置与阻抗，以保证脑电信号质量。
+          </p>
+          <p>
+            实验过程中，您将躺在实验室提供的舒适床上休息，全程保持安静和放松，尽量减少眨眼和头部动作。主试将在门外控制室观察脑电信号，并在必要时调整电极。实验结束后，您可使用实验室提供的淋浴设施清洗头发，整理完毕后领取报酬。
+          </p>
+          <span class="info-card-tag">晚睡流程</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="participant-section" id="location">
+      <h2>实验室<em>地点</em></h2>
+      <p class="lead">
+        您将前往以下实验室。您的确认邮件会注明具体时间，请按邮件指引前往。
+      </p>
+
+      <article class="info-card location-card">
+        <div class="location-name">睡眠与认知神经科学实验室</div>
+        <div class="location-addr">
+          中国科学院心理研究所 · 和谐楼（南楼） 829 室<br>
+          北京市朝阳区林翠路 16 号
+        </div>
+      </article>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="participant-section" id="contact">
+      <h2>联系<em>方式</em></h2>
+
+      <article class="info-card contact-card">
+        <div class="contact-name">夏涛 · 博士</div>
+        <div class="contact-role">X-Sleep Lab · 实验室负责人</div>
+        <a href="mailto:xiatao@psych.ac.cn" class="contact-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+          xiatao@psych.ac.cn
+        </a>
+        <div class="contact-dept">中国科学院心理研究所 · 睡眠与认知神经科学实验室</div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER (shared with main site) ========== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name"><span class="x-letter">X</span>-Sleep Lab</div>
+        <p>Sleep is where experience is sculpted.</p>
+        <p>Institute of Psychology, Chinese Academy of Sciences</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="participate.html">Participate</a></li>
+          <li><a href="join.html">Join Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
+          <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
+        </ul>
+        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;">16 Lincui Road, Chaoyang District, Beijing 100101</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
+      <p>所有研究均已通过中国科学院心理研究所伦理审查委员会批准</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle (no external JS dependency) -->
+  <script>
+    (function () {
+      var toggle = document.querySelector('.menu-toggle');
+      var nav = document.querySelector('.main-nav');
+      if (!toggle || !nav) return;
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('nav-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    })();
+  </script>
+
+</body>
+</html>

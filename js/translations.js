@@ -8,6 +8,7 @@ const translations = {
       research:     'Research',
       publications: 'Publications',
       news:         'News',
+      participate:  'Participate',
       join:         'Join Us'
     },
     index: {
@@ -159,6 +160,7 @@ const translations = {
       research:     '研究方向',
       publications: '论文成果',
       news:         '新闻动态',
+      participate:  '参与须知',
       join:         '加入我们'
     },
     index: {
