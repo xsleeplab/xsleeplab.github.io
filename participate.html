@@ -24,13 +24,14 @@
        Layered on top of css/style.css
        ===================================================== */
 
-    /* Override Chinese body fallback so long instructional text uses
-       platform sans, not a decorative display font. */
-    html[lang="zh-CN"] body,
-    html[lang="zh-CN"] .participant-section p,
-    html[lang="zh-CN"] .info-card p,
-    html[lang="zh-CN"] .check-body p,
-    html[lang="zh-CN"] .t-step p {
+    /* Page content is Chinese-only regardless of lang attribute — pin to
+       platform Chinese sans so toggling the nav lang switch doesn't
+       fall the body text back to DM Sans (no CJK glyphs). */
+    body,
+    .participant-section p,
+    .info-card p,
+    .check-body p,
+    .t-step p {
       font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB',
                    'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
     }
@@ -433,13 +434,17 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="team.html">Team</a>
-        <a href="research.html">Research</a>
-        <a href="publications.html">Publications</a>
-        <a href="news.html">News</a>
-        <a href="participate.html" class="active">Participate</a>
-        <a href="join.html">Join Us</a>
+        <a href="index.html"        data-i18n="nav.home">Home</a>
+        <a href="team.html"         data-i18n="nav.team">Team</a>
+        <a href="research.html"     data-i18n="nav.research">Research</a>
+        <a href="publications.html" data-i18n="nav.publications">Publications</a>
+        <a href="news.html"         data-i18n="nav.news">News</a>
+        <a href="participate.html"  class="active" data-i18n="nav.participate">Participate</a>
+        <a href="join.html"         data-i18n="nav.join">Join Us</a>
+        <span class="lang-switch">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="zh">中文</button>
+        </span>
       </nav>
     </div>
   </header>
@@ -695,32 +700,32 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-brand-name"><span class="x-letter">X</span>-Sleep Lab</div>
-        <p>Sleep is where experience is sculpted.</p>
+        <p data-i18n="footer.desc">Sleep is where experience is sculpted.</p>
         <p>Institute of Psychology, Chinese Academy of Sciences</p>
       </div>
       <div class="footer-col">
-        <h4>Navigation</h4>
+        <h4 data-i18n="footer.navTitle">Navigation</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="publications.html">Publications</a></li>
-          <li><a href="news.html">News</a></li>
-          <li><a href="participate.html">Participate</a></li>
-          <li><a href="join.html">Join Us</a></li>
+          <li><a href="index.html"        data-i18n="nav.home">Home</a></li>
+          <li><a href="team.html"         data-i18n="nav.team">Team</a></li>
+          <li><a href="research.html"     data-i18n="nav.research">Research</a></li>
+          <li><a href="publications.html" data-i18n="nav.publications">Publications</a></li>
+          <li><a href="news.html"         data-i18n="nav.news">News</a></li>
+          <li><a href="participate.html" data-i18n="nav.participate">Participate</a></li>
+          <li><a href="join.html"         data-i18n="nav.join">Join Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h4 data-i18n="footer.contactTitle">Contact</h4>
         <ul>
           <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
           <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
         </ul>
-        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;">16 Lincui Road, Chaoyang District, Beijing 100101</p>
+        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">16 Lincui Road, Chaoyang District, Beijing 100101</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
+      <p data-i18n="footer.copyright">© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
       <p>所有研究均已通过中国科学院心理研究所伦理审查委员会批准</p>
     </div>
   </footer>
@@ -738,6 +743,10 @@
       });
     })();
   </script>
+
+  <!-- Translations + lang switcher (so nav stays in sync with main site) -->
+  <script src="js/translations.js?v=2"></script>
+  <script src="js/lang-switch.js"></script>
 
 </body>
 </html>

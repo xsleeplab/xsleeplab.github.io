@@ -17,6 +17,7 @@
     if (path.includes('research'))     return 'research';
     if (path.includes('publications')) return 'publications';
     if (path.includes('news'))         return 'news';
+    if (path.includes('participate'))  return 'participate';
     if (path.includes('join'))         return 'join';
     return 'index';
   }
@@ -44,6 +45,7 @@
     setText('nav.research',     t.nav.research);
     setText('nav.publications', t.nav.publications);
     setText('nav.news',         t.nav.news);
+    setText('nav.participate',  t.nav.participate);
     setText('nav.join',         t.nav.join);
     setText('breadcrumb.home',  t.nav.home);
 
@@ -212,6 +214,12 @@
       setText('join.emailLabel',       jn.emailLabel);
       setText('join.emailValue',       jn.emailValue);
       document.title = lang === 'zh' ? '加入我们 | X-Sleep Lab' : 'Join Us | X-Sleep Lab';
+    }
+
+    if (page === 'participate') {
+      /* Content is Chinese-only by design; title stays Chinese in both modes
+         (avoids a title flash on first load in EN default). */
+      document.title = '睡眠脑电实验参与者须知 | X-Sleep Lab';
     }
 
     /* ---- html lang attribute ---- */
