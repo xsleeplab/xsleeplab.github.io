@@ -216,18 +216,17 @@ research_en: Sleep & memory editing
 research_zh: 睡眠与记忆编辑
 seed: linxiaoai
 
-### Research Assistant
-name_en: Research Assistant
-name_zh: 研究助理
-photo: (none)
+### Li Peirong
+name_en: Peirong Li 李佩蓉
+name_zh: Peirong Li 李佩蓉
+photo: home_pic/lipeirong.png
 title_en: Research Assistant
 title_zh: 研究助理
-education: B.Sc.
-email: ra@psych.ac.cn
-research_en: EEG data collection & analysis
-research_zh: EEG 数据采集与分析
-seed: rax
-
+education: B.Sc., M.Ed.
+email: (none)
+research_en: Sleep BCI & emotional memory reactivation
+research_zh: 睡眠脑机接口与情绪记忆再激活
+seed: lipeirong
 ## TEAM_UNDERGRAD
 # Alumni / Undergraduate Researchers.
 

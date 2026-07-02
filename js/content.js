@@ -186,12 +186,16 @@ const SITE_CONTENT = {
         photo:    'home_pic/linxiaoai.png'
       },
       {
-        seed:     'rax',
-        name:     { en: 'This could be you', zh: '也许就是你' },
-        title:    { en: 'Research Assistant',  zh: '研究助理' },
-        education:'',
-        email:    'xiatao@psych.ac.cn',
-        research: { en: 'We are recruiting — <a href="join.html">Join us →</a>', zh: '正在招募中 — <a href="join.html">加入我们 →</a>' }
+        seed:     'lipeirong',
+        name:     { en: 'Peirong Li 李佩蓉', zh: 'Peirong Li 李佩蓉' },
+        title:    { en: 'Research Assistant', zh: '研究助理' },
+        education:'B.Sc., M.Ed.',
+        email:    '',
+        research: {
+          en: 'Sleep BCI &amp; emotional memory reactivation',
+          zh: '睡眠脑机接口与情绪记忆再激活'
+        },
+        photo:    'home_pic/lipeirong.png'
       }
     ],
     undergrad: [
@@ -345,9 +349,12 @@ function _memberCard(member, lang) {
   var name     = _t(member.name,     lang);
   var title    = _t(member.title,    lang);
   var research = _t(member.research, lang);
+  var avatarSrc = member.photo
+    ? member.photo
+    : 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + member.seed;
 
   return '<article class="member-card">' +
-    '<img class="member-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=' + member.seed + '" alt="" width="100" height="100">' +
+    '<img class="member-avatar" src="' + avatarSrc + '" alt="" width="100" height="100">' +
     '<h3>' + name + '</h3>' +
     '<p class="member-title">' + title + '</p>' +
     '<p class="member-education">' + member.education + '</p>' +
