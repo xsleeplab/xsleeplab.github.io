@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X-Sleep Lab | IPcas</title>
+  <title>X-Sleep Lab | IPCAS</title>
   <meta name="description" content="X-Sleep Lab — Sleep Cognitive Neuroscience at the Institute of Psychology, Chinese Academy of Sciences. PI: Xia Tao.">
   <meta property="og:title" content="X-Sleep Lab | Sleep Cognitive Neuroscience">
   <meta property="og:description" content="Exploring memory, consciousness, and brain-computer interfaces during sleep. Institute of Psychology, Chinese Academy of Sciences.">
@@ -11,6 +11,37 @@
   <meta property="og:url" content="https://xsleeplab.cn/">
   <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://xsleeplab.cn/">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ResearchOrganization",
+    "name": "X-Sleep Lab",
+    "url": "https://xsleeplab.cn/",
+    "email": "xiatao@psych.ac.cn",
+    "parentOrganization": {
+      "@type": "ResearchOrganization",
+      "name": "Institute of Psychology, Chinese Academy of Sciences",
+      "url": "https://psych.cas.cn/"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Tao Xia",
+      "sameAs": [
+        "https://www.researchgate.net/profile/Tao-Xia-6",
+        "https://orcid.org/0000-0002-4989-4864"
+      ]
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "16 Lincui Road",
+      "addressLocality": "Beijing",
+      "postalCode": "100101",
+      "addressCountry": "CN"
+    }
+  }
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,11 +61,11 @@
       <a href="index.html" class="site-title">
         <span class="x-letter">X</span>-Sleep Lab
       </a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
         <span></span><span></span><span></span>
       </button>
-      <nav class="main-nav">
-        <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+      <nav class="main-nav" id="main-navigation">
+        <a href="index.html" class="active" aria-current="page" data-i18n="nav.home">Home</a>
         <a href="team.html"  data-i18n="nav.team">Team</a>
         <a href="research.html" data-i18n="nav.research">Research</a>
         <a href="publications.html" data-i18n="nav.publications">Publications</a>
@@ -55,7 +86,7 @@
 
       <!-- Slide 1: Lab Intro -->
       <div class="swiper-slide">
-        <div class="slide-bg slide-bg--dream" style="background-image: url('dream.png'), linear-gradient(135deg, #1E3347 0%, #2E4A63 45%, #4A6580 100%);"></div>
+        <div class="slide-bg slide-bg--dream" style="background-image: url('dream.webp'), linear-gradient(135deg, #1E3347 0%, #2E4A63 45%, #4A6580 100%);"></div>
         <div class="slide-overlay"></div>
         <div class="slide-content">
           <span class="slide-tag" data-i18n="index.slide1Tag">Sleep Cognitive Neuroscience · IPCAS</span>
@@ -70,7 +101,7 @@
         <div class="slide-bg" style="background: linear-gradient(135deg, #2E4A63 0%, #3D607A 45%, #5A7A8C 100%);"></div>
         <div class="slide-overlay"></div>
         <div class="slide-content">
-          <span class="slide-tag" data-i18n="index.slide2Tag">Featured Publication · PNAS 2024</span>
+          <span class="slide-tag" data-i18n="index.slide2Tag">Featured Publication · TiCS 2025</span>
           <h2 class="slide-title" style="font-size: 2rem; max-width: 720px; margin-left: auto; margin-right: auto;" data-i18n="index.slide2Title">Memory Editing during Human Sleep</h2>
           <p class="slide-subtitle" data-i18n="index.slide2Sub">Published in Trends in Cognitive Sciences.</p>
           <a href="publications.html" class="slide-cta" data-i18n="index.slide2Cta">View Publications</a>
@@ -135,19 +166,19 @@
     </div>
     <div class="highlights-grid">
       <div class="highlight-card">
-        <img class="highlight-media" src="home_pic/direction1.png" alt="Memory Editing During Human Sleep">
+        <img class="highlight-media" src="home_pic/direction1.webp" alt="Memory Editing During Human Sleep" width="960" height="644" loading="lazy" decoding="async">
         <h3 data-i18n="index.r1Title">Memory Editing During Human Sleep</h3>
         <p data-i18n="index.r1Desc">Aversive memories are not read-only files permanently etched in the brain. Sleep provides the prime opportunity for the brain to update and rewire these experiences. Using targeted memory reactivation (TMR), we actively guide this nighttime editing process, selectively reshaping the emotional tone of specific memories while you sleep.</p>
         <a href="research.html" class="highlight-link" data-i18n="index.r1Link">Learn more →</a>
       </div>
       <div class="highlight-card">
-        <img class="highlight-media" src="home_pic/direction2.png" alt="Non-invasive Closed-loop Sleep BCI">
+        <img class="highlight-media" src="home_pic/direction2.webp" alt="Non-invasive Closed-loop Sleep BCI" width="960" height="644" loading="lazy" decoding="async">
         <h3 data-i18n="index.r2Title">Non-invasive Closed-loop Sleep BCI</h3>
         <p data-i18n="index.r2Desc">The sleeping brain is a highly interactive cognitive state. We build non-invasive, closed-loop sleep BCIs that move beyond passive recording to enable real-time intervention. By tracking signature rhythms like slow oscillations and spindles with millisecond precision, we deliver phase-locked cues that directly modulate the brain's offline processing, effectively engineering sleep.</p>
         <a href="research.html" class="highlight-link" data-i18n="index.r2Link">Learn more →</a>
       </div>
       <div class="highlight-card">
-        <img class="highlight-media" src="home_pic/direction3.png" alt="Lucid Dreaming and Consciousness During Sleep">
+        <img class="highlight-media" src="home_pic/direction3.webp" alt="Lucid Dreaming and Consciousness During Sleep" width="960" height="644" loading="lazy" decoding="async">
         <h3 data-i18n="index.r3Title">Lucid Dreaming &amp; Consciousness During Sleep</h3>
         <p data-i18n="index.r3Desc">Conscious awareness is not lost during sleep but exists on a spectrum that peaks with lucid dreaming. This paradoxical state occurs when metacognitive awareness coexists with sleep. We leverage this unique phenomenon as a rigorous experimental model to study consciousness itself, probing the exact neural mechanisms that allow self-awareness to emerge from the sleeping brain.</p>
         <a href="research.html" class="highlight-link" data-i18n="index.r3Link">Learn more →</a>
@@ -162,7 +193,28 @@
         <p class="section-label" data-i18n="index.newsLabel">Latest News</p>
         <h2 data-i18n="index.newsTitle">From the Lab</h2>
       </div>
-      <div class="news-strip-grid" id="news-strip-grid"></div>
+      <div class="news-strip-grid" id="news-strip-grid">
+        <!-- STATIC:NEWS-STRIP:START -->
+<a href="news.html" class="news-strip-card">
+  <span class="news-strip-tag">New Publication · 2025</span>
+  <h4>Memory editing during sleep: mechanisms, clinical applications, and technological innovations</h4>
+  <p>A comprehensive review co-authored by Xia Tao and Xiaoqing Hu. <em>Trends in Cognitive Sciences</em>, 2025.</p>
+  <span class="news-strip-date">September 2025</span>
+</a>
+<a href="news.html" class="news-strip-card">
+  <span class="news-strip-tag">New Publication · 2026</span>
+  <h4>How sleeping minds decide: State-specific reconfigurations of lexical decision-making</h4>
+  <p>Xia Tao et al. (2026). A new study on how sleeping minds reconfigure lexical decision processing. <em>PLoS Computational Biology</em>.</p>
+  <span class="news-strip-date">January 2026</span>
+</a>
+<a href="join.html" class="news-strip-card">
+  <span class="news-strip-tag">Recruiting · 2026</span>
+  <h4>X-Sleep Lab is Recruiting a Research Assistant (1 opening)</h4>
+  <p>We are looking for 1 motivated research assistant to support ongoing sleep neuroscience projects at the Institute of Psychology, Chinese Academy of Sciences.</p>
+  <span class="news-strip-date">2026</span>
+</a>
+<!-- STATIC:NEWS-STRIP:END -->
+      </div>
       <div style="text-align: right; margin-top: 20px;">
         <a href="news.html" class="highlight-link" data-i18n="index.viewAllNews">View All News →</a>
       </div>
@@ -207,15 +259,20 @@
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    const heroSwiper = new Swiper('.hero-swiper', {
-      loop: true,
-      speed: 900,
-      autoplay: { delay: 16000, disableOnInteraction: false },
-      effect: 'fade',
-      fadeEffect: { crossFade: true },
-      pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
-    });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (typeof Swiper === 'function') {
+      new Swiper('.hero-swiper', {
+        loop: true,
+        speed: reduceMotion ? 0 : 900,
+        autoplay: reduceMotion ? false : { delay: 16000, disableOnInteraction: false },
+        effect: reduceMotion ? 'slide' : 'fade',
+        fadeEffect: { crossFade: true },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+      });
+    } else {
+      document.documentElement.classList.add('no-swiper');
+    }
   </script>
   <script src="js/content.js?v=2"></script>
   <script src="js/md-loader.js?v=2"></script>

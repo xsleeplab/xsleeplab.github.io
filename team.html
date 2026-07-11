@@ -11,6 +11,8 @@
   <meta property="og:url" content="https://xsleeplab.cn/team.html">
   <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://xsleeplab.cn/team.html">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -23,12 +25,12 @@
       <a href="index.html" class="site-title">
         <span class="x-letter">X</span>-Sleep Lab
       </a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
         <span></span><span></span><span></span>
       </button>
-      <nav class="main-nav">
+      <nav class="main-nav" id="main-navigation">
         <a href="index.html"        data-i18n="nav.home">Home</a>
-        <a href="team.html" class="active" data-i18n="nav.team">Team</a>
+        <a href="team.html" class="active" aria-current="page" data-i18n="nav.team">Team</a>
         <a href="research.html"     data-i18n="nav.research">Research</a>
         <a href="publications.html" data-i18n="nav.publications">Publications</a>
         <a href="news.html"         data-i18n="nav.news">News</a>
@@ -62,7 +64,7 @@
     <p class="team-section-title" data-i18n="team.piLabel">Principal Investigator</p>
     <div class="pi-card">
       <img class="pi-avatar" id="pi-avatar"
-           src="home_pic/xt.png"
+           src="home_pic/xt.webp"
            alt="Xia Tao"
            width="408" height="470">
       <div class="pi-info">
@@ -86,15 +88,67 @@
 
     <!-- Graduate Students — rendered by content.js -->
     <p class="team-section-title" data-i18n="team.gradLabel">Current Members</p>
-    <div class="team-grid" id="grad-grid"></div>
+    <div class="team-grid" id="grad-grid">
+      <!-- STATIC:TEAM:START -->
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/byr.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Yiru Bao 包一茹</h3>
+  <p class="member-title">Ph.D. Candidate</p>
+  <p class="member-education">B.Sc.</p>
+  <p class="member-contact"><a href="mailto:baoyr@psych.ac.cn">baoyr@psych.ac.cn</a></p>
+  <p class="member-research">Sleep &amp; memory modulation</p>
+</article>
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/chenjiahe.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Jiahe Chen 陈嘉禾</h3>
+  <p class="member-title">Visiting Graduate Student · Beijing Normal University</p>
+  <p class="member-education">B.Sc.</p>
+  <p class="member-research">Sleep BCI &amp; memory consolidation</p>
+</article>
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/zhangtiantong.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Tiantong Zhang 张天彤</h3>
+  <p class="member-title">Visiting Graduate Student · Beijing Forestry University</p>
+  <p class="member-education">B.Sc.</p>
+  <p class="member-research">Sleep &amp; emotional memory</p>
+</article>
+<!-- STATIC:TEAM:END -->
+    </div>
 
     <!-- Research Assistants — rendered by content.js -->
     <p class="team-section-title" style="margin-top: 44px;" data-i18n="team.raLabel">Research Assistants</p>
-    <div class="team-grid" id="ra-grid"></div>
+    <div class="team-grid" id="ra-grid">
+      <!-- STATIC:TEAM-RA:START -->
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/linxiaoai.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Xiaoai Lin 蔺小艾</h3>
+  <p class="member-title">Research Assistant</p>
+  <p class="member-education">B.Sc.</p>
+  <p class="member-research">Sleep &amp; memory editing</p>
+</article>
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/lipeirong.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Peirong Li 李佩蓉</h3>
+  <p class="member-title">Research Assistant</p>
+  <p class="member-education">B.Sc., M.Ed.</p>
+  <p class="member-research">Sleep BCI &amp; emotional memory reactivation</p>
+</article>
+<!-- STATIC:TEAM-RA:END -->
+    </div>
 
     <!-- Undergraduate Interns — rendered by content.js -->
     <p class="team-section-title" style="margin-top: 44px;" data-i18n="team.internLabel">Undergraduate Interns</p>
-    <div class="team-grid" id="intern-grid"></div>
+    <div class="team-grid" id="intern-grid">
+      <!-- STATIC:TEAM-INTERN:START -->
+<article class="member-card">
+  <img class="member-avatar" src="home_pic/hanxue.webp" alt="" width="100" height="100" loading="lazy" decoding="async">
+  <h3>Xue Han 韩雪</h3>
+  <p class="member-title">Undergraduate Intern · China Women's University</p>
+  <p class="member-education">B.Sc. (in progress)</p>
+  <p class="member-research">Sleep &amp; emotional memory</p>
+</article>
+<!-- STATIC:TEAM-INTERN:END -->
+    </div>
 
   </section>
 

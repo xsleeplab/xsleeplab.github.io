@@ -59,6 +59,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:where(a, button):focus-visible {
+  outline: 3px solid var(--color-accent-light);
+  outline-offset: 3px;
+}
+
 /* ==================== NAVIGATION ==================== */
 .site-header {
   background: var(--color-nav);
@@ -305,6 +310,18 @@ body {
   background: var(--color-accent-light) !important;
   width: 28px !important;
   border-radius: 4px !important;
+}
+
+.no-swiper .hero-swiper .swiper-wrapper,
+.no-swiper .hero-swiper .swiper-slide:first-child {
+  height: 100%;
+}
+
+.no-swiper .hero-swiper .swiper-slide:not(:first-child),
+.no-swiper .hero-swiper .swiper-pagination,
+.no-swiper .hero-swiper .swiper-button-prev,
+.no-swiper .hero-swiper .swiper-button-next {
+  display: none;
 }
 
 /* ==================== ABOUT / MAIN CONTENT ==================== */
@@ -1497,6 +1514,22 @@ em { color: var(--color-text-light); }
   .slide-title { font-size: 1.65rem; }
   .hero-swiper { height: 380px; }
   .about-stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .slide-bg,
+  .slide-bg--dream,
+  .swiper-slide-active .slide-bg {
+    transform: none;
+  }
 }
 
 /* ==================== CHINESE FONT OVERRIDES ==================== */

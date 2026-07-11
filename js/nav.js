@@ -3,10 +3,11 @@
   var nav = document.querySelector('.main-nav');
   if (!toggle || !nav) return;
 
-  function closeMenu() {
+  function closeMenu(returnFocus) {
     toggle.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
     nav.classList.remove('nav-open');
+    if (returnFocus) toggle.focus();
   }
 
   toggle.addEventListener('click', function (e) {
@@ -17,12 +18,20 @@
   });
 
   nav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', function () {
+      closeMenu(false);
+    });
   });
 
   document.addEventListener('click', function (e) {
     if (!nav.contains(e.target) && !toggle.contains(e.target)) {
       closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
+      closeMenu(true);
     }
   });
 

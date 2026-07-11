@@ -102,7 +102,7 @@ const SITE_CONTENT = {
       date:     { en: 'January 2026', zh: '2026年1月' },
       emoji:    '🧠',
       gradient: 'linear-gradient(135deg, #1E3347 0%, #3D607A 100%)',
-      image:    'news_pic/plos-computational-biology.png',
+      image:    'news_pic/plos-computational-biology.webp',
       link:     null,
       homepageLink: 'news.html',
       homepageSlot: 2
@@ -114,7 +114,7 @@ const SITE_CONTENT = {
       date:     { en: 'September 2025', zh: '2025年9月' },
       emoji:    '📚',
       gradient: 'linear-gradient(135deg, #1E3347 0%, #4A6580 100%)',
-      image:    'news_pic/trends-in-cognitive-sciences.png',
+      image:    'news_pic/trends-in-cognitive-sciences.webp',
       link:     'https://doi.org/10.1016/j.tics.2025.07.010',
       readMore: { en: 'Read paper →', zh: '阅读论文 →' },
       homepageLink: 'news.html',
@@ -127,7 +127,7 @@ const SITE_CONTENT = {
       date:     { en: 'August 2024', zh: '2024年8月' },
       emoji:    '🌙',
       gradient: 'linear-gradient(135deg, #2E4A63 0%, #6B8BA4 100%)',
-      image:    'news_pic/pnas.png',
+      image:    'news_pic/pnas.webp',
       link:     'https://doi.org/10.1073/pnas.2400678121',
       readMore: { en: 'Read paper →', zh: '阅读论文 →' }
     },
@@ -138,7 +138,7 @@ const SITE_CONTENT = {
       date:     { en: 'January 2023', zh: '2023年1月' },
       emoji:    '✨',
       gradient: 'linear-gradient(135deg, #1E3347 0%, #4A6580 80%)',
-      image:    'news_pic/current-biology.png',
+      image:    'news_pic/current-biology.webp',
       link:     'https://doi.org/10.1016/j.cub.2022.12.004',
       readMore: { en: 'Read paper →', zh: '阅读论文 →' }
     }
@@ -154,7 +154,7 @@ const SITE_CONTENT = {
         education:'B.Sc.',
         email:    'baoyr@psych.ac.cn',
         research: { en: 'Sleep &amp; memory modulation', zh: '睡眠与记忆调控' },
-        photo:    'home_pic/byr.png'
+        photo:    'home_pic/byr.webp'
       },
       {
         seed:     'chenjiahe',
@@ -163,7 +163,7 @@ const SITE_CONTENT = {
         education:'B.Sc.',
         email:    '',
         research: { en: 'Sleep BCI &amp; memory consolidation', zh: '睡眠脑机接口与记忆巩固' },
-        photo:    'home_pic/chenjiahe.png'
+        photo:    'home_pic/chenjiahe.webp'
       },
       {
         seed:     'zhangtiantong',
@@ -172,7 +172,7 @@ const SITE_CONTENT = {
         education:'B.Sc.',
         email:    '',
         research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
-        photo:    'home_pic/zhangtiantong.png'
+        photo:    'home_pic/zhangtiantong.webp'
       },
     ],
     ra: [
@@ -183,7 +183,7 @@ const SITE_CONTENT = {
         education:'B.Sc.',
         email:    '',
         research: { en: 'Sleep &amp; memory editing', zh: '睡眠与记忆编辑' },
-        photo:    'home_pic/linxiaoai.png'
+        photo:    'home_pic/linxiaoai.webp'
       },
       {
         seed:     'lipeirong',
@@ -195,7 +195,7 @@ const SITE_CONTENT = {
           en: 'Sleep BCI &amp; emotional memory reactivation',
           zh: '睡眠脑机接口与情绪记忆再激活'
         },
-        photo:    'home_pic/lipeirong.png'
+        photo:    'home_pic/lipeirong.webp'
       }
     ],
     undergrad: [
@@ -216,176 +216,8 @@ const SITE_CONTENT = {
         education:'B.Sc. (in progress)',
         email:    '',
         research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
-        photo:    'home_pic/hanxue.png'
+        photo:    'home_pic/hanxue.webp'
       }
     ]
   }
 };
-
-/* ================================================================
- * RENDER FUNCTIONS
- * Called by lang-switch.js after language is determined.
- * ================================================================ */
-
-/* ---- Helper: resolve bilingual string ---- */
-function _t(obj, lang) {
-  if (typeof obj === 'string') return obj;
-  return obj[lang] || obj.en || '';
-}
-
-/* ---- Render: Publications page ---- */
-function renderPublications() {
-  var container = document.getElementById('pub-list');
-  if (!container || !SITE_CONTENT) return;
-
-  var html = '';
-
-  /* Preprints section (header only for now) */
-  html += '<div class="pub-year-block">' +
-    '<h2 class="pub-year">Preprints</h2>';
-
-  if (SITE_CONTENT.preprints && SITE_CONTENT.preprints.length) {
-    html += SITE_CONTENT.preprints.map(function (p) {
-      return '<div class="pub-entry">' + p.html + '</div>';
-    }).join('');
-  } else {
-    html += '<div class="pub-entry">Preprints will be listed here.</div>';
-  }
-
-  html += '</div>';
-
-  var yearMap = {};
-  SITE_CONTENT.publications.forEach(function (pub) {
-    if (!yearMap[pub.year]) yearMap[pub.year] = [];
-    yearMap[pub.year].push(pub);
-  });
-
-  var years = Object.keys(yearMap).sort(function (a, b) { return b - a; });
-
-  html += years.map(function (year) {
-    return '<div class="pub-year-block">' +
-      '<h2 class="pub-year">' + year + '</h2>' +
-      yearMap[year].map(function (pub) {
-        return '<div class="pub-entry">' + pub.html + '</div>';
-      }).join('') +
-      '</div>';
-  }).join('');
-
-  container.innerHTML = html;
-}
-
-/* ---- Render: News page grid ---- */
-function renderNewsPage(lang) {
-  var container = document.getElementById('news-grid');
-  if (!container || !SITE_CONTENT) return;
-  lang = lang || 'en';
-
-  container.innerHTML = SITE_CONTENT.news.map(function (item) {
-    var tag   = _t(item.tag,   lang);
-    var title = _t(item.title, lang);
-    var desc  = _t(item.desc,  lang);
-    var date  = _t(item.date,  lang);
-
-    var mediaHtml;
-    if (item.image) {
-      mediaHtml = '<img class="news-card-img" src="' + item.image + '" alt="' + title + '">';
-    } else {
-      mediaHtml = '<div class="news-card-placeholder" style="background: ' + item.gradient + ';">' + item.emoji + '</div>';
-    }
-
-    var readMoreHtml = '';
-    if (item.link) {
-      var isExt   = item.link.indexOf('http') === 0;
-      var attrs   = isExt ? ' target="_blank" rel="noopener"' : '';
-      var rmText  = item.readMore ? _t(item.readMore, lang) : (lang === 'zh' ? '阅读更多 →' : 'Read more →');
-      readMoreHtml = '<a href="' + item.link + '"' + attrs + ' class="news-read-more">' + rmText + '</a>';
-    }
-
-    return '<article class="news-card">' +
-      mediaHtml +
-      '<div class="news-card-body">' +
-        '<span class="news-tag">' + tag + '</span>' +
-        '<h3>' + title + '</h3>' +
-        '<p>' + desc + '</p>' +
-        readMoreHtml +
-        '<span class="news-date">' + date + '</span>' +
-      '</div>' +
-    '</article>';
-  }).join('');
-}
-
-/* ---- Render: Homepage news strip ---- */
-function renderNewsStrip(lang) {
-  var container = document.getElementById('news-strip-grid');
-  if (!container || !SITE_CONTENT) return;
-  lang = lang || 'en';
-
-  var items = SITE_CONTENT.news
-    .filter(function (n) { return n.homepageSlot; })
-    .sort(function (a, b) { return a.homepageSlot - b.homepageSlot; });
-
-  container.innerHTML = items.map(function (item) {
-    var tag   = _t(item.tag,   lang);
-    var title = _t(item.title, lang);
-    var desc  = _t(item.desc,  lang);
-    var date  = _t(item.date,  lang);
-
-    var href = (item.homepageLink !== undefined) ? item.homepageLink : (item.link || 'news.html');
-    if (!href) href = 'news.html';
-    var isExt  = href.indexOf('http') === 0;
-    var attrs  = isExt ? ' target="_blank" rel="noopener"' : '';
-
-    return '<a href="' + href + '" class="news-strip-card"' + attrs + '>' +
-      '<span class="news-strip-tag">' + tag + '</span>' +
-      '<h4>' + title + '</h4>' +
-      '<p>' + desc + '</p>' +
-      '<span class="news-strip-date">' + date + '</span>' +
-    '</a>';
-  }).join('');
-}
-
-/* ---- Render: Team member card HTML ---- */
-function _memberCard(member, lang) {
-  var name     = _t(member.name,     lang);
-  var title    = _t(member.title,    lang);
-  var research = _t(member.research, lang);
-  var avatarSrc = member.photo
-    ? member.photo
-    : 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + member.seed;
-
-  return '<article class="member-card">' +
-    '<img class="member-avatar" src="' + avatarSrc + '" alt="" width="100" height="100">' +
-    '<h3>' + name + '</h3>' +
-    '<p class="member-title">' + title + '</p>' +
-    '<p class="member-education">' + member.education + '</p>' +
-    '<p class="member-contact"><a href="mailto:' + member.email + '">' + member.email + '</a></p>' +
-    '<p class="member-research">' + research + '</p>' +
-  '</article>';
-}
-
-/* ---- Render: Team members (grad / RA / undergrad) ---- */
-function renderTeamMembers(lang) {
-  if (!SITE_CONTENT || !SITE_CONTENT.members) return;
-  lang = lang || 'en';
-
-  var gradGrid = document.getElementById('grad-grid');
-  if (gradGrid) {
-    gradGrid.innerHTML = SITE_CONTENT.members.grad.map(function (m) {
-      return _memberCard(m, lang);
-    }).join('');
-  }
-
-  var raGrid = document.getElementById('ra-grid');
-  if (raGrid) {
-    raGrid.innerHTML = SITE_CONTENT.members.ra.map(function (m) {
-      return _memberCard(m, lang);
-    }).join('');
-  }
-
-  var ugGrid = document.getElementById('undergrad-grid');
-  if (ugGrid) {
-    ugGrid.innerHTML = SITE_CONTENT.members.undergrad.map(function (m) {
-      return _memberCard(m, lang);
-    }).join('');
-  }
-}

@@ -8,8 +8,10 @@
   <meta property="og:title" content="睡眠脑电实验参与者须知 | X-Sleep Lab">
   <meta property="og:description" content="X-Sleep Lab 睡眠脑电实验参与者须知 — 设备说明、环境介绍、准备事项、实验流程与地点。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://xsleeplab.cn/index2.html">
+  <meta property="og:url" content="https://xsleeplab.cn/participate.html">
   <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
+  <link rel="canonical" href="https://xsleeplab.cn/participate.html">
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- Fonts (same family as main site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -430,21 +432,17 @@
       <a href="index.html" class="site-title">
         <span class="x-letter">X</span>-Sleep Lab
       </a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
         <span></span><span></span><span></span>
       </button>
-      <nav class="main-nav">
+      <nav class="main-nav" id="main-navigation">
         <a href="index.html"        data-i18n="nav.home">Home</a>
         <a href="team.html"         data-i18n="nav.team">Team</a>
         <a href="research.html"     data-i18n="nav.research">Research</a>
         <a href="publications.html" data-i18n="nav.publications">Publications</a>
         <a href="news.html"         data-i18n="nav.news">News</a>
-        <a href="participate.html"  class="active" data-i18n="nav.participate">Participate</a>
+        <a href="participate.html" class="active" aria-current="page" data-i18n="nav.participate">Participate</a>
         <a href="join.html"         data-i18n="nav.join">Join Us</a>
-        <span class="lang-switch">
-          <button data-lang="en" class="active">EN</button>
-          <button data-lang="zh">中文</button>
-        </span>
       </nav>
     </div>
   </header>
@@ -670,7 +668,7 @@
         <div class="location-name">睡眠与认知神经科学实验室</div>
         <div class="location-addr">
           中国科学院心理研究所 · 和谐楼（南楼） 829 室<br>
-          北京市朝阳区林翠路 16 号
+          北京市朝阳区林萃路 16 号
         </div>
       </article>
     </section>
@@ -730,23 +728,10 @@
     </div>
   </footer>
 
-  <!-- Mobile nav toggle (no external JS dependency) -->
-  <script>
-    (function () {
-      var toggle = document.querySelector('.menu-toggle');
-      var nav = document.querySelector('.main-nav');
-      if (!toggle || !nav) return;
-      toggle.addEventListener('click', function () {
-        var open = nav.classList.toggle('nav-open');
-        toggle.classList.toggle('is-open', open);
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    })();
-  </script>
-
   <!-- Translations + lang switcher (so nav stays in sync with main site) -->
   <script src="js/translations.js?v=2"></script>
   <script src="js/lang-switch.js"></script>
+  <script src="js/nav.js"></script>
 
 </body>
 </html>

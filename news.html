@@ -11,6 +11,8 @@
   <meta property="og:url" content="https://xsleeplab.cn/news.html">
   <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://xsleeplab.cn/news.html">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -23,15 +25,15 @@
       <a href="index.html" class="site-title">
         <span class="x-letter">X</span>-Sleep Lab
       </a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
         <span></span><span></span><span></span>
       </button>
-      <nav class="main-nav">
+      <nav class="main-nav" id="main-navigation">
         <a href="index.html"        data-i18n="nav.home">Home</a>
         <a href="team.html"         data-i18n="nav.team">Team</a>
         <a href="research.html"     data-i18n="nav.research">Research</a>
         <a href="publications.html" data-i18n="nav.publications">Publications</a>
-        <a href="news.html" class="active" data-i18n="nav.news">News</a>
+        <a href="news.html" class="active" aria-current="page" data-i18n="nav.news">News</a>
         <a href="participate.html"  data-i18n="nav.participate">Participate</a>
         <a href="join.html"         data-i18n="nav.join">Join Us</a>
         <span class="lang-switch">
@@ -57,7 +59,59 @@
 
   <section class="news-section">
     <!-- News cards rendered by content.js -->
-    <div class="news-grid" id="news-grid"></div>
+    <div class="news-grid" id="news-grid">
+      <!-- STATIC:NEWS:START -->
+<article class="news-card">
+  <div class="news-card-placeholder" style="background:linear-gradient(135deg, #1A2E3D 0%, #3D607A 100%);">🔬</div>
+  <div class="news-card-body">
+    <span class="news-tag">Recruiting · 2026</span>
+    <h3>X-Sleep Lab is Recruiting a Research Assistant (1 opening)</h3>
+    <p>We are looking for 1 motivated research assistant to support ongoing sleep neuroscience projects at the Institute of Psychology, Chinese Academy of Sciences.</p>
+    <a href="join.html" class="news-read-more">See open positions →</a>
+    <span class="news-date">2026</span>
+  </div>
+</article>
+<article class="news-card">
+  <img class="news-card-img" src="news_pic/plos-computational-biology.webp" alt="How sleeping minds decide: State-specific reconfigurations of lexical decision-making" loading="lazy" decoding="async">
+  <div class="news-card-body">
+    <span class="news-tag">New Publication · 2026</span>
+    <h3>How sleeping minds decide: State-specific reconfigurations of lexical decision-making</h3>
+    <p>Xia Tao et al. (2026). A new study on how sleeping minds reconfigure lexical decision processing. <em>PLoS Computational Biology</em>.</p>
+    <span class="news-date">January 2026</span>
+  </div>
+</article>
+<article class="news-card">
+  <img class="news-card-img" src="news_pic/trends-in-cognitive-sciences.webp" alt="Memory editing during sleep: mechanisms, clinical applications, and technological innovations" loading="lazy" decoding="async">
+  <div class="news-card-body">
+    <span class="news-tag">New Publication · 2025</span>
+    <h3>Memory editing during sleep: mechanisms, clinical applications, and technological innovations</h3>
+    <p>A comprehensive review co-authored by Xia Tao and Xiaoqing Hu. <em>Trends in Cognitive Sciences</em>, 2025.</p>
+    <a href="https://doi.org/10.1016/j.tics.2025.07.010" target="_blank" rel="noopener" class="news-read-more">Read paper →</a>
+    <span class="news-date">September 2025</span>
+  </div>
+</article>
+<article class="news-card">
+  <img class="news-card-img" src="news_pic/pnas.webp" alt="Aversive memories can be weakened during human sleep via reactivation of positive interfering memories" loading="lazy" decoding="async">
+  <div class="news-card-body">
+    <span class="news-tag">New Publication · PNAS 2024</span>
+    <h3>Aversive memories can be weakened during human sleep via reactivation of positive interfering memories</h3>
+    <p>Published in <em>Proceedings of the National Academy of Sciences</em>, 2024. A landmark study demonstrating targeted emotional memory modification during sleep.</p>
+    <a href="https://doi.org/10.1073/pnas.2400678121" target="_blank" rel="noopener" class="news-read-more">Read paper →</a>
+    <span class="news-date">August 2024</span>
+  </div>
+</article>
+<article class="news-card">
+  <img class="news-card-img" src="news_pic/current-biology.webp" alt="Updating memories of unwanted emotions during human sleep" loading="lazy" decoding="async">
+  <div class="news-card-body">
+    <span class="news-tag">New Publication · Current Biology 2023</span>
+    <h3>Updating memories of unwanted emotions during human sleep</h3>
+    <p>Published in <em>Current Biology</em>, 2023. Using targeted memory reactivation during NREM sleep to update the emotional content of aversive memories.</p>
+    <a href="https://doi.org/10.1016/j.cub.2022.12.004" target="_blank" rel="noopener" class="news-read-more">Read paper →</a>
+    <span class="news-date">January 2023</span>
+  </div>
+</article>
+<!-- STATIC:NEWS:END -->
+    </div>
   </section>
 
   <footer class="site-footer">

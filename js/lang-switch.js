@@ -23,12 +23,14 @@
   }
 
   function setText(key, value) {
+    if (typeof value !== 'string') return;
     document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function (el) {
       el.textContent = value;
     });
   }
 
   function setHTML(key, value) {
+    if (typeof value !== 'string') return;
     document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function (el) {
       el.innerHTML = value;
     });
@@ -103,7 +105,7 @@
       setText('index.viewAllNews',  idx.viewAllNews);
       /* News strip — rendered from content.js */
       if (typeof renderNewsStrip === 'function') renderNewsStrip(lang);
-      document.title = lang === 'zh' ? 'X-Sleep Lab | 中科院心理所' : 'X-Sleep Lab | IPcas';
+      document.title = lang === 'zh' ? 'X-Sleep Lab | 中科院心理所' : 'X-Sleep Lab | IPCAS';
     }
 
     if (page === 'team') {
@@ -223,7 +225,9 @@
     }
 
     /* ---- html lang attribute ---- */
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.documentElement.lang = page === 'participate'
+      ? 'zh-CN'
+      : (lang === 'zh' ? 'zh-CN' : 'en');
 
     /* ---- Toggle button state ---- */
     document.querySelectorAll('.lang-switch [data-lang]').forEach(function (btn) {

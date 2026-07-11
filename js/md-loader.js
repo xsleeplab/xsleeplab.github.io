@@ -58,7 +58,7 @@
 
     container.innerHTML = _data.news.map(function (item) {
       var media = item.image
-        ? '<img class="news-card-img" src="' + item.image + '" alt="' + _t(item.title, lang) + '">'
+        ? '<img class="news-card-img" src="' + item.image + '" alt="' + _t(item.title, lang) + '" loading="lazy" decoding="async">'
         : '<div class="news-card-placeholder" style="background:' + item.gradient + ';">' + item.emoji + '</div>';
 
       var rmHtml = '';
@@ -109,12 +109,15 @@
     var avatarSrc = member.photo
       ? member.photo
       : 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + member.seed;
+    var emailHtml = member.email
+      ? '<p class="member-contact"><a href="mailto:' + member.email + '">' + member.email + '</a></p>'
+      : '';
     return '<article class="member-card">' +
-      '<img class="member-avatar" src="' + avatarSrc + '" alt="" width="100" height="100">' +
+      '<img class="member-avatar" src="' + avatarSrc + '" alt="" width="100" height="100" loading="lazy" decoding="async">' +
       '<h3>' + _t(member.name, lang) + '</h3>' +
       '<p class="member-title">' + _t(member.title, lang) + '</p>' +
       '<p class="member-education">' + member.education + '</p>' +
-      '<p class="member-contact"><a href="mailto:' + member.email + '">' + member.email + '</a></p>' +
+      emailHtml +
       '<p class="member-research">' + _t(member.research, lang) + '</p>' +
       '</article>';
   }

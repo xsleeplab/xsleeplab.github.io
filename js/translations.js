@@ -59,6 +59,7 @@ const translations = {
       breadcrumb:       'Team',
       pageTitle:        'Our Team',
       pageSub:          'A group of curious minds dedicated to understanding the sleeping brain.',
+      piLabel:          'Principal Investigator',
       piName:           'Tao Xia',
       piNameZh:         '夏涛',
       piRole:           'Principal Investigator',
@@ -95,12 +96,14 @@ const translations = {
       item3Title:  'Lucid Dreaming & Consciousness During Sleep',
       item3Text:   "Sleep is not a simple 'on/off' switch for consciousness, but rather a rich spectrum of cognitive abilities that peaks with lucid dreaming. In this paradoxical state, metacognitive awareness and conscious decision-making coexist with objectively verified sleep. We leverage this unique phenomenon as a rigorous experimental model to understand how consciousness works from within. Our goal is to map the exact neural mechanisms that allow subjective experience, reflective self-awareness, and volitional choices to emerge and fade across different sleep stages. Combined with our ongoing work on offline sensory processing, this research probes the very boundaries of the sleeping brain, revealing how self-awareness can dynamically surface even when the body remains fast asleep.",
       item3Papers: 'Representative Publications:',
-      item3p1:     'Xia, T.*, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, & Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. PLoS Computational Biology, 22(2), e1014007.'
+      item3p1:     'Xia, T.*, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, & Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. PLoS Computational Biology, 22(2), e1014007.',
+      item3p2:     'Liu, J.*, Chen, D., Xia, T., et al. (2025). Slow-wave sleep and REM sleep differentially contribute to memory representational transformation. Communications Biology, 8, 1407.'
     },
     publications: {
       breadcrumb:      'Publications',
       pageTitle:       'Publications',
       pageSub:         'Translating the language of sleep into scientific insight.',
+      researchGate:    'Full list on ResearchGate →',
       confTitle:       'Conference Presentations',
       confPlaceholder: 'Conference presentations will be listed here.',
       awardsTitle:     'Awards & Grants',
@@ -248,12 +251,14 @@ const translations = {
       item3Title:  '清醒梦与睡眠期意识',
       item3Text:   '意识在睡眠中并未消失，而是以连续谱的形式存在，不同睡眠阶段对应不同层级的觉知状态，清醒梦则是其中最为特殊的现象——元认知觉知与有意识决策能力，与客观可验证的睡眠状态同时并存。本实验室以清醒梦为天然实验模型，系统探究主观体验、自我觉知与意志性认知在不同睡眠阶段涌现与消退的神经机制，并结合睡眠期离线感觉加工研究，从内部视角解析意识产生的神经基础，揭示沉睡大脑如何维持意识活动。',
       item3Papers: '代表性论文：',
-      item3p1:     'Xia, T.*, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, & Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. PLoS Computational Biology, 22(2), e1014007.'
+      item3p1:     'Xia, T.*, Hu, C.-P., Türker, B., Munoz Musat, E., Naccache, L., Arnulf, I., Oudiette, D.*, & Hu, X.* (2026). How sleeping minds decide: State-specific reconfigurations of lexical decision-making. PLoS Computational Biology, 22(2), e1014007.',
+      item3p2:     'Liu, J.*, Chen, D., Xia, T., et al. (2025). Slow-wave sleep and REM sleep differentially contribute to memory representational transformation. Communications Biology, 8, 1407.'
     },
     publications: {
       breadcrumb:      '论文成果',
       pageTitle:       '论文成果',
       pageSub:         '代表性论文及会议报告',
+      researchGate:    '在 ResearchGate 查看完整列表 →',
       confTitle:       '会议报告',
       confPlaceholder: '会议报告信息将陆续更新。',
       awardsTitle:     '获奖与科研资助',
