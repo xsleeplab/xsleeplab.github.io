@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>参与睡眠科学研究 — X-Sleep Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- 非阻塞加载：fonts.googleapis.com 在中国大陆不可达，
+       用 media="print" 让它不阻塞首屏，加载成功后再切回 all。 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"></noscript>
+  <style>
+    :root {
+      --color-primary: #4A6580; --color-primary-dark: #2E4A63; --color-primary-mid: #6B8BA4;
+      --color-accent: #8AACBF; --color-accent-light: #B5CFD8;
+      --color-bg: #F0F4F7; --color-bg-alt: #E8EFF4; --color-white: #FFFFFF;
+      --color-text: #2C3E4A; --color-text-light: #5A7080; --color-border: #C8D8E4;
+      --color-nav: #1E3347; --color-footer: #1A2E3D;
+      --color-success: #4A8C6F; --color-success-bg: #EBF5EF;
+      --color-warn: #B8860B; --color-warn-bg: #FDF6E3;
+      /* 每个字体栈都以平台中文字体收尾：Google Fonts 在中国大陆不可达，
+         被试看到的必须是真实中文字体，而不是浏览器默认字体。 */
+      --font-zh-sans: 'PingFang SC','Microsoft YaHei','Hiragino Sans GB','Noto Sans SC';
+      --font-zh-serif: 'Songti SC','SimSun','Noto Serif SC';
+      --font-brand: 'Syne','Space Grotesk',var(--font-zh-sans),sans-serif;
+      --font-display: 'Space Grotesk','DM Sans',var(--font-zh-sans),sans-serif;
+      --font-body: 'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',var(--font-zh-sans),sans-serif;
+      --font-serif: 'Noto Serif SC',Georgia,var(--font-zh-serif),serif;
+      --radius: 12px; --radius-sm: 8px;
+      --shadow: 0 1px 2px rgba(46,74,99,0.06),0 4px 14px rgba(46,74,99,0.09),inset 0 1px 0 rgba(255,255,255,0.85);
+      --shadow-md: 0 2px 4px rgba(46,74,99,0.07),0 8px 24px rgba(46,74,99,0.13),inset 0 1px 0 rgba(255,255,255,0.75);
+      --shadow-hover: 0 6px 14px rgba(46,74,99,0.13),0 28px 56px rgba(46,74,99,0.26),inset 0 1px 0 rgba(255,255,255,0.60);
+      --transition: all 0.28s cubic-bezier(0.4,0,0.2,1); --max-width: 1200px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);
+      background-image:radial-gradient(ellipse at 18% 52%,rgba(74,101,128,0.045) 0%,transparent 58%),
+      radial-gradient(ellipse at 82% 18%,rgba(138,172,191,0.04) 0%,transparent 55%);
+      background-attachment:fixed;line-height:1.7;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--color-primary-mid);text-decoration:none;transition:var(--transition)}
+    a:hover{color:var(--color-primary-dark)}
+
+    .site-header{background:var(--color-nav);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(30,51,71,0.3)}
+    .nav-container{max-width:var(--max-width);margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:68px}
+    .site-title{font-family:var(--font-brand);font-size:1.52rem;font-weight:700;color:var(--color-white);text-decoration:none;letter-spacing:0.02em;display:flex;align-items:baseline;flex-shrink:0}
+    .site-title .x-letter{color:var(--color-accent);font-size:1.82rem;font-weight:800}
+    .site-title:hover{opacity:0.88}
+    .main-nav{display:flex;align-items:center;gap:28px}
+    .main-nav a{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:rgba(255,255,255,0.80);text-decoration:none;transition:var(--transition);position:relative;white-space:nowrap}
+    .main-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--color-accent);transition:width 0.25s ease}
+    .main-nav a:hover{color:var(--color-white)}
+    .main-nav a:hover::after{width:100%}
+    .main-nav a.active{color:var(--color-white)}
+    .main-nav a.active::after{width:100%}
+
+    .recruit-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 60%,var(--color-primary-mid) 100%);padding:88px 32px 80px;position:relative;overflow:hidden;text-align:center}
+    .recruit-hero::after{content:'';position:absolute;right:-120px;top:-120px;width:480px;height:480px;border-radius:50%;background:rgba(138,172,191,0.08);pointer-events:none}
+    .recruit-hero::before{content:'';position:absolute;left:-80px;bottom:-100px;width:340px;height:340px;border-radius:50%;background:rgba(46,74,99,0.18);pointer-events:none}
+    .recruit-hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
+    .recruit-hero-label{display:inline-block;font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-light);background:rgba(138,172,191,0.15);border:1px solid rgba(181,207,216,0.40);padding:5px 18px;border-radius:20px;margin-bottom:24px}
+    .recruit-hero h1{font-family:var(--font-brand);font-size:2.8rem;font-weight:800;color:var(--color-white);letter-spacing:-0.025em;line-height:1.15;margin-bottom:18px;text-shadow:0 2px 16px rgba(0,0,0,0.18)}
+    .recruit-hero h1 .x-mark{color:var(--color-accent)}
+    .recruit-hero p{font-size:1.1rem;color:rgba(255,255,255,0.82);line-height:1.78;max-width:600px;margin:0 auto 32px}
+    .btn-hero{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-primary-dark);background:var(--color-white);padding:14px 36px;border-radius:8px;border:none;cursor:pointer;transition:var(--transition);letter-spacing:0.03em;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+    .btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.22);background:var(--color-accent-light);color:var(--color-white)}
+
+    .section{padding:80px 32px}.section-inner{max-width:var(--max-width);margin:0 auto}
+    .section-label{font-family:var(--font-display);font-size:0.75rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-primary-mid);margin-bottom:10px}
+    .section-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-primary-dark);letter-spacing:-0.02em;line-height:1.2;margin-bottom:10px}
+    .section-desc{font-size:1rem;color:var(--color-text-light);max-width:560px;margin-bottom:40px}
+    .section-alt{background:var(--color-bg-alt)}
+
+    .lab-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .lab-photo-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition)}
+    .lab-photo-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .lab-photo-card img{width:100%;height:220px;object-fit:cover}
+    .lab-photo-card .photo-caption{padding:16px 18px;font-family:var(--font-display);font-size:0.88rem;font-weight:600;color:var(--color-primary-dark)}
+
+    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .why-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);transition:var(--transition);position:relative;overflow:hidden}
+    .why-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-accent) 0%,var(--color-primary) 100%)}
+    .why-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .why-card-icon{font-size:2rem;margin-bottom:14px;display:block}
+    .why-card h3{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:10px}
+    .why-card p{font-size:0.92rem;color:var(--color-text-light);line-height:1.68}
+
+    .exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px}
+    .exp-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);transition:var(--transition);overflow:hidden;position:relative;display:flex;flex-direction:column}
+    .exp-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-accent) 0%,var(--color-primary) 100%)}
+    .exp-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .exp-card-header{padding:28px 28px 0}
+    .exp-type-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-display);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+    .exp-type-badge.nap{color:#B8860B;background:#FDF6E3;border:1px solid #E8D5A0}
+    .exp-type-badge.overnight{color:#2E6B8A;background:#E8F4F8;border:1px solid #B8D8E8}
+    .exp-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:12px;line-height:1.35}
+    .exp-card-body{padding:0 28px;flex:1}
+    .exp-card-body p{font-size:0.9rem;color:var(--color-text-light);line-height:1.68;margin-bottom:16px}
+    .exp-card-meta{display:flex;flex-wrap:wrap;gap:16px;padding:16px 28px;border-top:1px solid var(--color-bg-alt)}
+    .exp-meta-item{display:flex;align-items:center;gap:6px}
+    .exp-meta-label{font-family:var(--font-display);font-size:0.72rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em}
+    .exp-meta-value{font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary)}
+    .exp-card-action{padding:0 28px 24px}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:11px 28px;border-radius:8px;border:1.5px solid transparent;cursor:pointer;transition:var(--transition);letter-spacing:0.03em}
+    .btn-primary{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary)}
+    .btn-primary:hover{background:var(--color-primary-dark);border-color:var(--color-primary-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(46,74,99,0.28)}
+    .btn-ghost{background:transparent;color:var(--color-text-light);border-color:var(--color-border)}
+    .btn-ghost:hover{color:var(--color-text);border-color:var(--color-primary-mid);background:var(--color-bg-alt)}
+    .btn-success{background:var(--color-success);color:var(--color-white);border-color:var(--color-success)}
+    .btn-success:hover{background:#3d7a5e;border-color:#3d7a5e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(74,140,111,0.28)}
+    .btn:disabled{opacity:0.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+    .btn-block{width:100%;justify-content:center}
+
+    .questionnaire-wrapper{max-width:780px;margin:0 auto}
+    .step-progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px;flex-wrap:wrap}
+    .step-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.82rem;font-weight:700;border:2px solid var(--color-border);color:var(--color-text-light);background:var(--color-white);transition:var(--transition);flex-shrink:0}
+    .step-circle.active{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary);box-shadow:0 2px 12px rgba(74,101,128,0.35)}
+    .step-circle.done{background:var(--color-success);color:var(--color-white);border-color:var(--color-success)}
+    .step-line{width:36px;height:2px;background:var(--color-border);transition:var(--transition)}
+    .step-line.done{background:var(--color-success)}
+
+    .q-step-panel{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow);display:none}
+    .q-step-panel.active{display:block}
+    .q-step-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:8px}
+    .q-step-desc{font-size:0.92rem;color:var(--color-text-light);margin-bottom:28px;line-height:1.65}
+    .scale-hint{display:inline-block;background:var(--color-bg-alt);padding:2px 10px;border-radius:4px;font-size:0.82rem;font-weight:600;color:var(--color-primary-mid);margin-top:4px}
+
+    .form-group{margin-bottom:24px}
+    .form-label{display:block;font-weight:600;color:var(--color-text);margin-bottom:8px;font-size:0.95rem;line-height:1.55}
+    .form-sublabel{font-size:0.82rem;color:var(--color-text-light);font-weight:400;display:block;margin-top:2px}
+    .form-input{width:100%;padding:10px 14px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.95rem;color:var(--color-text);background:var(--color-white);transition:var(--transition);outline:none}
+    .form-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(74,101,128,0.12)}
+    .form-input::placeholder{color:var(--color-accent)}
+    .form-input.short{width:180px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+    .radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .radio-option{position:relative}
+    .radio-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
+    .radio-option label{display:inline-flex;align-items:center;padding:8px 16px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.88rem;color:var(--color-text);cursor:pointer;transition:var(--transition);background:var(--color-white);user-select:none}
+    .radio-option label:hover{border-color:var(--color-primary-mid);background:var(--color-bg-alt)}
+    .radio-option input[type="radio"]:checked+label{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary);box-shadow:0 2px 8px rgba(74,101,128,0.25)}
+
+    .checkbox-group{display:flex;align-items:flex-start;gap:10px}
+    .checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:3px;accent-color:var(--color-primary);flex-shrink:0}
+    .checkbox-group label{font-size:0.92rem;color:var(--color-text);cursor:pointer;line-height:1.55}
+
+    .checkbox-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:8px}
+    .checkbox-grid .checkbox-group{padding:10px 14px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);transition:var(--transition);background:var(--color-white)}
+    .checkbox-grid .checkbox-group:has(input:checked){border-color:var(--color-primary);background:rgba(74,101,128,0.06)}
+    .checkbox-grid .checkbox-group:hover{border-color:var(--color-primary-mid)}
+
+    .q-item{padding:18px 0;border-bottom:1px solid var(--color-bg-alt)}
+    .q-item:last-child{border-bottom:none}
+    .q-item-number{font-family:var(--font-display);font-size:0.78rem;font-weight:700;color:var(--color-accent);margin-right:6px}
+    .q-subsection{font-weight:600;color:var(--color-primary-dark);font-size:0.98rem;margin:24px 0 8px;padding-top:16px;border-top:1px solid var(--color-bg-alt)}
+
+    .consent-box{background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:24px;max-height:320px;overflow-y:auto;margin-bottom:20px;font-size:0.92rem;line-height:1.85;color:var(--color-text);font-family:var(--font-serif)}
+    .consent-box h4{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:12px}
+    .consent-box p{margin-bottom:10px}
+
+    .step-actions{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--color-bg-alt)}
+    .form-error{color:#c0392b;font-size:0.82rem;margin-top:4px;display:none;font-weight:500}
+    .form-error.show{display:block}
+
+    .result-panel{display:none;max-width:860px;margin:0 auto}.result-panel.active{display:block}
+    .result-header{text-align:center;padding:40px;border-radius:var(--radius);margin-bottom:32px}
+    .result-header.pass{background:var(--color-success-bg);border:1.5px solid var(--color-success)}
+    .result-header.fail{background:var(--color-warn-bg);border:1.5px solid var(--color-warn)}
+    .result-icon{font-size:3rem;margin-bottom:12px}
+    .result-header h2{font-family:var(--font-display);font-size:1.6rem;font-weight:700;margin-bottom:10px}
+    .result-header.pass h2{color:var(--color-success)}.result-header.fail h2{color:var(--color-warn)}
+    .result-header p{font-size:1rem;color:var(--color-text-light);max-width:520px;margin:0 auto;line-height:1.72}
+
+    .guide-section{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:40px;box-shadow:var(--shadow);margin-bottom:24px}
+    .guide-section h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--color-bg-alt)}
+    .guide-section p{font-size:0.95rem;line-height:1.82;color:var(--color-text);margin-bottom:14px}
+
+    .timeline{position:relative;padding-left:28px;margin:20px 0}
+    .timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--color-accent)}
+    .timeline-item{position:relative;padding:12px 0 12px 20px}
+    .timeline-item::before{content:'';position:absolute;left:-24px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--color-primary);border:2px solid var(--color-white);box-shadow:0 0 0 2px var(--color-accent)}
+    .timeline-time{font-family:var(--font-display);font-size:0.82rem;font-weight:700;color:var(--color-primary);margin-bottom:2px}
+    .timeline-desc{font-size:0.92rem;color:var(--color-text);line-height:1.6}
+
+    .schedule-timeline-card{background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:20px 24px;margin-bottom:24px}
+    .schedule-timeline-card h4{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--color-primary);margin:0 0 12px 0}
+    .schedule-timeline-card .mini-timeline{list-style:none;padding:0;margin:0}
+    .schedule-timeline-card .mini-timeline li{display:flex;gap:12px;padding:6px 0;font-size:0.9rem;line-height:1.5;border-bottom:1px solid var(--color-border)}
+    .schedule-timeline-card .mini-timeline li:last-child{border-bottom:none}
+    .schedule-timeline-card .mini-timeline .mt-time{flex-shrink:0;font-weight:600;color:var(--color-primary);min-width:120px}
+    .schedule-timeline-card .mini-timeline .mt-desc{color:var(--color-text)}
+
+    .prep-list{list-style:none;padding:0;margin:12px 0}
+    .prep-list li{padding:10px 0 10px 28px;position:relative;font-size:0.95rem;color:var(--color-text);line-height:1.6;border-bottom:1px solid var(--color-bg-alt)}
+    .prep-list li:last-child{border-bottom:none}
+    .prep-list li::before{content:'✓';position:absolute;left:0;top:10px;font-weight:700;color:var(--color-success);font-size:1.1rem}
+
+    .location-card{display:flex;gap:28px;margin-top:16px;align-items:flex-start}
+    .location-info{flex:1}.location-info p{margin-bottom:8px}
+    .location-map{width:300px;height:200px;background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-text-light);font-size:0.88rem;flex-shrink:0;overflow:hidden}
+
+    .contact-form-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow);margin-bottom:24px}
+    .contact-form-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:16px}
+    .form-submit-status{padding:16px;border-radius:var(--radius-sm);margin-top:16px;font-size:0.92rem;display:none}
+    .form-submit-status.success{display:block;background:var(--color-success-bg);color:var(--color-success);border:1px solid var(--color-success)}
+    .form-submit-status.error{display:block;background:#fef2f2;color:#c0392b;border:1px solid #f5c6cb}
+
+    .site-footer{background:var(--color-footer);color:rgba(255,255,255,0.82);padding:48px 32px 28px}
+    .footer-inner{max-width:var(--max-width);margin:0 auto;text-align:center}
+    .footer-brand{font-family:var(--font-brand);font-size:1.32rem;font-weight:700;color:var(--color-white);margin-bottom:8px}
+    .footer-brand .x-letter{color:var(--color-accent)}
+    .footer-desc{font-size:0.92rem;opacity:0.6;margin-bottom:20px}
+    .footer-bottom{padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-size:0.85rem;opacity:0.46}
+
+    .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+    .menu-toggle span{width:24px;height:2px;background:var(--color-white);border-radius:2px;transition:var(--transition)}
+
+    @media(max-width:1024px){.lab-gallery{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}}
+    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.recruit-hero{padding:60px 20px 56px}.recruit-hero h1{font-size:2rem}.section{padding:56px 20px}.lab-gallery{grid-template-columns:1fr 1fr}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}.step-line{width:20px}.step-circle{width:30px;height:30px;font-size:0.75rem}}
+    @media(max-width:480px){.lab-gallery{grid-template-columns:1fr}.recruit-hero h1{font-size:1.65rem}.radio-group{flex-direction:column}.why-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="../index.html" class="site-title"><span class="x-letter">X</span>-Sleep Lab</a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="main-navigation">
+      <a href="../index.html">Home</a>
+      <a href="../team.html">Team</a>
+      <a href="../research.html">Research</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../news.html">News</a>
+      <a href="../participate.html" class="active" aria-current="page">Participate</a>
+      <a href="../join.html">Join Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== LANDING ========== -->
+<div id="landing-page">
+  <section class="recruit-hero">
+    <div class="recruit-hero-inner">
+      <span class="recruit-hero-label">被试招募</span>
+      <h1>参与睡眠科学研究<br>探索大脑的<span class="x-mark">奥秘</span></h1>
+      <p>X-Sleep Lab（中国科学院心理研究所）正在招募健康志愿者参与睡眠研究。您的参与将为理解人类大脑与睡眠做出重要贡献。</p>
+      <a href="#section-experiments" class="btn-hero">查看当前招募项目 →</a>
+    </div>
+  </section>
+
+  <section class="section" id="section-lab">
+    <div class="section-inner">
+      <div class="section-label">实验室环境</div>
+      <h2 class="section-title">舒适的睡眠实验室</h2>
+      <p class="section-desc">我们为您准备了专业、舒适的实验环境，确保您在参与研究期间拥有良好的体验。</p>
+      <div class="lab-gallery">
+        <div class="lab-photo-card"><img src="photos/room1.jpg" alt="睡眠监测室 A" loading="lazy"><div class="photo-caption">睡眠监测室 A</div></div>
+        <div class="lab-photo-card"><img src="photos/room2.jpg" alt="睡眠监测室 B" loading="lazy"><div class="photo-caption">睡眠监测室 B</div></div>
+        <div class="lab-photo-card"><img src="photos/control-room.jpg" alt="实验控制室" loading="lazy"><div class="photo-caption">实验控制室</div></div>
+        <div class="lab-photo-card"><img src="photos/washroom.jpg" alt="洗漱更衣室" loading="lazy"><div class="photo-caption">洗漱更衣室</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="section-why">
+    <div class="section-inner">
+      <div class="section-label">为什么参加</div>
+      <h2 class="section-title">参与睡眠研究的意义</h2>
+      <p class="section-desc">作为志愿者参与科学研究，您将收获的不只是报酬。</p>
+      <div class="why-grid">
+        <div class="why-card"><span class="why-card-icon">🔬</span><h3>推动科学进步</h3><p>您的参与直接帮助科学家理解睡眠与大脑功能的奥秘。每一份数据都是推进人类知识的重要一步。</p></div>
+        <div class="why-card"><span class="why-card-icon">🌙</span><h3>了解自己的睡眠</h3><p>在实验过程中，您将更深入地了解自己的睡眠模式和健康状况，获得关于睡眠质量的科学评估。</p></div>
+        <div class="why-card"><span class="why-card-icon">💰</span><h3>获得合理报酬</h3><p>我们为您的时间和付出提供合理的经济补偿。具体报酬标准在各项目详情中说明。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="section-experiments">
+    <div class="section-inner">
+      <div class="section-label">正在招募</div>
+      <h2 class="section-title">当前实验项目</h2>
+      <p class="section-desc">每个项目独立招募被试，请根据您的时间和偏好选择适合的项目报名。</p>
+      <div class="exp-grid" id="experiment-cards"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== QUESTIONNAIRE ========== -->
+<div id="questionnaire-page" style="display:none">
+  <section class="section">
+    <div class="questionnaire-wrapper">
+      <div style="text-align:center;margin-bottom:20px">
+        <span class="exp-type-badge" id="q-exp-badge"></span>
+        <h3 id="q-exp-title" style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-top:8px"></h3>
+      </div>
+      <div class="step-progress" id="step-progress"></div>
+
+      <div class="q-step-panel" id="step-0">
+        <h3 class="q-step-title">知情同意</h3>
+        <p class="q-step-desc">在填写问卷之前，请您仔细阅读以下内容。</p>
+        <div class="consent-box">
+          <h4>知情同意书</h4>
+          <p>本研究由中国科学院心理研究所 X-Sleep Lab 开展，旨在探索睡眠相关的认知与神经机制。研究已通过伦理审查。</p>
+          <p><strong>参与内容：</strong>您需要到实验室参与睡眠实验。实验过程中可能使用脑电（EEG）等设备无创地记录您的生理活动。所有设备均为非侵入性的安全设备，不存在安全风险。</p>
+          <p><strong>数据保护：</strong>您的个人信息将严格保密，仅用于本研究目的。所有数据将以匿名方式存储和分析，公开发表的成果不会透露您的个人身份。</p>
+          <p><strong>自愿原则：</strong>您的参与完全自愿，可随时退出，且不会受到任何不利影响。被试费会按照实际参与项目的进度进行发放。</p>
+          <p><strong>报酬：</strong>完成实验后，您将获得相应的被试报酬，具体标准见项目详情。</p>
+          <p>如有任何疑问，请随时联系实验人员。</p>
+        </div>
+        <div class="form-group"><div class="checkbox-group"><input type="checkbox" id="consent-check"><label for="consent-check">我已阅读并理解以上知情同意书，自愿参加本研究</label></div><div class="form-error" id="err-consent">请勾选同意知情同意书</div></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="backToLanding()">← 返回</button><button class="btn btn-primary" onclick="goToStep(1)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-1">
+        <h3 class="q-step-title">基本信息</h3>
+        <p class="q-step-desc">请填写您的基本联系方式，以便我们后续与您沟通实验安排。</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">姓名 <span style="color:#c0392b">*</span></label><input type="text" class="form-input" id="f-name" placeholder="请输入您的姓名"><div class="form-error" id="err-name">请输入姓名</div></div>
+          <div class="form-group"><label class="form-label">手机号 <span style="color:#c0392b">*</span></label><input type="tel" class="form-input" id="f-phone" placeholder="请输入您的手机号"><div class="form-error" id="err-phone">请输入手机号</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">邮箱 <span style="color:#c0392b">*</span></label><input type="email" class="form-input" id="f-email" placeholder="用于接收实验指引"><div class="form-error" id="err-email">请输入有效的邮箱地址</div></div>
+          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="18" max="65" placeholder="18-65"><div class="form-error" id="err-age">请输入 18-65 之间的年龄</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
+          <div class="form-group"><label class="form-label">身份</label><div class="radio-group"><div class="radio-option"><input type="radio" name="identity" id="id-student" value="学生"><label for="id-student">学生</label></div><div class="radio-option"><input type="radio" name="identity" id="id-work" value="在职"><label for="id-work">在职</label></div></div></div>
+        </div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(0)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(2)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-2">
+        <h3 class="q-step-title">视力情况</h3>
+        <p class="q-step-desc">实验过程中需要观看屏幕上的视觉刺激，因此我们需要了解您的视力状况。请如实填写以下信息。</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">左眼近视度数（度）</label>
+            <input type="number" class="form-input" id="vision-left-myopia" min="0" max="2000" placeholder="如：300">
+          </div>
+          <div class="form-group">
+            <label class="form-label">右眼近视度数（度）</label>
+            <input type="number" class="form-input" id="vision-right-myopia" min="0" max="2000" placeholder="如：300">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">左眼远视度数（度，无远视填 0）</label>
+            <input type="number" class="form-input" id="vision-left-hyperopia" min="0" max="1000" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">右眼远视度数（度，无远视填 0）</label>
+            <input type="number" class="form-input" id="vision-right-hyperopia" min="0" max="1000" value="0">
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label">是否有散光？</label>
+          <div class="radio-group" id="vision-astigmatism">
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-yes" value="1"><label for="vision-astig-yes">有</label></div>
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-no" value="0"><label for="vision-astig-no">无</label></div>
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label">是否佩戴眼镜或隐形眼镜？</label>
+          <div class="radio-group" id="vision-glasses">
+            <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-yes" value="1"><label for="vision-gl-yes">是</label></div>
+            <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-no" value="0"><label for="vision-gl-no">否</label></div>
+          </div>
+        </div>
+
+        <div class="form-error" id="err-vision">请完整填写视力信息</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(1)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(3)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-3">
+        <h3 class="q-step-title">环境适应与睡眠习惯</h3>
+        <p class="q-step-desc">以下问题帮助我们了解您在陌生环境中的睡眠状况和一些生活习惯，以便为您安排合适的实验条件。</p>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">1.</span> 换到陌生环境（如酒店、宿舍）睡觉，您的睡眠通常会受到多大影响？</label><div class="radio-group" id="habit-q0"></div></div>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">2.</span> 您对睡眠环境中的声音敏感吗？（如空调声、走廊脚步声）</label><div class="radio-group" id="habit-q1"></div></div>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">3.</span> 您平时容易觉得皮肤发痒或有异物感吗？（如衣服标签摩擦、新面料的触感）</label><div class="radio-group" id="habit-q2"></div></div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">4.</span> 您目前的吸烟情况是？</label>
+          <div class="radio-group" id="habit-q3"></div>
+          <input type="text" class="form-input" id="habit-q3-detail" placeholder="约几支/天" style="margin-top:8px;display:none">
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">5.</span> 近期（过去3个月）是否服用过助眠药物、镇静剂或抗抑郁/焦虑药物？</label>
+          <div class="radio-group" id="habit-q4"></div>
+          <input type="text" class="form-input" id="habit-q4-detail" placeholder="请注明药名" style="margin-top:8px;display:none">
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">6.</span> 您是否有以下情况？（可多选）</label>
+          <div class="checkbox-grid" id="habit-q5">
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5a" value="严重打鼾或曾被诊断睡眠呼吸暂停（OSA）"><label for="habit-q5a">严重打鼾或曾被诊断睡眠呼吸暂停（OSA）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5b" value="不宁腿综合征（腿脚酸麻痒，睡前必须活动）"><label for="habit-q5b">不宁腿综合征（腿脚酸麻痒，睡前必须活动）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5c" value="夜尿症（每晚起床排尿≥2次）"><label for="habit-q5c">夜尿症（每晚起床排尿≥2次）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5d" value="倒班工作 / 近期跨时区旅行"><label for="habit-q5d">倒班工作 / 近期跨时区旅行</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5f" value="三个月内有过染发"><label for="habit-q5f">三个月内有过染发</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5e" value="无以上情况"><label for="habit-q5e">无以上情况</label></div>
+          </div>
+        </div>
+
+        <div class="form-error" id="err-habit">请完整填写所有问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(2)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(4)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-4">
+        <h3 class="q-step-title">匹兹堡睡眠质量指数（PSQI）</h3>
+        <p class="q-step-desc">以下问题涉及您<strong>过去一个月</strong>的睡眠习惯，请根据实际情况如实填写。</p>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">1.</span> 过去一个月，您通常几点上床睡觉？</label><input type="time" class="form-input short" id="psqi-q1" value="23:00"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">2.</span> 过去一个月，您通常需要多长时间才能入睡？（分钟）</label><input type="number" class="form-input short" id="psqi-q2" min="0" max="240" placeholder="分钟"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">3.</span> 过去一个月，您通常早上几点起床？</label><input type="time" class="form-input short" id="psqi-q3" value="07:00"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">4.</span> 过去一个月，您每晚实际睡眠时间有多少小时？</label><input type="number" class="form-input short" id="psqi-q4" min="0" max="24" step="0.5" placeholder="小时"></div>
+        <div class="q-subsection">5. 过去一个月，您有多少次因为以下原因难以入睡？</div>
+        <div id="psqi-q5-items"></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">6.</span> 过去一个月，您多久服用一次助眠药物？</label><div class="radio-group" id="psqi-q6"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">7.</span> 过去一个月，您在开车、吃饭或从事社交活动时，有多少次感到难以保持清醒？</label><div class="radio-group" id="psqi-q7"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">8.</span> 过去一个月，您在做事时保持足够热情有多大困难？</label><div class="radio-group" id="psqi-q8"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">9.</span> 过去一个月，您对自己的睡眠质量总体评价如何？</label><div class="radio-group" id="psqi-q9"></div></div>
+        <div class="form-error" id="err-psqi">请完整填写所有 PSQI 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(3)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(5)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-5">
+        <h3 class="q-step-title">失眠严重程度指数（ISI）</h3>
+        <p class="q-step-desc">请根据您<strong>过去两周</strong>的实际情况，对以下问题进行评分。</p>
+        <div id="isi-items"></div>
+        <div class="form-error" id="err-isi">请完整填写所有 ISI 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(4)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(6)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-6">
+        <h3 class="q-step-title">昼夜节律类型（rMEQ）</h3>
+        <p class="q-step-desc">请选择<strong>最符合您日常习惯</strong>的选项。这有助于我们把实验安排在您状态较好的时段。</p>
+        <div id="rmeq-items"></div>
+        <div class="form-error" id="err-rmeq">请完整填写所有昼夜节律问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(5)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(7)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-7">
+        <h3 class="q-step-title">抑郁焦虑压力量表（DASS-21）</h3>
+        <p class="q-step-desc">以下陈述与您的某些感受或状态有关，请根据<strong>过去一周</strong>的实际情况评分。</p>
+        <div id="dass-items"></div>
+        <div class="form-error" id="err-dass">请完整填写所有 DASS-21 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(6)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(8)">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-8">
+        <h3 class="q-step-title">可用时间安排</h3>
+        <p class="q-step-desc">请告诉我们您通常哪些时间段方便参加实验，我们会据此为您协调安排。</p>
+        <div id="schedule-timeline" class="schedule-timeline-card"></div>
+        <div class="form-group">
+          <label class="form-label">您通常哪些天可以参加实验？（可多选）<span style="color:#c0392b"> *</span></label>
+          <p class="form-sublabel" style="color:#c0392b;font-weight:600;margin-bottom:10px">⚠ 实验要求连续两天参加，请务必选择连续的两天</p>
+          <div class="checkbox-grid" id="avail-days">
+            <div class="checkbox-group"><input type="checkbox" id="day-mon" value="周一"><label for="day-mon">周一</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-tue" value="周二"><label for="day-tue">周二</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-wed" value="周三"><label for="day-wed">周三</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-thu" value="周四"><label for="day-thu">周四</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-fri" value="周五"><label for="day-fri">周五</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-sat" value="周六"><label for="day-sat">周六</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-sun" value="周日"><label for="day-sun">周日</label></div>
+          </div>
+          <div class="form-error" id="err-days">请至少选择一天</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">您的时间灵活度</label>
+          <div class="radio-group">
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-high" value="flexible"><label for="flex-high">比较灵活，工作日和周末都可以</label></div>
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-weekday" value="weekday"><label for="flex-weekday">主要工作日可以</label></div>
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-weekend" value="weekend"><label for="flex-weekend">主要周末可以</label></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">最早可以开始实验的日期</label>
+          <input type="date" class="form-input short" id="earliest-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">备注（可选）</label>
+          <textarea class="form-input" id="schedule-note" rows="3" placeholder="如有特殊时间安排或其他说明，请在此处备注"></textarea>
+        </div>
+        <div class="form-error" id="err-schedule">请至少选择可用日期</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(7)">← 上一步</button><button class="btn btn-success" onclick="submitQuestionnaire()">提交报名</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== RESULTS ========== -->
+<div id="results-page" style="display:none">
+  <section class="section">
+    <div class="result-panel active">
+      <div id="result-pass" style="display:none">
+        <div class="result-header pass"><div class="result-icon">🎉</div><h2>恭喜，您通过了初筛！</h2><p id="pass-exp-desc"></p></div>
+        <div id="guide-container"></div>
+        <div class="contact-form-card">
+          <h3>确认信息并接收实验指引</h3>
+          <p style="font-size:0.92rem;color:var(--color-text-light);margin-bottom:20px">请确认您的联系方式，我们会将实验指引详情发送到您的邮箱，并安排后续实验时间。</p>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">姓名</label><input type="text" class="form-input" id="confirm-name" readonly></div>
+            <div class="form-group"><label class="form-label">邮箱</label><input type="email" class="form-input" id="confirm-email"></div>
+          </div>
+          <div class="form-group"><label class="form-label">手机号</label><input type="tel" class="form-input" id="confirm-phone"></div>
+          <button class="btn btn-success btn-block" id="btn-send-email" onclick="sendEmail()">确认并接收实验指引 →</button>
+          <div class="form-submit-status" id="email-status"></div>
+        </div>
+      </div>
+      <div id="result-fail" style="display:none">
+        <div class="result-header fail"><div class="result-icon">🙏</div><h2>感谢您的参与</h2><p>非常感谢您愿意参与我们的研究。根据您填写的问卷，您目前的睡眠状况暂时不符合本次实验的筛选要求。这并不代表您的睡眠有任何问题，只是与当前实验的特定标准不完全匹配。</p><p style="margin-top:12px">我们未来可能会开展更多不同类型的实验，届时欢迎您再次报名参与。祝您拥有健康良好的睡眠！</p></div>
+        <div style="text-align:center;margin-top:24px"><button class="btn btn-ghost" onclick="backToLanding()">返回首页</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="x-letter">X</span>-Sleep Lab</div>
+    <p class="footer-desc">中国科学院心理研究所 · 睡眠与认知神经科学实验室</p>
+    <div class="footer-bottom"><p>&copy; 2026 X-Sleep Lab. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<script>
+
+// ==================== EXPERIMENT DATA ====================
+
+// type → 显示标签映射
+const TYPE_LABEL = { nap: '午睡实验', overnight: '晚睡实验' };
+const TYPE_ICON  = { nap: '☀️', overnight: '🌙' };
+
+const EXPERIMENTS = [
+  {
+    id: 'nap-memory',
+    type: 'nap',
+    title: '午睡与记忆研究',
+    brief: '午睡对于记忆的影响',
+    visits: '2 次',
+    duration: '第一天约1.5小时，第二天约 4.5 小时',
+    reward: '共350 元',
+    guide: {
+      scheduleSummary: [
+        '第一天：14:00 - 15:30 纯行为实验',
+        '第二天：12:00 - 16:30 行为实验与睡眠脑电监测（包括脑电前的准备时间）',
+      ],
+      timeline: [
+        { time: '第一天 14:00', desc: '到达实验室，熟悉环境' },
+        { time: '第一天 14:00 - 15:30', desc: '完成当天行为实验任务' },
+        { time: '第二天 12:00', desc: '到达实验室' },
+        { time: '第二天 12:00 - 12:20', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+        { time: '第二天 12:20 - 13:00', desc: '脑电实验前期准备' },
+        { time: '第二天 13:00 - 14:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 14:00 - 15:30', desc: '进行午休' },
+        { time: '第二天 15:30 - 16:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 16:00 - 16:30', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+      ],
+      prep: [
+        '如眼睛较易疲劳，可以自行准备眼药水',
+      ],
+    },
+  },
+  {
+    id: 'overnight-sleep',
+    type: 'overnight',
+    title: '夜间睡眠研究',
+    brief: '在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。',
+    visits: '1 次（过夜）',
+    duration: '约 14 小时',
+    reward: '待定',
+    guide: {
+      scheduleSummary: [
+        '第一天：20:00 - 23:00 实验准备、任务与入睡（全程脑电记录）',
+        '第二天：07:30 - 09:30 晨间测试后离开',
+      ],
+      timeline: [
+        { time: '第一天 20:00', desc: '到达实验室，熟悉环境，洗漱准备' },
+        { time: '第一天 20:30', desc: '佩戴脑电设备' },
+        { time: '第一天 21:00 - 22:30', desc: '完成当晚实验任务' },
+        { time: '第一天 23:00', desc: '入睡（全程脑电记录）' },
+        { time: '第二天 07:30', desc: '起床，洗漱' },
+        { time: '第二天 08:00 - 09:00', desc: '完成晨间测试任务' },
+        { time: '第二天 09:30', desc: '洗漱后离开实验室' },
+      ],
+      prep: [
+        '<strong>牙刷与牙膏</strong> — 出于卫生考虑，实验室不提供牙刷',
+        '<strong>睡衣</strong> — 建议携带舒适的睡衣',
+        '<strong>毛巾</strong> — 我们会提供毛巾，您也可以自带',
+        '<strong>其他洗漱用品</strong> — 洗面奶、护肤品等个人用品',
+        '<strong>助眠物品</strong> — 如有耳塞、眼罩等习惯可携带',
+      ],
+    },
+  },
+  // Add more experiments here as needed
+];
+
+const PSQI_Q5 = [
+  {key:'q5a',text:'不能在 30 分钟内入睡'},{key:'q5b',text:'半夜或凌晨醒来'},
+  {key:'q5c',text:'起夜上厕所'},{key:'q5d',text:'呼吸不畅'},{key:'q5e',text:'咳嗽或鼾声大'},
+  {key:'q5f',text:'感到太冷'},{key:'q5g',text:'感到太热'},{key:'q5h',text:'做噩梦'},
+  {key:'q5i',text:'感到疼痛'},{key:'q5j',text:'其他原因而难以入睡'},
+];
+const FREQ03 = [{value:0,label:'无'},{value:1,label:'每周不到一次'},{value:2,label:'每周一两次'},{value:3,label:'每周三次以上'}];
+const ISI_Q = [
+  {text:'入睡困难程度',options:['无','轻微','中度','严重','非常严重']},
+  {text:'维持睡眠困难程度',options:['无','轻微','中度','严重','非常严重']},
+  {text:'早醒问题',options:['无','轻微','中度','严重','非常严重']},
+  {text:'对睡眠模式的满意程度',options:['非常满意','满意','一般','不满意','非常不满意']},
+  {text:'睡眠问题对日常功能的影响程度',options:['没有影响','轻微影响','有些影响','较大影响','非常影响']},
+  {text:'睡眠问题被他人注意到的程度',options:['没有','轻微','有些','较明显','非常明显']},
+  {text:'对睡眠问题的担忧程度',options:['一点也不担忧','轻微担忧','有些担忧','较为担忧','非常担忧']},
+];
+const DASS_Q = [
+  '我发现自己很难放松下来','我感到口干','我好像不能有什么好的感觉','我感到呼吸困难',
+  '我感到做事缺乏主动性','我对事情容易反应过度','我有颤抖的感觉（例如手抖）','我感到精神紧张',
+  '我担心自己在某些场合会惊慌失措出洋相','我觉得对未来没什么可期望的','我发现自己变得烦躁不安',
+  '我发现自己很难放松','我感到悲伤和沮丧','我不能容忍任何阻碍我做事的事物',
+  '我感到快要惊慌失措了','我对任何事情都不能产生热情','我觉得自己不怎么有价值',
+  '我觉得自己相当敏感','我感到心跳明显加快但并没有做任何体力活动','我无缘无故地感到害怕','我觉得生活没有意义',
+];
+const DASS_OPT = [{value:0,label:'不符合'},{value:1,label:'有时符合'},{value:2,label:'常常符合'},{value:3,label:'总是符合'}];
+
+// rMEQ（简化版晨昏型问卷）— 取自 Horne & Östberg MEQ 中文版的第 1、7、10、18、19 题，
+// 选项权重与原版完全一致。总分 4–25，用于排除极端昼夜类型。
+const RMEQ_Q = [
+  { text: '如果您能够完全自由地计划白天的时间，您希望大约在什么时间起床？', options: [
+    {value:5,label:'早上 5:00 – 6:30'},
+    {value:4,label:'早上 6:30 – 7:45'},
+    {value:3,label:'早上 7:45 – 9:45'},
+    {value:2,label:'早上 9:45 – 11:00'},
+    {value:1,label:'早上 11:00 – 正午 12:00'},
+  ]},
+  { text: '清晨起床后的半小时内，您的感觉如何？', options: [
+    {value:1,label:'非常疲倦'},
+    {value:2,label:'稍微疲倦'},
+    {value:3,label:'一般清醒'},
+    {value:4,label:'非常清醒'},
+  ]},
+  { text: '在夜晚，您大约到什么时候会感到疲倦、需要睡觉？', options: [
+    {value:5,label:'晚上 20:00 – 21:00'},
+    {value:4,label:'晚上 21:00 – 22:15'},
+    {value:3,label:'晚上 22:15 – 次日 00:45'},
+    {value:2,label:'凌晨 00:45 – 02:00'},
+    {value:1,label:'凌晨 02:00 – 03:00'},
+  ]},
+  { text: '一天之中，哪个时段是您状态最好的时间？', options: [
+    {value:5,label:'早上 5:00 – 8:00'},
+    {value:4,label:'早上 8:00 – 10:00'},
+    {value:3,label:'上午 10:00 – 下午 17:00'},
+    {value:2,label:'下午 17:00 – 22:00'},
+    {value:1,label:'晚上 22:00 – 次日 05:00'},
+  ]},
+  { text: '人可分为「清晨」型（早鸟）和「夜晚」型（夜猫）两类，您认为自己属于哪一类？', options: [
+    {value:6,label:'绝对「清晨」型'},
+    {value:4,label:'「清晨」型多过「夜晚」型'},
+    {value:2,label:'「夜晚」型多过「清晨」型'},
+    {value:0,label:'绝对「夜晚」型'},
+  ]},
+];
+
+let currentStep = 0;
+let selectedExpId = null;
+const STEP_LABELS = ['知情同意','基本信息','视力','环境适应','PSQI','ISI','昼夜节律','DASS-21','时间安排'];
+
+const HABIT_Q = [
+  { text: '换到陌生环境睡觉，睡眠受到多大影响？', options: [
+    {value:0,label:'完全没影响，沾枕头就睡着'},{value:1,label:'轻微影响，半小时内能睡着'},
+    {value:2,label:'明显影响，需要1小时以上'},{value:3,label:'严重影响，几乎整晚睡不着'}
+  ]},
+  { text: '对睡眠环境中的声音敏感吗？', options: [
+    {value:0,label:'不敏感，甚至需要背景音'},{value:1,label:'一般，普通安静即可'},{value:2,label:'非常敏感，细微声音都会惊醒'}
+  ]},
+  { text: '平时容易觉得皮肤发痒或有异物感吗？', options: [
+    {value:0,label:'不容易，皮肤耐受度高'},{value:1,label:'一般'},{value:2,label:'容易，对异物感很敏感'}
+  ]},
+  { text: '目前的吸烟情况', options: [
+    {value:0,label:'不吸烟'},{value:1,label:'已戒烟'},{value:2,label:'吸烟'}
+  ], hasDetail: true },
+  { text: '近期是否服用过助眠药物等', options: [
+    {value:0,label:'否'},{value:1,label:'是'}
+  ], hasDetail: true },
+];
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderExperiments();
+  renderPSQI();
+  renderISI();
+  renderRMEQ();
+  renderDASS();
+  renderHabit();
+  // Auto-select project from URL parameter (?project=xxx)
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get('project');
+  if (projectId && EXPERIMENTS.find(e => e.id === projectId)) {
+    selectExperiment(projectId);
+  }
+});
+
+function renderExperiments() {
+  const c = document.getElementById('experiment-cards');
+  c.innerHTML = EXPERIMENTS.map(exp => `
+    <div class="exp-card">
+      <div class="exp-card-header">
+        <span class="exp-type-badge ${exp.type}">${TYPE_ICON[exp.type] || ''} ${TYPE_LABEL[exp.type] || exp.type}</span>
+        <h3>${exp.title}</h3>
+      </div>
+      <div class="exp-card-body"><p>${exp.brief}</p></div>
+      <div class="exp-card-meta">
+        <div class="exp-meta-item"><span class="exp-meta-label">到访</span><span class="exp-meta-value">${exp.visits}</span></div>
+        <div class="exp-meta-item"><span class="exp-meta-label">时长</span><span class="exp-meta-value">${exp.duration}</span></div>
+        <div class="exp-meta-item"><span class="exp-meta-label">报酬</span><span class="exp-meta-value">${exp.reward}</span></div>
+      </div>
+      <div class="exp-card-action"><button class="btn btn-primary btn-block" onclick="selectExperiment('${exp.id}')">立即报名 →</button></div>
+    </div>
+  `).join('');
+}
+
+function renderRadioGroup(cid, name, opts) {
+  const c = document.getElementById(cid);
+  if (!c) return;
+  c.innerHTML = opts.map(o => `<div class="radio-option"><input type="radio" name="${name}" id="${name}-${o.value}" value="${o.value}"><label for="${name}-${o.value}">${o.label}</label></div>`).join('');
+}
+
+function renderPSQI() {
+  const c = document.getElementById('psqi-q5-items');
+  c.innerHTML = PSQI_Q5.map((it, i) => {
+    let extra = '';
+    if (it.key === 'q5j') {
+      extra = '<input type="text" class="form-input" id="psqi-q5j-detail" placeholder="请简要说明其他原因" style="margin-top:8px;display:none">';
+    }
+    return `<div class="q-item"><label class="form-label"><span class="q-item-number">5.${i+1}</span> ${it.text}</label><div class="radio-group" id="psqi-${it.key}"></div>${extra}</div>`;
+  }).join('');
+  PSQI_Q5.forEach(it => renderRadioGroup('psqi-'+it.key, 'psqi-'+it.key, FREQ03));
+  // "其他原因"选非零时显示文字输入框
+  document.querySelectorAll('input[name="psqi-q5j"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const det = document.getElementById('psqi-q5j-detail');
+      det.style.display = r.value > 0 ? 'block' : 'none';
+    });
+  });
+  renderRadioGroup('psqi-q6','psqi-q6',FREQ03);
+  renderRadioGroup('psqi-q7','psqi-q7',FREQ03);
+  renderRadioGroup('psqi-q8','psqi-q8',[{value:0,label:'没有困难'},{value:1,label:'一点困难'},{value:2,label:'比较困难'},{value:3,label:'很大困难'}]);
+  renderRadioGroup('psqi-q9','psqi-q9',[{value:0,label:'很好'},{value:1,label:'较好'},{value:2,label:'较差'},{value:3,label:'很差'}]);
+}
+
+function renderISI() {
+  const c = document.getElementById('isi-items');
+  c.innerHTML = ISI_Q.map((q,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${q.text}</label><div class="radio-group" id="isi-q${i}"></div></div>`).join('');
+  ISI_Q.forEach((q,i) => renderRadioGroup('isi-q'+i,'isi-q'+i, q.options.map((l,v) => ({value:v,label:l}))));
+}
+
+function renderDASS() {
+  const c = document.getElementById('dass-items');
+  c.innerHTML = DASS_Q.map((t,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${t}</label><div class="radio-group" id="dass-q${i}"></div></div>`).join('');
+  DASS_Q.forEach((_,i) => renderRadioGroup('dass-q'+i,'dass-q'+i,DASS_OPT));
+}
+
+function renderRMEQ() {
+  const c = document.getElementById('rmeq-items');
+  if (!c) return;
+  c.innerHTML = RMEQ_Q.map((q,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${q.text}</label><div class="radio-group" id="rmeq-q${i}"></div></div>`).join('');
+  RMEQ_Q.forEach((q,i) => renderRadioGroup('rmeq-q'+i,'rmeq-q'+i, q.options));
+}
+
+function renderHabit() {
+  HABIT_Q.forEach((q, i) => {
+    renderRadioGroup('habit-q'+i, 'habit-q'+i, q.options);
+    if (q.hasDetail) {
+      document.querySelectorAll('input[name="habit-q'+i+'"]').forEach(r => {
+        r.addEventListener('change', () => {
+          const det = document.getElementById('habit-q'+i+'-detail');
+          det.style.display = r.value > 0 ? 'block' : 'none';
+        });
+      });
+    }
+  });
+  // 互斥逻辑：勾选"无以上情况"则取消其他选项，反之亦然
+  const noneBox = document.getElementById('habit-q5e');
+  const otherBoxes = ['habit-q5a','habit-q5b','habit-q5c','habit-q5d','habit-q5f'].map(id => document.getElementById(id));
+  if (noneBox) {
+    noneBox.addEventListener('change', () => {
+      if (noneBox.checked) otherBoxes.forEach(b => { if(b) b.checked = false; });
+    });
+  }
+  otherBoxes.forEach(b => {
+    if (b) b.addEventListener('change', () => {
+      if (b.checked && noneBox) noneBox.checked = false;
+    });
+  });
+}
+
+// ==================== NAVIGATION ====================
+function renderScheduleTimeline(exp) {
+  const el = document.getElementById('schedule-timeline');
+  if (!el || !exp.guide) { if (el) el.style.display='none'; return; }
+  const summary = exp.guide.scheduleSummary;
+  if (!summary || summary.length === 0) { el.style.display='none'; return; }
+  let h = '<h4>📅 实验时间安排</h4><ul class="mini-timeline">';
+  summary.forEach(s => { h += '<li><span class="mt-desc">' + s + '</span></li>'; });
+  h += '</ul>';
+  el.innerHTML = h;
+  el.style.display = 'block';
+}
+
+function selectExperiment(id) {
+  selectedExpId = id;
+  const exp = EXPERIMENTS.find(e => e.id === id);
+  if (!exp) return;
+  document.getElementById('q-exp-badge').className = 'exp-type-badge ' + exp.type;
+  document.getElementById('q-exp-badge').textContent = (TYPE_ICON[exp.type] || '') + ' ' + (TYPE_LABEL[exp.type] || exp.type);
+  document.getElementById('q-exp-title').textContent = exp.title;
+  renderScheduleTimeline(exp);
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('questionnaire-page').style.display = 'block';
+  document.getElementById('results-page').style.display = 'none';
+  showStep(0);
+}
+
+function backToLanding() {
+  document.getElementById('landing-page').style.display = 'block';
+  document.getElementById('questionnaire-page').style.display = 'none';
+  document.getElementById('results-page').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showStep(step) {
+  currentStep = step;
+  document.querySelectorAll('.q-step-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('step-'+step);
+  if (panel) panel.classList.add('active');
+  renderProgress();
+  window.scrollTo({top:200,behavior:'smooth'});
+}
+
+function goToStep(target) {
+  if (target > currentStep && !validateStep(currentStep)) return;
+  showStep(target);
+}
+
+function renderProgress() {
+  const c = document.getElementById('step-progress');
+  let h = '';
+  STEP_LABELS.forEach((l,i) => {
+    const done = i < currentStep, active = i === currentStep;
+    h += `<div class="step-circle ${done?'done':''} ${active?'active':''}" title="${l}">${done?'✓':i+1}</div>`;
+    if (i < STEP_LABELS.length-1) h += `<div class="step-line ${done?'done':''}"></div>`;
+  });
+  c.innerHTML = h;
+}
+
+// ==================== VALIDATION ====================
+function validateStep(step) {
+  clearErrors(); let v = true;
+  if (step===0) { if (!document.getElementById('consent-check').checked) { showErr('err-consent'); v=false; } }
+  if (step===1) {
+    if (!document.getElementById('f-name').value.trim()) { showErr('err-name'); v=false; }
+    const ph = document.getElementById('f-phone').value.trim();
+    if (!ph||ph.length<11) { showErr('err-phone'); v=false; }
+    const em = document.getElementById('f-email').value.trim();
+    if (!em||!em.includes('@')) { showErr('err-email'); v=false; }
+    const ag = document.getElementById('f-age').value;
+    if (!ag||ag<18||ag>65) { showErr('err-age'); v=false; }
+    if (!document.querySelector('input[name="gender"]:checked')) { showErr('err-gender'); v=false; }
+  }
+  if (step===2) {
+    const lm = parseInt(document.getElementById('vision-left-myopia').value);
+    const rm = parseInt(document.getElementById('vision-right-myopia').value);
+    const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
+    const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
+    const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+    const glasses = document.querySelector('input[name="vision-glasses"]:checked');
+    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astig || !glasses) { showErr('err-vision'); v=false; }
+  }
+  if (step===3) {
+    for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
+    if (v) { const q5=document.querySelectorAll('#habit-q5 input:checked'); if (q5.length===0) { showErr('err-habit'); v=false; } }
+  }
+  if (step===4) {
+    const q2=document.getElementById('psqi-q2').value, q4=document.getElementById('psqi-q4').value;
+    if (!q2||!q4) { showErr('err-psqi'); v=false; }
+    if (v) { for (const k of [...PSQI_Q5.map(i=>i.key),'q6','q7','q8','q9']) { if (!document.querySelector('input[name="psqi-'+k+'"]:checked')) { showErr('err-psqi'); v=false; break; } } }
+  }
+  if (step===5) { for (let i=0;i<ISI_Q.length;i++) { if (!document.querySelector('input[name="isi-q'+i+'"]:checked')) { showErr('err-isi'); v=false; break; } } }
+  if (step===6) { for (let i=0;i<RMEQ_Q.length;i++) { if (!document.querySelector('input[name="rmeq-q'+i+'"]:checked')) { showErr('err-rmeq'); v=false; break; } } }
+  if (step===7) { for (let i=0;i<DASS_Q.length;i++) { if (!document.querySelector('input[name="dass-q'+i+'"]:checked')) { showErr('err-dass'); v=false; break; } } }
+  if (step===8) {
+    const days = document.querySelectorAll('#avail-days input:checked');
+    if (days.length===0) { showErr('err-days'); v=false; }
+  }
+  if (!v) { const e=document.querySelector('.form-error.show'); if(e) e.scrollIntoView({behavior:'smooth',block:'center'}); }
+  return v;
+}
+function showErr(id) { const e=document.getElementById(id); if(e) e.classList.add('show'); }
+function clearErrors() { document.querySelectorAll('.form-error').forEach(e=>e.classList.remove('show')); }
+
+// ==================== SCORING ====================
+function getRadio(n) { const e=document.querySelector('input[name="'+n+'"]:checked'); return e?parseInt(e.value):0; }
+function parseTime(t) { const p=t.split(':').map(Number); return p[0]+p[1]/60; }
+
+function scorePSQI() {
+  const c1=getRadio('psqi-q9');
+  const lat=parseFloat(document.getElementById('psqi-q2').value)||0;
+  const q2s=lat<=15?0:lat<=30?1:lat<=60?2:3;
+  const s2=q2s+getRadio('psqi-q5a'); const c2=s2===0?0:s2<=2?1:s2<=4?2:3;
+  const hrs=parseFloat(document.getElementById('psqi-q4').value)||0;
+  const c3=hrs>7?0:hrs>=6?1:hrs>=5?2:3;
+  let bt=parseTime(document.getElementById('psqi-q1').value||'23:00');
+  let wt=parseTime(document.getElementById('psqi-q3').value||'07:00');
+  if(wt<=bt) wt+=24; const tib=wt-bt; const eff=tib>0?(hrs/tib)*100:0;
+  const c4=eff>=85?0:eff>=75?1:eff>=65?2:3;
+  const dk=['q5b','q5c','q5d','q5e','q5f','q5g','q5h','q5i','q5j'];
+  const ds=dk.reduce((s,k)=>s+getRadio('psqi-'+k),0); const c5=ds===0?0:ds<=9?1:ds<=18?2:3;
+  const c6=getRadio('psqi-q6');
+  const dy=getRadio('psqi-q7')+getRadio('psqi-q8'); const c7=dy===0?0:dy<=2?1:dy<=4?2:3;
+  return c1+c2+c3+c4+c5+c6+c7;
+}
+
+function scoreISI() { let t=0; for(let i=0;i<ISI_Q.length;i++){const e=document.querySelector('input[name="isi-q'+i+'"]:checked');if(e)t+=parseInt(e.value);} return t; }
+
+// rMEQ 总分 4–25（分越高越偏清晨型）
+function scoreRMEQ() {
+  let t = 0;
+  for (let i = 0; i < RMEQ_Q.length; i++) {
+    const e = document.querySelector('input[name="rmeq-q'+i+'"]:checked');
+    if (e) t += parseInt(e.value);
+  }
+  return t;
+}
+
+function chronotypeLabel(s) {
+  if (s <= 7)  return '明显夜晚型';
+  if (s <= 11) return '中度夜晚型';
+  if (s <= 17) return '中间型';
+  if (s <= 21) return '中度清晨型';
+  return '明显清晨型';
+}
+
+// 排除极端昼夜类型：明显夜晚型（≤7）与明显清晨型（≥22）。
+// 实验固定在 14:00 小睡 / 23:00 入睡，极端类型难以配合。
+function checkChronotypePass() {
+  const s = scoreRMEQ();
+  return s >= 8 && s <= 21;
+}
+
+function scoreDASS() {
+  const di=[2,4,9,12,15,16,20],ai=[1,3,6,8,14,18,19],si=[0,5,7,10,11,13,17];
+  const gv=i=>{const e=document.querySelector('input[name="dass-q'+i+'"]:checked');return e?parseInt(e.value):0;};
+  return {depression:di.reduce((s,i)=>s+gv(i),0)*2,anxiety:ai.reduce((s,i)=>s+gv(i),0)*2,stress:si.reduce((s,i)=>s+gv(i),0)*2};
+}
+
+function checkHabitPass() {
+  const q0 = getRadio('habit-q0'); if (q0 > 1) return false;
+  const q1 = getRadio('habit-q1'); if (q1 > 1) return false;
+  const q2 = getRadio('habit-q2'); if (q2 > 1) return false;
+  const q3 = getRadio('habit-q3'); if (q3 !== 0) return false;
+  const q4 = getRadio('habit-q4'); if (q4 !== 0) return false;
+  const conditions = Array.from(document.querySelectorAll('#habit-q5 input:checked'))
+    .filter(e => e.id !== 'habit-q5e');
+  if (conditions.length > 0) return false;
+  return true;
+}
+
+function checkVisionPass() {
+  const lm = parseInt(document.getElementById('vision-left-myopia').value) || 0;
+  const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
+  const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
+  const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  // 排除标准：近视 ≥800 度、远视 ≥200 度、有散光（两项度数判据统一取“大于等于”）
+  if (lm >= 800 || rm >= 800) return false;
+  if (lh >= 200 || rh >= 200) return false;
+  if (!astig || parseInt(astig.value) !== 0) return false;
+  return true;
+}
+
+// ==================== SUBMIT ====================
+function submitQuestionnaire() {
+  if (!validateStep(8)) return;
+  const psqi=scorePSQI(), isi=scoreISI(), dass=scoreDASS();
+  const habitPass = checkHabitPass();
+  const visionPass = checkVisionPass();
+  const chronoPass = checkChronotypePass();
+  const passed = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14 && habitPass && visionPass && chronoPass;
+
+  document.getElementById('landing-page').style.display='none';
+  document.getElementById('questionnaire-page').style.display='none';
+  document.getElementById('results-page').style.display='block';
+
+  if (passed) {
+    document.getElementById('result-pass').style.display='block';
+    document.getElementById('result-fail').style.display='none';
+    document.getElementById('confirm-name').value=document.getElementById('f-name').value;
+    document.getElementById('confirm-email').value=document.getElementById('f-email').value;
+    document.getElementById('confirm-phone').value=document.getElementById('f-phone').value;
+    const exp = EXPERIMENTS.find(e=>e.id===selectedExpId);
+    if (exp) {
+      document.getElementById('pass-exp-desc').textContent = '您的睡眠状况符合「'+exp.title+'」的筛选要求。以下是该实验的详细指引。';
+      renderGuide(exp);
+    }
+  } else {
+    document.getElementById('result-pass').style.display='none';
+    document.getElementById('result-fail').style.display='block';
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderGuide(exp) {
+  const g = exp.guide;
+  const c = document.getElementById('guide-container');
+  let h = '';
+
+  // Intro + timeline
+  h += '<div class="guide-section"><h3>实验流程</h3><p>'+( g.intro || exp.brief )+'</p><div class="timeline">';
+  g.timeline.forEach(t => { h += '<div class="timeline-item"><div class="timeline-time">'+t.time+'</div><div class="timeline-desc">'+t.desc+'</div></div>'; });
+  h += '</div></div>';
+
+  // EEG (all experiments use EEG)
+  h += '<div class="guide-section"><h3>脑电图（EEG）说明</h3><p>实验过程中将使用脑电图（EEG）设备无创地记录您的脑电活动。您需要佩戴一个特制的电极帽，帽中的导电凝胶用于连接头皮与电极。EEG 记录完全无创，没有已知危险。实验结束后您可以在实验室洗漱后再离开，我们提供洗发水和吹风机。</p></div>';
+
+  // Prep
+  h += '<div class="guide-section"><h3>您需要准备什么？</h3><ul class="prep-list">';
+  g.prep.forEach(p => { h += '<li>'+p+'</li>'; });
+  h += '</ul>';
+  if (exp.type === 'overnight') h += '<p style="margin-top:16px;color:var(--color-text-light);font-size:0.9rem">早晨我们将提供简单的早餐（牛奶与面包）。</p>';
+  h += '</div>';
+
+  // Location
+  h += '<div class="guide-section"><h3>实验地点与交通</h3><div class="location-card"><div class="location-info"><p><strong>睡眠与认知神经科学实验室</strong></p><p>北京市朝阳区林萃路16号 中国科学院心理研究所 和谐楼（南楼）829室</p><p style="margin-top:12px"><strong>如何到达：</strong></p><p>奥运村西公交站 / 北沙滩地铁站（B2东北口）。到达后请联系实验人员。</p><p style="margin-top:12px"><strong>联系方式：</strong></p><p>邮箱：xsleeplab@hotmail.com</p></div><div class="location-map"><iframe src="https://uri.amap.com/marker?position=116.3658,40.0036&name=X-Sleep Lab 睡眠实验室&src=xsleeplab&coordinate=gaode&callnative=0" width="100%" height="100%" style="border:0;border-radius:var(--radius-sm)" loading="lazy"></iframe></div></div></div>';
+
+  c.innerHTML = h;
+}
+
+// ==================== 提交 ====================
+// 报名数据提交到腾讯云函数（境内节点），由云函数负责转发飞书通知。
+// 飞书 webhook 保存在云函数的环境变量里，不出现在前端代码中；
+// 云函数只接受下面这份结构化数据并自行拼装卡片，因此即使有人直接
+// 调用该地址，也无法借实验室的机器人发送任意内容。
+const SUBMIT_ENDPOINT = 'https://1301866011-18lbbbe08s.ap-beijing.tencentscf.com';
+
+// 读取某个单选题当前选中项的文字标签
+function radioLabel(name) {
+  const el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.parentElement.textContent.trim() : '未填';
+}
+
+function collectSubmission() {
+  const val = id => ((document.getElementById(id) || {}).value || '');
+  const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
+  const psqi = scorePSQI(), isi = scoreISI(), rmeq = scoreRMEQ(), dass = scoreDASS();
+  const visionPass = checkVisionPass();
+  const habitPass  = checkHabitPass();
+  const chronoPass = checkChronotypePass();
+  const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
+
+  const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
+  const glassesEl = document.querySelector('input[name="vision-glasses"]:checked');
+  const flexEl    = document.querySelector('input[name="flexibility"]:checked');
+
+  const habitLabels = ['环境适应', '声音敏感', '皮肤敏感', '吸烟情况', '药物使用'];
+  const habitAnswers = HABIT_Q.map((q, i) => {
+    let a = radioLabel('habit-q' + i);
+    if (q.hasDetail) {
+      const sel = document.querySelector('input[name="habit-q' + i + '"]:checked');
+      const det = document.getElementById('habit-q' + i + '-detail');
+      if (sel && parseInt(sel.value) > 0 && det && det.value.trim()) a += '（' + det.value.trim() + '）';
+    }
+    return { q: habitLabels[i], a: a };
+  });
+  const conditions = Array.from(document.querySelectorAll('#habit-q5 input:checked'))
+    .filter(e => e.id !== 'habit-q5e').map(e => e.value);
+
+  const psqiOther = document.getElementById('psqi-q5j-detail');
+  const psqiDetail = [
+    { q: '上床时间', a: val('psqi-q1') || '未填' },
+    { q: '入睡时长', a: (val('psqi-q2') || '未填') + ' 分钟' },
+    { q: '起床时间', a: val('psqi-q3') || '未填' },
+    { q: '实际睡眠', a: (val('psqi-q4') || '未填') + ' 小时' }
+  ]
+    .concat(PSQI_Q5.map(it => ({ q: it.text, a: radioLabel('psqi-' + it.key) })))
+    .concat(psqiOther && psqiOther.value.trim() ? [{ q: '其他原因说明', a: psqiOther.value.trim() }] : [])
+    .concat([
+      { q: '助眠药物', a: radioLabel('psqi-q6') },
+      { q: '日间困倦', a: radioLabel('psqi-q7') },
+      { q: '保持热情', a: radioLabel('psqi-q8') },
+      { q: '总体评价', a: radioLabel('psqi-q9') }
+    ]);
+
+  return {
+    name:  document.getElementById('confirm-name').value.trim(),
+    email: document.getElementById('confirm-email').value.trim(),
+    phone: document.getElementById('confirm-phone').value.trim(),
+    project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
+    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass && dassPass,
+    scores: {
+      psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
+      isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
+      rmeq: { total: rmeq, threshold: '8–21', pass: chronoPass, type: chronotypeLabel(rmeq) },
+      dass: {
+        depression: dass.depression, anxiety: dass.anxiety, stress: dass.stress,
+        threshold: '抑郁≤9 焦虑≤7 压力≤14', pass: dassPass
+      }
+    },
+    vision: {
+      leftMyopia:     val('vision-left-myopia')      || '0',
+      rightMyopia:    val('vision-right-myopia')     || '0',
+      leftHyperopia:  val('vision-left-hyperopia')   || '0',
+      rightHyperopia: val('vision-right-hyperopia')  || '0',
+      astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
+      glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
+      pass: visionPass
+    },
+    habit: { answers: habitAnswers, conditions: conditions, pass: habitPass },
+    detail: {
+      psqi: psqiDetail,
+      isi:  ISI_Q.map((q, i)  => ({ q: q.text, a: radioLabel('isi-q' + i) })),
+      rmeq: RMEQ_Q.map((q, i) => ({ q: q.text, a: radioLabel('rmeq-q' + i) })),
+      dass: DASS_Q.map((t, i) => ({ q: t,      a: radioLabel('dass-q' + i) }))
+    },
+    schedule: {
+      days: Array.from(document.querySelectorAll('#avail-days input:checked')).map(e => e.value).join('、'),
+      flexibility: flexEl ? flexEl.parentElement.textContent.trim() : '未填',
+      earliest: val('earliest-date') || '未填',
+      note: val('schedule-note').trim() || '无'
+    }
+  };
+}
+
+function sendEmail() {
+  const btn = document.getElementById('btn-send-email');
+  const st  = document.getElementById('email-status');
+  const email = document.getElementById('confirm-email').value.trim();
+  if (!email) { st.className = 'form-submit-status error'; st.textContent = '请输入邮箱地址'; return; }
+
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+  st.className = 'form-submit-status';
+  st.textContent = '';
+
+  fetch(SUBMIT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(collectSubmission())
+  })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(d => { if (!d || d.ok !== true) throw new Error((d && d.error) || '服务端未确认送达'); })
+    .then(() => {
+      st.className = 'form-submit-status success';
+      st.textContent = '报名信息已提交！我们将在 1-2 个工作日内通过邮件或电话与您联系，确认实验安排。';
+      btn.textContent = '已提交';
+    })
+    .catch(err => {
+      // 失败必须如实告知，否则被试以为报名成功、数据却已丢失
+      console.error('[X-Sleep] 报名提交失败:', err);
+      st.className = 'form-submit-status error';
+      st.innerHTML = '提交失败，您的信息<strong>未能送达</strong>。请检查网络后点击重新提交，'
+        + '或直接将姓名、手机与邮箱发送至 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 完成报名。';
+      btn.disabled = false;
+      btn.textContent = '重新提交';
+    });
+}
+
+// Mobile menu toggle
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.menu-toggle')) {
+    const nav = document.getElementById('main-navigation');
+    const btn = e.target.closest('.menu-toggle');
+    nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', nav.classList.contains('open'));
+  }
+});
+
+// 实验室照片可选：缺图时隐藏对应卡片，全部缺失则隐藏整个相册，
+// 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
+(function () {
+  const gallery = document.querySelector('.lab-gallery');
+  if (!gallery) return;
+  const imgs = gallery.querySelectorAll('img');
+  let pending = imgs.length, ok = 0;
+  const settle = (img, loaded) => {
+    if (loaded) ok++;
+    else { const card = img.closest('.lab-photo-card'); if (card) card.style.display = 'none'; }
+    if (--pending === 0 && ok === 0) gallery.style.display = 'none';
+  };
+  imgs.forEach(img => {
+    if (img.complete) { settle(img, img.naturalWidth > 0); return; }
+    img.addEventListener('load', () => settle(img, true));
+    img.addEventListener('error', () => settle(img, false));
+  });
+})();
+</script>
+</body>
+</html>

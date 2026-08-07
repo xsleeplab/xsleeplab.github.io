@@ -16,7 +16,10 @@
   <!-- Fonts (same family as main site) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- 非阻塞加载：fonts.googleapis.com 在中国大陆不可达，
+       用 media="print" 让它不阻塞首屏，加载成功后再切回 all。 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap"></noscript>
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -396,6 +399,40 @@
       line-height: 1.55;
     }
 
+    /* ----- Photo Gallery ----- */
+    .env-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+      max-width: 100%;
+    }
+    .env-gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      transition: var(--transition);
+    }
+    .env-gallery-item:hover {
+      box-shadow: 0 4px 16px rgba(46,74,99,0.1);
+      transform: translateY(-2px);
+    }
+    .env-gallery-img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      background: #e8edf1;
+    }
+    .env-gallery-caption {
+      padding: 8px 10px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+      text-align: center;
+    }
+
     /* ----- Responsive ----- */
     @media (max-width: 768px) {
       .participant-hero { padding: 52px 20px 44px; }
@@ -414,6 +451,7 @@
       .participant-section h2 { font-size: 1.45rem; }
 
       .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
+      .env-gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
       .info-card { padding: 22px 22px 20px; }
       .check-item { padding: 18px 20px; gap: 14px; }
@@ -541,6 +579,25 @@
           <p>参加完晚间实验后，实验室会提供简单早餐（如牛奶和面包），确保您有充足能量。</p>
         </article>
       </div>
+
+      <div class="env-gallery">
+        <div class="env-gallery-item">
+          <img class="env-gallery-img" src="signup/photos/control-room.jpg" alt="实验控制室 — 双屏工作站与监控系统" loading="lazy">
+          <div class="env-gallery-caption">实验控制室</div>
+        </div>
+        <div class="env-gallery-item">
+          <img class="env-gallery-img" src="signup/photos/room1.jpg" alt="睡眠卧室 — 单人床与工作台" loading="lazy">
+          <div class="env-gallery-caption">房间1</div>
+        </div>
+        <div class="env-gallery-item">
+          <img class="env-gallery-img" src="signup/photos/room2.jpg" alt="睡眠卧室 — 另一视角" loading="lazy">
+          <div class="env-gallery-caption">房间2</div>
+        </div>
+        <div class="env-gallery-item">
+          <img class="env-gallery-img" src="signup/photos/washroom.jpg" alt="洗漱间 — 洗衣机与洗手台" loading="lazy">
+          <div class="env-gallery-caption">洗漱间</div>
+        </div>
+      </div>
     </section>
 
     <!-- PREPARATION -->
@@ -657,6 +714,48 @@
       </div>
     </section>
 
+    <!-- RECRUITING PROJECTS -->
+    <section class="participant-section" id="projects">
+      <h2>正在<em>招募</em>的实验项目</h2>
+      <p class="lead">
+        以下是当前正在招募被试的实验项目。每个项目独立招募，请根据您的时间和偏好选择适合的项目。点击"报名筛选"将进入问卷筛选流程。
+      </p>
+
+      <div class="card-grid card-grid-2">
+        <article class="info-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="display:inline-block;font-family:var(--font-display);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;color:#B8860B;background:#FDF6E3;border:1px solid #E8D5A0;">☀️ 午睡实验</span>
+          </div>
+          <h3>午睡与记忆研究</h3>
+          <p>
+            午睡对于记忆的影响
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-top:12px;border-top:1px solid var(--color-bg-alt);">
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">到访</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">2 次</span></div>
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">时长</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">第一天约 1.5h，第二天约 4.5h</span></div>
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">报酬</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">350 元</span></div>
+          </div>
+          <a href="signup/?project=nap-memory" style="display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:12px;border-radius:8px;background:var(--color-primary);color:var(--color-white);text-decoration:none;transition:var(--transition);letter-spacing:0.03em;">报名筛选 →</a>
+        </article>
+
+        <article class="info-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="display:inline-block;font-family:var(--font-display);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;color:#2E6B8A;background:#E8F4F8;border:1px solid #B8D8E8;">🌙 晚睡实验</span>
+          </div>
+          <h3>夜间睡眠研究</h3>
+          <p>
+            在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-top:12px;border-top:1px solid var(--color-bg-alt);">
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">到访</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">1 次（过夜）</span></div>
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">时长</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">约 14 小时</span></div>
+            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">报酬</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">待定</span></div>
+          </div>
+          <a href="signup/?project=overnight-sleep" style="display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:12px;border-radius:8px;background:var(--color-primary);color:var(--color-white);text-decoration:none;transition:var(--transition);letter-spacing:0.03em;">报名筛选 →</a>
+        </article>
+      </div>
+    </section>
+
     <!-- LOCATION -->
     <section class="participant-section" id="location">
       <h2>实验室<em>地点</em></h2>
@@ -667,8 +766,10 @@
       <article class="info-card location-card">
         <div class="location-name">睡眠与认知神经科学实验室</div>
         <div class="location-addr">
-          中国科学院心理研究所 · 和谐楼（南楼） 829 室<br>
-          北京市朝阳区林萃路 16 号
+          北京市朝阳区林萃路16号 · 中国科学院心理研究所<br>
+          和谐楼（南楼）829 室<br><br>
+          <strong>如何到达：</strong><br>
+          奥运村西公交站 / 北沙滩地铁站（B2东北口）
         </div>
       </article>
     </section>
@@ -686,6 +787,13 @@
             <path d="M2 7l10 7 10-7"/>
           </svg>
           xiatao@psych.ac.cn
+        </a>
+        <a href="mailto:xsleeplab@hotmail.com" class="contact-email" style="margin-top:4px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+          xsleeplab@hotmail.com（被试招募）
         </a>
         <div class="contact-dept">中国科学院心理研究所 · 睡眠与认知神经科学实验室</div>
       </article>
@@ -717,9 +825,10 @@
         <h4 data-i18n="footer.contactTitle">Contact</h4>
         <ul>
           <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
+          <li><a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a></li>
           <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
         </ul>
-        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">16 Lincui Road, Chaoyang District, Beijing 100101</p>
+        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">北京市朝阳区林萃路16号 中国科学院心理研究所 和谐楼（南楼）829室</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -732,6 +841,27 @@
   <script src="js/translations.js?v=2"></script>
   <script src="js/lang-switch.js"></script>
   <script src="js/nav.js"></script>
+  <script>
+    // 实验室照片可选：缺图时隐藏对应卡片，全部缺失则隐藏整个相册，
+    // 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
+    (function () {
+      var gallery = document.querySelector('.env-gallery');
+      if (!gallery) return;
+      var imgs = gallery.querySelectorAll('.env-gallery-img');
+      var pending = imgs.length;
+      var ok = 0;
+      function settle(img, loaded) {
+        if (loaded) ok++;
+        else { var item = img.closest('.env-gallery-item'); if (item) item.style.display = 'none'; }
+        if (--pending === 0 && ok === 0) gallery.style.display = 'none';
+      }
+      Array.prototype.forEach.call(imgs, function (img) {
+        if (img.complete) { settle(img, img.naturalWidth > 0); return; }
+        img.addEventListener('load', function () { settle(img, true); });
+        img.addEventListener('error', function () { settle(img, false); });
+      });
+    })();
+  </script>
 
 </body>
 </html>

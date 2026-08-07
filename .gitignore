@@ -1,6 +1,7 @@
 # OS
 .DS_Store
 Thumbs.db
+__MACOSX/
 
 # Editor
 .vscode/
@@ -9,3 +10,25 @@ Thumbs.db
 
 # Claude
 .claude/
+
+# ---------------------------------------------------------------
+# Participant management dev project (recruit/) — NOT part of the
+# published site. It is a nested git repo containing secrets
+# (backend/.env), a 65MB cloudflared.exe, venv/, node_modules/ and
+# internal lab documents. The deployable static form lives in
+# signup/ instead. Never commit recruit/ to this repository.
+# ---------------------------------------------------------------
+recruit/
+
+# Safety net: secrets, binaries and dependency trees
+.env
+.env.*
+!.env.example
+*.exe
+venv/
+node_modules/
+.worktrees/
+__pycache__/
+*.sqlite
+*.sqlite3
+instance/
