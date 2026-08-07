@@ -219,8 +219,22 @@
     .menu-toggle span{width:24px;height:2px;background:var(--color-white);border-radius:2px;transition:var(--transition)}
 
     @media(max-width:1024px){.lab-gallery{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}}
-    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.recruit-hero{padding:60px 20px 56px}.recruit-hero h1{font-size:2rem}.section{padding:56px 20px}.lab-gallery{grid-template-columns:1fr 1fr}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}.step-line{width:20px}.step-circle{width:30px;height:30px;font-size:0.75rem}}
-    @media(max-width:480px){.lab-gallery{grid-template-columns:1fr}.recruit-hero h1{font-size:1.65rem}.radio-group{flex-direction:column}.why-grid{grid-template-columns:1fr}}
+    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.recruit-hero{padding:60px 20px 56px}.recruit-hero h1{font-size:2rem}.section{padding:56px 20px}.lab-gallery{grid-template-columns:1fr 1fr}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}/* 9×28 + 8×12 = 348px，窄至 481px 的屏幕仍是一行（可用约 401px） */
+      .step-line{width:12px}.step-circle{width:28px;height:28px;font-size:0.74rem}
+      /* 16px 是 iOS Safari 的临界值：小于它，聚焦输入框会自动放大页面且不会缩回 */
+      .form-input{font-size:16px}
+      /* 触控目标提到 44px：DASS 有 21 题 × 4 选项，误触代价高 */
+      .radio-option label{padding:12px 16px}
+      .checkbox-grid .checkbox-group{padding:12px 14px}
+      .btn{padding:13px 24px}}
+    @media(max-width:480px){.lab-gallery{grid-template-columns:1fr}.recruit-hero h1{font-size:1.65rem}.radio-group{flex-direction:column}.why-grid{grid-template-columns:1fr}
+      /* 9 个步骤圆点必须挤进一行，否则 flex-wrap 会把连线甩到行尾。
+         9×24 + 8×6 = 264px，窄至 360px 的手机仍装得下（可用约 280px）。 */
+      .step-circle{width:24px;height:24px;font-size:0.68rem}
+      .step-line{width:6px}
+      /* 竖排后让整块可点，而不是只有文字那一小条 */
+      .radio-option label{width:100%}
+      .step-actions .btn{padding:13px 18px;font-size:0.88rem}}
   </style>
 </head>
 <body>
