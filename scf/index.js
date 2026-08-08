@@ -206,8 +206,17 @@ const slotsReady = () => bitableReady() && !!BITABLE_SLOT_TABLE_ID;
 
 const beijingDate = offsetDays => {
   const d = new Date(Date.now() + 8 * 3600 * 1000 + (offsetDays || 0) * 86400 * 1000);
-  return { iso: d.toISOString().slice(0, 10), weekday: WEEKDAYS[d.getUTCDay()] };
+  const iso = d.toISOString().slice(0, 10);
+  return { iso, weekday: WEEKDAYS[d.getUTCDay()], stamp: dateStamp(iso) };
 };
+
+// 多维表格的「日期」列存毫秒时间戳。取北京时间当天零点，日历视图里才落在正确那一格。
+// 注意：所有查找与预约都以「时段ID」文本为准，这个时间戳纯粹供日历视图显示，
+// 即使时区显示有偏差也不会影响预约逻辑。
+function dateStamp(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return Date.UTC(y, m - 1, d) - 8 * 3600 * 1000;
+}
 
 function bitableUrl(tableId, suffix) {
   return 'https://open.feishu.cn/open-apis/bitable/v1/apps/' +
@@ -275,14 +284,14 @@ async function buildSlotGrid() {
 
   const wanted = [];
   for (let i = 1; i <= SLOT_DAYS; i++) {          // 从明天起，不开放当天
-    const { iso, weekday } = beijingDate(i);
-    LABS.forEach(lab => wanted.push({ iso, weekday, lab, key: slotKey(iso, lab) }));
+    const { iso, weekday, stamp } = beijingDate(i);
+    LABS.forEach(lab => wanted.push({ iso, weekday, stamp, lab, key: slotKey(iso, lab) }));
   }
 
   const missing = wanted.filter(w => !byKey[w.key]);
   if (missing.length) {
     const records = missing.map(w => ({
-      fields: { '时段ID': w.key, '日期': w.iso, '星期': w.weekday, '实验室': w.lab, '状态': '可预约' },
+      fields: { '时段ID': w.key, '日期': w.stamp, '星期': w.weekday, '实验室': w.lab, '状态': '可预约' },
     }));
     // 分批，飞书单次上限 1000
     for (let i = 0; i < records.length; i += 500) {
