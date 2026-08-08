@@ -141,6 +141,7 @@ function buildFields(d) {
     '邮箱': safe(d.email, 60),
     '报名项目': safe(d.project && d.project.title, 40),
     '中止原因': d.exit ? safe(d.exit.where + '：' + d.exit.why, 100) : '',
+    '预约时段': d.booking && d.booking.key ? safe(String(d.booking.key).replace('|', ' '), 40) : '',
   };
   const age = asNumber(d.age);
   if (age !== null) f['年龄'] = age;
@@ -188,6 +189,150 @@ async function appendBitableRow(d) {
     throw err;
   }
   return 'ok';
+}
+
+// ---------------------------------------------------------------- slots
+// 预约时段。表里的行由函数自动补齐（未来 SLOT_DAYS 天 × 两间实验室），
+// 主试只需把某一格的「状态」改成「关闭」即可停用，不必手工建行。
+//
+// 隐私：给被试的接口只返回日期/实验室/可用与否，预约人姓名与邮箱在函数
+// 内部就被丢弃，不是靠前端隐藏——数据根本不出服务端。
+
+const BITABLE_SLOT_TABLE_ID = process.env.BITABLE_SLOT_TABLE_ID || '';
+const SLOT_DAYS = 28;                 // 开放未来四周
+const LABS = ['Lab 1', 'Lab 2'];      // 两间睡眠实验室，每天各一个名额
+const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+const slotsReady = () => bitableReady() && !!BITABLE_SLOT_TABLE_ID;
+
+const beijingDate = offsetDays => {
+  const d = new Date(Date.now() + 8 * 3600 * 1000 + (offsetDays || 0) * 86400 * 1000);
+  return { iso: d.toISOString().slice(0, 10), weekday: WEEKDAYS[d.getUTCDay()] };
+};
+
+function bitableUrl(tableId, suffix) {
+  return 'https://open.feishu.cn/open-apis/bitable/v1/apps/' +
+         encodeURIComponent(BITABLE_APP_TOKEN) + '/tables/' +
+         encodeURIComponent(tableId) + '/records' + (suffix || '');
+}
+
+function requestJSON(method, url, payload, token) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(url);
+    const data = payload ? Buffer.from(JSON.stringify(payload), 'utf8') : null;
+    const headers = { Authorization: 'Bearer ' + token };
+    if (data) {
+      headers['Content-Type'] = 'application/json';
+      headers['Content-Length'] = data.length;
+    }
+    const req = https.request({
+      hostname: u.hostname, path: u.pathname + u.search, method: method,
+      headers: headers, timeout: 4000,
+    }, res => {
+      let body = '';
+      res.setEncoding('utf8');
+      res.on('data', c => { body += c; });
+      res.on('end', () => {
+        try { resolve(JSON.parse(body)); }
+        catch (e) { reject(new Error('非 JSON 响应: ' + body.slice(0, 200))); }
+      });
+    });
+    req.on('timeout', () => req.destroy(new Error('bitable request timeout')));
+    req.on('error', reject);
+    if (data) req.write(data);
+    req.end();
+  });
+}
+
+async function listSlotRecords(token) {
+  const out = [];
+  let pageToken = '';
+  for (let page = 0; page < 6; page++) {      // 上限 3000 行，防跑飞
+    const q = '?page_size=500' + (pageToken ? '&page_token=' + encodeURIComponent(pageToken) : '');
+    const j = await requestJSON('GET', bitableUrl(BITABLE_SLOT_TABLE_ID, q), null, token);
+    if (j.code !== 0) throw Object.assign(new Error('读取时段表失败 ' + j.code + ' ' + j.msg), { bitableCode: j.code });
+    const d = j.data || {};
+    (d.items || []).forEach(r => out.push(r));
+    if (!d.has_more || !d.page_token) break;
+    pageToken = d.page_token;
+  }
+  return out;
+}
+
+const slotKey = (iso, lab) => iso + '|' + lab;
+const fieldText = v => (Array.isArray(v) ? (v[0] && (v[0].text || v[0])) : v) || '';
+
+// 返回未来四周的完整网格，缺失的行顺带补建
+async function buildSlotGrid() {
+  const token = await tenantToken();
+  const existing = await listSlotRecords(token);
+
+  const byKey = {};
+  existing.forEach(r => {
+    const f = r.fields || {};
+    const key = String(fieldText(f['时段ID']) || '');
+    if (key) byKey[key] = { id: r.record_id, status: String(fieldText(f['状态']) || '可预约') };
+  });
+
+  const wanted = [];
+  for (let i = 1; i <= SLOT_DAYS; i++) {          // 从明天起，不开放当天
+    const { iso, weekday } = beijingDate(i);
+    LABS.forEach(lab => wanted.push({ iso, weekday, lab, key: slotKey(iso, lab) }));
+  }
+
+  const missing = wanted.filter(w => !byKey[w.key]);
+  if (missing.length) {
+    const records = missing.map(w => ({
+      fields: { '时段ID': w.key, '日期': w.iso, '星期': w.weekday, '实验室': w.lab, '状态': '可预约' },
+    }));
+    // 分批，飞书单次上限 1000
+    for (let i = 0; i < records.length; i += 500) {
+      const j = await requestJSON('POST', bitableUrl(BITABLE_SLOT_TABLE_ID, '/batch_create'),
+        { records: records.slice(i, i + 500) }, token);
+      if (j.code !== 0) throw Object.assign(new Error('补建时段失败 ' + j.code + ' ' + j.msg), { bitableCode: j.code });
+      (j.data && j.data.records || []).forEach(r => {
+        byKey[String(fieldText((r.fields || {})['时段ID']))] = { id: r.record_id, status: '可预约' };
+      });
+    }
+  }
+
+  // 只回可用性，绝不含预约人信息
+  return wanted.map(w => {
+    const row = byKey[w.key] || { status: '可预约' };
+    return { key: w.key, date: w.iso, weekday: w.weekday, lab: w.lab, status: row.status };
+  });
+}
+
+// 预约：写入前先确认该格仍是「可预约」，写入后回读校验，尽量压缩撞单窗口
+async function bookSlot(key, d) {
+  const token = await tenantToken();
+  const rows = await listSlotRecords(token);
+  const hit = rows.find(r => String(fieldText((r.fields || {})['时段ID'])) === key);
+  if (!hit) return { ok: false, reason: 'not-found' };
+
+  const status = String(fieldText((hit.fields || {})['状态']) || '可预约');
+  if (status !== '可预约') return { ok: false, reason: status === '关闭' ? 'closed' : 'taken' };
+
+  const j = await requestJSON('PUT', bitableUrl(BITABLE_SLOT_TABLE_ID, '/' + hit.record_id), {
+    fields: {
+      '状态': '已预约',
+      '预约人': safe(d.name, 40),
+      '预约邮箱': safe(d.email, 60),
+      '预约项目': safe(d.project && d.project.title, 40),
+      '预约时间': beijingNow(),
+    },
+  }, token);
+  if (j.code !== 0) return { ok: false, reason: 'write-failed', code: j.code };
+
+  // 回读校验：多维表格没有唯一约束，并发写会互相覆盖。若回读到的
+  // 预约人不是自己，说明被别人抢先了，让后到者重选。
+  const after = await requestJSON('GET', bitableUrl(BITABLE_SLOT_TABLE_ID, '/' + hit.record_id), null, token);
+  if (after.code === 0) {
+    const record = (after.data && after.data.record) || {};
+    const who = String(fieldText((record.fields || {})['预约人']) || '');
+    if (who && who !== safe(d.name, 40)) return { ok: false, reason: 'taken' };
+  }
+
+  return { ok: true, key: key };
 }
 
 // ---------------------------------------------------------------- card
@@ -284,12 +429,10 @@ function buildCard(d) {
             ' / 焦虑 ' + safe(dass.anxiety, 6) + ' / 压力 ' + safe(dass.stress, 6) +
             ' ' + yn(dass.pass), qaLines(detail.dass, 25)),
     divider,
-    section('📅 时间安排', [
-      '可用日：' + safe(sched.days, 60),
-      '灵活度：' + safe(sched.flexibility, 40),
-      '最早开始：' + safe(sched.earliest, 20),
-      '备注：' + safe(sched.note, 200),
-    ]),
+    section('📅 预约时段', d.booking && d.booking.key
+      ? ['**' + safe(String(d.booking.key).replace('|', '　'), 40) + '**',
+         '备注：' + (safe(sched.note, 200) || '无')]
+      : ['被试尚未选择时段', '备注：' + (safe(sched.note, 200) || '无')]),
   ];
 
   return {
@@ -346,8 +489,32 @@ exports.main_handler = async (event) => {
   } catch (e) {
     return reply(400, origin, { ok: false, error: 'invalid JSON' });
   }
+  // 查询可用时段：不需要身份，也不返回任何预约人信息
+  if (data && data.action === 'slots') {
+    if (!slotsReady()) return reply(200, origin, { ok: true, slots: [], disabled: true });
+    try {
+      return reply(200, origin, { ok: true, slots: await buildSlotGrid() });
+    } catch (e) {
+      console.error('[slots]', e && e.message);
+      return reply(200, origin, { ok: true, slots: [], disabled: true, code: e && e.bitableCode });
+    }
+  }
+
   if (!data || !data.name || !data.email) {
     return reply(400, origin, { ok: false, error: 'missing name/email' });
+  }
+
+  // 预约要先于归档：时段被抢走时应让被试重选，而不是记录一条无时段的报名
+  let booking = null;
+  if (data.booking && data.booking.key && slotsReady()) {
+    try {
+      const r = await bookSlot(String(data.booking.key), data);
+      if (!r.ok) return reply(200, origin, { ok: false, error: 'slot-' + r.reason });
+      booking = data.booking.key;
+    } catch (e) {
+      console.error('[book]', e && e.message);
+      return reply(200, origin, { ok: false, error: 'slot-write-failed' });
+    }
   }
 
   // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志。
@@ -376,9 +543,10 @@ exports.main_handler = async (event) => {
     }
     // archived 便于在浏览器控制台一眼看出归档是否配好
     const archived = await archiving;
-    return reply(200, origin,
-      archiveCode === null ? { ok: true, archived }
-                           : { ok: true, archived, archiveCode });
+    const body = { ok: true, archived };
+    if (booking) body.booking = booking;
+    if (archiveCode !== null) body.archiveCode = archiveCode;
+    return reply(200, origin, body);
   } catch (e) {
     console.error('转发飞书失败:', e && e.message);
     await archiving;   // 别让未处理的 promise 悬着
