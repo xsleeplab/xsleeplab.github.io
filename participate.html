@@ -77,6 +77,28 @@
       max-width: 640px;
     }
 
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 26px;
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      background: var(--color-white);
+      padding: 13px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+    }
+
     /* ----- Info strip (3 facts) ----- */
     .info-strip {
       background: var(--color-bg-alt);
@@ -399,38 +421,200 @@
       line-height: 1.55;
     }
 
-    /* ----- Photo Gallery ----- */
-    .env-gallery {
+    /* ----- Lab photos -----
+       Deliberately share .info-card's radius, border, shadow, hover lift and
+       caption colour: the photos previously used their own 12px radius, no
+       shadow and grey captions, which is why they read as a strip pasted
+       under the section rather than part of it. */
+    .env-photos {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 28px;
-      max-width: 100%;
+      gap: 16px;
+      margin: 0 0 24px;
     }
-    .env-gallery-item {
-      border-radius: 12px;
+    .env-photo {
+      margin: 0;
+      border-radius: var(--radius);
       overflow: hidden;
       background: var(--color-white);
       border: 1px solid var(--color-border);
-      transition: var(--transition);
+      box-shadow: var(--shadow);
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .env-gallery-item:hover {
-      box-shadow: 0 4px 16px rgba(46,74,99,0.1);
-      transform: translateY(-2px);
+    .env-photo:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
     }
-    .env-gallery-img {
+    .env-photo img {
       width: 100%;
       aspect-ratio: 3 / 4;
       object-fit: cover;
       display: block;
-      background: #e8edf1;
+      background: var(--color-bg-alt);
     }
-    .env-gallery-caption {
-      padding: 8px 10px;
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.82rem;
-      color: var(--color-text-light);
+    .env-photo figcaption {
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
       text-align: center;
+      border-top: 1px solid var(--color-bg-alt);
+    }
+
+    /* ----- Recruiting project cards ----- */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 26px 24px;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
+    }
+    /* Day vs night is carried by lightness, not by introducing a second hue —
+       the previous gold badge sat outside the Morandi blue palette. */
+    .project-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+    .project-badge.day {
+      color: var(--color-primary-dark);
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+    }
+    .project-badge.night {
+      color: var(--color-white);
+      background: var(--color-primary-dark);
+      border: 1px solid var(--color-primary-dark);
+    }
+    .project-card h3 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+    }
+    .project-card > p {
+      font-size: 0.96rem;
+      line-height: 1.8;
+      color: var(--color-text-light);
+      margin-bottom: 20px;
+    }
+    /* Fixed three-column grid so a long duration string can't shove the
+       other two facts out of alignment, as the old flex row did. */
+    .project-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: auto 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-bg-alt);
+    }
+    .project-meta > div { min-width: 0; }
+    .project-meta dt {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--color-text-light);
+      margin-bottom: 5px;
+    }
+    .project-meta dd {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.55;
+    }
+    .project-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 13px;
+      border-radius: 8px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .project-cta:hover { background: var(--color-primary-dark); }
+
+    /* ----- Optional items to bring -----
+       Split out of the checklist: the first five entries are requirements,
+       this one is a packing list, and nesting a bullet list inside a
+       checklist row broke the rhythm of the card. */
+    .bring-card {
+      margin-top: 20px;
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+    }
+    .bring-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .bring-head .check-glyph { margin-top: 0; }
+    .bring-head h3 {
+      font-family: 'Noto Serif SC', Georgia, serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: 0.03em;
+      margin: 0;
+    }
+    .bring-card > p {
+      font-size: 0.96rem;
+      line-height: 1.78;
+      color: var(--color-text-light);
+      margin-bottom: 16px;
+    }
+    .bring-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bring-list li {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: var(--color-text-light);
+    }
+    .bring-list strong {
+      display: block;
+      color: var(--color-primary-dark);
+      font-weight: 600;
+      margin-bottom: 2px;
     }
 
     /* ----- Responsive ----- */
@@ -451,7 +635,11 @@
       .participant-section h2 { font-size: 1.45rem; }
 
       .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .env-gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .env-photos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { padding: 22px 22px 20px; }
+      .bring-card { padding: 20px 22px; }
+      .bring-list { grid-template-columns: 1fr; }
 
       .info-card { padding: 22px 22px 20px; }
       .check-item { padding: 18px 20px; gap: 14px; }
@@ -490,7 +678,8 @@
     <div class="page-hero-inner">
       <p class="page-hero-label">参与者须知 · 中国科学院心理研究所</p>
       <h1>睡眠脑电实验<em>参与者须知</em></h1>
-      <p>欢迎您参与我们的研究。请在实验开始前仔细阅读以下全部说明，如有任何不清楚的地方，欢迎随时联系研究人员。</p>
+      <p>欢迎您参与我们的研究。下方列出了正在招募的实验项目，以及参与前需要了解的全部说明。如有任何不清楚的地方，欢迎随时联系我们。</p>
+      <a class="hero-cta" href="#projects">查看正在招募的项目 ↓</a>
     </div>
   </div>
 
@@ -516,6 +705,45 @@
 
   <!-- ========== MAIN CONTENT ========== -->
   <main class="participant-main">
+
+    <!-- RECRUITING PROJECTS -->
+    <section class="participant-section" id="projects">
+      <h2>正在<em>招募</em>的实验项目</h2>
+      <p class="lead">
+        以下项目正在招募参与者，各自独立报名。请根据自己的时间选择合适的项目，点击「报名筛选」进入问卷。
+        本页下方是完整的参与者须知，建议报名前一并读完。
+      </p>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <span class="project-badge day">☀️ 午睡实验</span>
+          <h3>午睡与记忆研究</h3>
+          <p>
+            考察午睡对新近学习内容的记忆巩固作用。您需要在两天内到访两次，第二天佩戴脑电帽完成一次午睡。
+          </p>
+          <dl class="project-meta">
+            <div><dt>到访</dt><dd>2 次</dd></div>
+            <div><dt>时长</dt><dd>约 1.5h + 4.5h</dd></div>
+            <div><dt>报酬</dt><dd>350 元</dd></div>
+          </dl>
+          <a class="project-cta" href="signup/?project=nap-memory">报名筛选 →</a>
+        </article>
+
+        <article class="project-card">
+          <span class="project-badge night">🌙 晚睡实验</span>
+          <h3>夜间睡眠研究</h3>
+          <p>
+            在实验室完成一次过夜睡眠，全程记录睡眠脑电。次日清晨用过早餐、完成一组简短测试后即可离开。
+          </p>
+          <dl class="project-meta">
+            <div><dt>到访</dt><dd>1 次（过夜）</dd></div>
+            <div><dt>时长</dt><dd>约 14 小时</dd></div>
+            <div><dt>报酬</dt><dd>450 元</dd></div>
+          </dl>
+          <a class="project-cta" href="signup/?project=overnight-sleep">报名筛选 →</a>
+        </article>
+      </div>
+    </section>
 
     <!-- ETHICS & CONSENT -->
     <section class="participant-section" id="ethics">
@@ -560,6 +788,25 @@
         我们为实验准备了舒适的睡眠环境。实验室内配备干净整洁的卧室和卫生间，确保您在实验期间可以安心休息。
       </p>
 
+      <div class="env-photos">
+        <figure class="env-photo">
+          <img src="signup/photos/room1.jpg" alt="睡眠监测室 A：单人床与床边工作台" loading="lazy">
+          <figcaption>睡眠监测室 A</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/room2.jpg" alt="睡眠监测室 B：另一间独立卧室" loading="lazy">
+          <figcaption>睡眠监测室 B</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/control-room.jpg" alt="实验控制室：主试在此监看脑电信号" loading="lazy">
+          <figcaption>实验控制室</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/washroom.jpg" alt="洗漱更衣室：洗手台与洗漱区" loading="lazy">
+          <figcaption>洗漱更衣室</figcaption>
+        </figure>
+      </div>
+
       <div class="card-grid card-grid-3">
         <article class="info-card">
           <div class="info-card-icon">🛏️</div>
@@ -570,33 +817,14 @@
         <article class="info-card">
           <div class="info-card-icon">🚿</div>
           <h3>洗浴设施</h3>
-          <p>卫生间提供淋浴、洗发水、沐浴露、拖鞋、毛巾和吹风机。实验结束后，您可以在浴室清洗头发。</p>
+          <p>卫生间提供淋浴、洗发水、沐浴露、拖鞋、毛巾和吹风机。实验结束后，您可以在此清洗头发。</p>
         </article>
 
         <article class="info-card">
           <div class="info-card-icon">🍞</div>
           <h3>用餐安排</h3>
-          <p>参加完晚间实验后，实验室会提供简单早餐（如牛奶和面包），确保您有充足能量。</p>
+          <p>参加晚睡实验的参与者，次日清晨我们会提供简单早餐（牛奶与面包）。</p>
         </article>
-      </div>
-
-      <div class="env-gallery">
-        <div class="env-gallery-item">
-          <img class="env-gallery-img" src="signup/photos/control-room.jpg" alt="实验控制室 — 双屏工作站与监控系统" loading="lazy">
-          <div class="env-gallery-caption">实验控制室</div>
-        </div>
-        <div class="env-gallery-item">
-          <img class="env-gallery-img" src="signup/photos/room1.jpg" alt="睡眠卧室 — 单人床与工作台" loading="lazy">
-          <div class="env-gallery-caption">房间1</div>
-        </div>
-        <div class="env-gallery-item">
-          <img class="env-gallery-img" src="signup/photos/room2.jpg" alt="睡眠卧室 — 另一视角" loading="lazy">
-          <div class="env-gallery-caption">房间2</div>
-        </div>
-        <div class="env-gallery-item">
-          <img class="env-gallery-img" src="signup/photos/washroom.jpg" alt="洗漱间 — 洗衣机与洗手台" loading="lazy">
-          <div class="env-gallery-caption">洗漱间</div>
-        </div>
       </div>
     </section>
 
@@ -648,19 +876,20 @@
           </div>
         </div>
 
-        <div class="check-item">
-          <div class="check-glyph">🧴</div>
-          <div class="check-body">
-            <h3>可自带的小物品</h3>
-            <p>您不需要特别准备什么。如果想让自己在实验期间更舒服、更容易入睡，可以带一些小东西：</p>
-            <ul>
-              <li>牙刷和牙膏：实验室不提供，请自备。</li>
-              <li>睡衣：带上自己舒服的睡衣，更容易休息好。</li>
-              <li>毛巾：实验室会提供干净毛巾，习惯用自己的也可以带。</li>
-              <li>其他必要洗漱用品。</li>
-            </ul>
-          </div>
+      </div>
+
+      <div class="bring-card">
+        <div class="bring-head">
+          <span class="check-glyph">🧴</span>
+          <h3>可自带的小物品</h3>
         </div>
+        <p>以上五条是需要配合的事项。下面这些则完全可选——带上会更舒服，不带也不影响实验进行。</p>
+        <ul class="bring-list">
+          <li><strong>牙刷与牙膏</strong>出于卫生考虑实验室不提供，参加晚睡实验建议自备。</li>
+          <li><strong>睡衣</strong>穿惯的睡衣更容易放松入睡。</li>
+          <li><strong>毛巾</strong>实验室提供干净毛巾，习惯用自己的也可以带。</li>
+          <li><strong>洗漱与助眠用品</strong>如洗面奶、护肤品，或平时习惯的眼罩、耳塞。</li>
+        </ul>
       </div>
     </section>
 
@@ -692,10 +921,13 @@
           <div class="info-card-icon">🌞</div>
           <h3>午睡实验</h3>
           <p>
-            参与实验前，请先自行洗头并保持头发干燥（避免使用护发素），以确保脑电帽覆盖区域清洁。随后，主试将进行行为实验，并帮助您佩戴脑电帽，调整电极位置与阻抗，以保证高质量的脑电信号。
+            实验当天请先自行洗头并吹干（不要使用护发素），保证脑电帽覆盖区域清洁。到达后，主试会先带您完成当天的行为任务，随后为您佩戴脑电帽，逐一调整电极位置与阻抗。
           </p>
           <p>
-            实验过程中，您将躺在实验室准备的床上进行午睡，全程保持安静和放松。主试将在门外的控制室通过监控设备观察脑电信号，并记录实验情况。实验结束后，您可以使用实验室提供的淋浴设施清洗头发，并领取报酬。
+            午睡期间您将躺在实验室的床上休息，请尽量放松，减少眨眼与头部动作，以免干扰信号。主试在隔壁控制室通过监控观察脑电信号，必要时会进来为您调整电极。
+          </p>
+          <p>
+            实验结束后，您可以使用实验室的淋浴设施清洗头发，我们提供洗发水与吹风机。整理完毕即可领取报酬。
           </p>
           <span class="info-card-tag">午睡流程</span>
         </article>
@@ -704,54 +936,15 @@
           <div class="info-card-icon">🌙</div>
           <h3>晚睡实验</h3>
           <p>
-            晚睡实验流程与午睡类似：实验前请先自行洗头并保持头发干燥（避免使用护发素）、保证前一晚的充足睡眠，并在实验前 24 小时避免饮用咖啡、浓茶、饮酒及吸烟。研究人员将协助您佩戴脑电帽，并调整电极位置与阻抗，以保证脑电信号质量。
+            实验当天请先自行洗头并吹干（不要使用护发素），保证前一晚睡眠充足，并在实验前 24 小时内避免咖啡、浓茶、酒精与吸烟。到达后，主试会带您熟悉环境、完成当晚的行为任务，随后为您佩戴脑电帽，逐一调整电极位置与阻抗。
           </p>
           <p>
-            实验过程中，您将躺在实验室提供的舒适床上休息，全程保持安静和放松，尽量减少眨眼和头部动作。主试将在门外控制室观察脑电信号，并在必要时调整电极。实验结束后，您可使用实验室提供的淋浴设施清洗头发，整理完毕后领取报酬。
+            入睡后我们将全程记录您的睡眠脑电。请尽量放松，减少眨眼与头部动作，以免干扰信号。主试在隔壁控制室通过监控观察脑电信号，必要时会轻声进来为您调整电极。
+          </p>
+          <p>
+            次日清晨起床后，我们会提供简单早餐，您完成一组简短的晨间测试即可离开。离开前同样可以使用淋浴设施清洗头发，随后领取报酬。
           </p>
           <span class="info-card-tag">晚睡流程</span>
-        </article>
-      </div>
-    </section>
-
-    <!-- RECRUITING PROJECTS -->
-    <section class="participant-section" id="projects">
-      <h2>正在<em>招募</em>的实验项目</h2>
-      <p class="lead">
-        以下是当前正在招募被试的实验项目。每个项目独立招募，请根据您的时间和偏好选择适合的项目。点击"报名筛选"将进入问卷筛选流程。
-      </p>
-
-      <div class="card-grid card-grid-2">
-        <article class="info-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span style="display:inline-block;font-family:var(--font-display);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;color:#B8860B;background:#FDF6E3;border:1px solid #E8D5A0;">☀️ 午睡实验</span>
-          </div>
-          <h3>午睡与记忆研究</h3>
-          <p>
-            午睡对于记忆的影响
-          </p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-top:12px;border-top:1px solid var(--color-bg-alt);">
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">到访</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">2 次</span></div>
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">时长</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">第一天约 1.5h，第二天约 4.5h</span></div>
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">报酬</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">350 元</span></div>
-          </div>
-          <a href="signup/?project=nap-memory" style="display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:12px;border-radius:8px;background:var(--color-primary);color:var(--color-white);text-decoration:none;transition:var(--transition);letter-spacing:0.03em;">报名筛选 →</a>
-        </article>
-
-        <article class="info-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-            <span style="display:inline-block;font-family:var(--font-display);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;color:#2E6B8A;background:#E8F4F8;border:1px solid #B8D8E8;">🌙 晚睡实验</span>
-          </div>
-          <h3>夜间睡眠研究</h3>
-          <p>
-            在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。
-          </p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding-top:12px;border-top:1px solid var(--color-bg-alt);">
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">到访</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">1 次（过夜）</span></div>
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">时长</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">约 14 小时</span></div>
-            <div><span style="font-family:var(--font-display);font-size:0.7rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em;">报酬</span><br><span style="font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary);">450 元</span></div>
-          </div>
-          <a href="signup/?project=overnight-sleep" style="display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:12px;border-radius:8px;background:var(--color-primary);color:var(--color-white);text-decoration:none;transition:var(--transition);letter-spacing:0.03em;">报名筛选 →</a>
         </article>
       </div>
     </section>
@@ -764,7 +957,7 @@
       </p>
 
       <article class="info-card location-card">
-        <div class="location-name">睡眠与认知神经科学实验室</div>
+        <div class="location-name">睡眠认知神经科学实验室</div>
         <div class="location-addr">
           北京市朝阳区林萃路16号 · 中国科学院心理研究所<br>
           和谐楼（南楼）829 室<br><br>
@@ -795,7 +988,7 @@
           </svg>
           xsleeplab@hotmail.com（被试招募）
         </a>
-        <div class="contact-dept">中国科学院心理研究所 · 睡眠与认知神经科学实验室</div>
+        <div class="contact-dept">中国科学院心理研究所 · 睡眠认知神经科学实验室</div>
       </article>
     </section>
 
@@ -845,14 +1038,14 @@
     // 实验室照片可选：缺图时隐藏对应卡片，全部缺失则隐藏整个相册，
     // 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
     (function () {
-      var gallery = document.querySelector('.env-gallery');
+      var gallery = document.querySelector('.env-photos');
       if (!gallery) return;
-      var imgs = gallery.querySelectorAll('.env-gallery-img');
+      var imgs = gallery.querySelectorAll('img');
       var pending = imgs.length;
       var ok = 0;
       function settle(img, loaded) {
         if (loaded) ok++;
-        else { var item = img.closest('.env-gallery-item'); if (item) item.style.display = 'none'; }
+        else { var item = img.closest('.env-photo'); if (item) item.style.display = 'none'; }
         if (--pending === 0 && ok === 0) gallery.style.display = 'none';
       }
       Array.prototype.forEach.call(imgs, function (img) {
