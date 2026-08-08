@@ -221,7 +221,7 @@
     if (page === 'participate') {
       /* Content is Chinese-only by design; title stays Chinese in both modes
          (avoids a title flash on first load in EN default). */
-      document.title = '睡眠脑电实验参与者须知 | X-Sleep Lab';
+      document.title = '睡眠实验参与者须知 | X-Sleep Lab';
     }
 
     /* ---- html lang attribute ---- */
