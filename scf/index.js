@@ -99,7 +99,33 @@ const section = (title, lines) => ({
 const qaLines = (list, max) =>
   safeList(list, max).map(it => '· ' + safe(it.q, 60) + '：' + safe(it.a, 60));
 
+// 提前退出的人没答完量表，不该套用完整卡片（那会把未作答显示成满分）。
+// 用一张三行的紧凑卡片记录，既能统计漏斗，也不会刷屏。
+function buildEarlyExitCard(d) {
+  const exit = d.exit || {};
+  return {
+    msg_type: 'interactive',
+    card: {
+      header: {
+        title: { tag: 'plain_text', content: '⏹ 报名中止 · ' + safe(exit.where, 12) },
+        template: 'grey',
+      },
+      elements: [
+        { tag: 'div', fields: [
+          { is_short: true, text: { tag: 'lark_md', content: '**姓名：**' + safe(d.name, 40) } },
+          { is_short: true, text: { tag: 'lark_md', content: '**年龄：**' + safe(d.age, 6) } },
+          { is_short: true, text: { tag: 'lark_md', content: '**手机：**' + safe(d.phone, 30) } },
+          { is_short: true, text: { tag: 'lark_md', content: '**项目：**' + safe(d.project && d.project.title, 40) } },
+        ]},
+        { tag: 'div', text: { tag: 'lark_md', content: '**中止原因：**' + safe(exit.why, 80) } },
+        { tag: 'note', elements: [{ tag: 'plain_text', content: '该被试在填写过程中即被排除，未完成量表。' }] },
+      ],
+    },
+  };
+}
+
 function buildCard(d) {
+  if (d.outcome === 'early-exit') return buildEarlyExitCard(d);
   const s = d.scores || {};
   const psqi = s.psqi || {}, isi = s.isi || {}, rmeq = s.rmeq || {}, dass = s.dass || {};
   const vision = d.vision || {};

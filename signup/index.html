@@ -958,7 +958,7 @@ function showEarlyExit(exit) {
 function goNext() {
   if (!validateStep(currentStep)) return;
   const exit = earlyExitReason(currentStep);
-  if (exit) { showEarlyExit(exit); return; }
+  if (exit) { reportEarlyExit(exit); showEarlyExit(exit); return; }
   const i = activeSteps.indexOf(currentStep);
   if (i > -1 && i < activeSteps.length - 1) showStep(activeSteps[i + 1]);
 }
@@ -1156,6 +1156,10 @@ function submitQuestionnaire() {
     // 不列出具体原因——避免把淘汰归因到某项心理或睡眠指标上。
     const reasonBox = document.getElementById('fail-reason');
     if (reasonBox) reasonBox.style.display = 'none';
+    // 走完全程仍不合格的，此处自动记录（合格者改为在确认页提交时记录）
+    const record = collectSubmission();
+    record.outcome = 'failed';
+    postOutcome(record);
     // 染发是「等三个月后可再报名」，与其他永久性排除不同，单独说明。
     const dyeNote = document.getElementById('fail-dye-note');
     if (dyeNote) {
@@ -1254,9 +1258,10 @@ function collectSubmission() {
     ]);
 
   return {
-    name:  document.getElementById('confirm-name').value.trim(),
-    email: document.getElementById('confirm-email').value.trim(),
-    phone: document.getElementById('confirm-phone').value.trim(),
+    // 不合格与提前退出不会经过确认页，联系方式回落到第 1 步填的
+    name:  (val('confirm-name')  || val('f-name')).trim(),
+    email: (val('confirm-email') || val('f-email')).trim(),
+    phone: (val('confirm-phone') || val('f-phone')).trim(),
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
     age: document.getElementById('f-age').value,
     overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
@@ -1301,6 +1306,32 @@ function collectSubmission() {
   };
 }
 
+// 不合格与提前退出也要记录，否则无从知道招募漏斗在哪一环流失、
+// 也无从判断某条筛选标准是不是过严。这类记录静默发送，失败不打扰被试。
+function postOutcome(payload) {
+  try {
+    fetch(SUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  } catch (e) {
+    console.error('[X-Sleep] 记录失败:', e);
+  }
+}
+
+function reportEarlyExit(exit) {
+  const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
+  const v = id => ((document.getElementById(id) || {}).value || '').trim();
+  postOutcome({
+    outcome: 'early-exit',
+    overallPass: false,
+    name: v('f-name'), email: v('f-email'), phone: v('f-phone'), age: v('f-age'),
+    project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
+    exit: { where: exit.where, why: exit.why },
+  });
+}
+
 function sendEmail() {
   const btn = document.getElementById('btn-send-email');
   const st  = document.getElementById('email-status');
@@ -1312,10 +1343,13 @@ function sendEmail() {
   st.className = 'form-submit-status';
   st.textContent = '';
 
+  const submission = collectSubmission();
+  submission.outcome = 'passed';
+
   fetch(SUBMIT_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(collectSubmission())
+    body: JSON.stringify(submission)
   })
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(d => { if (!d || d.ok !== true) throw new Error((d && d.error) || '服务端未确认送达'); })
