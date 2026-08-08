@@ -75,7 +75,9 @@ function postJSON(url, payload, extraHeaders) {
       path: u.pathname + u.search,
       method: 'POST',
       headers: headers,
-      timeout: 8000,
+      // 单次请求 4s：一次提交最多三次调用（取 token、写表、发卡片），
+      // 累计仍留在函数 15s 超时之内。
+      timeout: 4000,
     }, res => {
       let body = '';
       res.setEncoding('utf8');
