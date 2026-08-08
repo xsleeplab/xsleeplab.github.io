@@ -328,7 +328,7 @@
           <p>如有任何疑问，请随时联系实验人员。</p>
         </div>
         <div class="form-group"><div class="checkbox-group"><input type="checkbox" id="consent-check"><label for="consent-check">我已阅读并理解以上知情同意书，自愿参加本研究</label></div><div class="form-error" id="err-consent">请勾选同意知情同意书</div></div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="backToLanding()">← 返回</button><button class="btn btn-primary" onclick="goToStep(1)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="backToLanding()">← 返回</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-1">
@@ -346,7 +346,7 @@
           <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
           <div class="form-group"><label class="form-label">身份</label><div class="radio-group"><div class="radio-option"><input type="radio" name="identity" id="id-student" value="学生"><label for="id-student">学生</label></div><div class="radio-option"><input type="radio" name="identity" id="id-work" value="在职"><label for="id-work">在职</label></div></div></div>
         </div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(0)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(2)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-2">
@@ -392,7 +392,7 @@
         </div>
 
         <div class="form-error" id="err-vision">请完整填写视力信息</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(1)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(3)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-3">
@@ -436,7 +436,7 @@
         </div>
 
         <div class="form-error" id="err-habit">请完整填写所有问题</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(2)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(4)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-4">
@@ -453,7 +453,7 @@
         <div class="q-item"><label class="form-label"><span class="q-item-number">8.</span> 过去一个月，您在做事时保持足够热情有多大困难？</label><div class="radio-group" id="psqi-q8"></div></div>
         <div class="q-item"><label class="form-label"><span class="q-item-number">9.</span> 过去一个月，您对自己的睡眠质量总体评价如何？</label><div class="radio-group" id="psqi-q9"></div></div>
         <div class="form-error" id="err-psqi">请完整填写所有 PSQI 问题</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(3)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(5)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-5">
@@ -461,7 +461,7 @@
         <p class="q-step-desc">请根据您<strong>过去两周</strong>的实际情况，对以下问题进行评分。</p>
         <div id="isi-items"></div>
         <div class="form-error" id="err-isi">请完整填写所有 ISI 问题</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(4)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(6)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-6">
@@ -469,7 +469,7 @@
         <p class="q-step-desc">请选择<strong>最符合您日常习惯</strong>的选项。这有助于我们把实验安排在您状态较好的时段。</p>
         <div id="rmeq-items"></div>
         <div class="form-error" id="err-rmeq">请完整填写所有昼夜节律问题</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(5)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(7)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-7">
@@ -477,7 +477,7 @@
         <p class="q-step-desc">以下陈述与您的某些感受或状态有关，请根据<strong>过去一周</strong>的实际情况评分。</p>
         <div id="dass-items"></div>
         <div class="form-error" id="err-dass">请完整填写所有 DASS-21 问题</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(6)">← 上一步</button><button class="btn btn-primary" onclick="goToStep(8)">下一步 →</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
 
       <div class="q-step-panel" id="step-8">
@@ -515,7 +515,7 @@
           <textarea class="form-input" id="schedule-note" rows="3" placeholder="如有特殊时间安排或其他说明，请在此处备注"></textarea>
         </div>
         <div class="form-error" id="err-schedule">请至少选择可用日期</div>
-        <div class="step-actions"><button class="btn btn-ghost" onclick="goToStep(7)">← 上一步</button><button class="btn btn-success" onclick="submitQuestionnaire()">提交报名</button></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-success" onclick="submitQuestionnaire()">提交报名</button></div>
       </div>
     </div>
   </section>
@@ -699,7 +699,19 @@ const RMEQ_Q = [
 
 let currentStep = 0;
 let selectedExpId = null;
-const STEP_LABELS = ['知情同意','基本信息','视力','环境适应','PSQI','ISI','昼夜节律','DASS-21','时间安排'];
+// 步骤定义。数组下标即 DOM 里的 step-N。
+const ALL_STEPS = ['知情同意','基本信息','视力','环境适应','PSQI','ISI','昼夜节律','DASS-21','时间安排'];
+
+// 每个项目实际要走的步骤。视力只对午睡实验有意义——该实验含精细视觉任务，
+// 晚睡实验不涉及，因此整步跳过，也不参与合格判定。
+const STEP_VISION = 2;
+const EXPERIMENT_STEPS = {
+  'nap-memory':      [0, 1, 2, 3, 4, 5, 6, 7, 8],
+  'overnight-sleep': [0, 1,    3, 4, 5, 6, 7, 8],
+};
+let activeSteps = ALL_STEPS.map((_, i) => i);
+const visionRequired = () => activeSteps.indexOf(STEP_VISION) !== -1;
+const lastStep = () => activeSteps[activeSteps.length - 1];
 
 const HABIT_Q = [
   { text: '换到陌生环境睡觉，睡眠受到多大影响？', options: [
@@ -848,6 +860,7 @@ function selectExperiment(id) {
   selectedExpId = id;
   const exp = EXPERIMENTS.find(e => e.id === id);
   if (!exp) return;
+  activeSteps = EXPERIMENT_STEPS[id] || ALL_STEPS.map((_, i) => i);
   document.getElementById('q-exp-badge').className = 'exp-type-badge ' + exp.type;
   document.getElementById('q-exp-badge').textContent = (TYPE_ICON[exp.type] || '') + ' ' + (TYPE_LABEL[exp.type] || exp.type);
   document.getElementById('q-exp-title').textContent = exp.title;
@@ -874,18 +887,28 @@ function showStep(step) {
   window.scrollTo({top:200,behavior:'smooth'});
 }
 
-function goToStep(target) {
-  if (target > currentStep && !validateStep(currentStep)) return;
-  showStep(target);
+// 前进/后退都沿 activeSteps 走，而不是按 step-N 递增，
+// 这样跳过的步骤（如晚睡实验的视力）不会被访问到。
+function goNext() {
+  if (!validateStep(currentStep)) return;
+  const i = activeSteps.indexOf(currentStep);
+  if (i > -1 && i < activeSteps.length - 1) showStep(activeSteps[i + 1]);
+}
+
+function goPrev() {
+  const i = activeSteps.indexOf(currentStep);
+  if (i > 0) showStep(activeSteps[i - 1]);
+  else backToLanding();
 }
 
 function renderProgress() {
   const c = document.getElementById('step-progress');
+  const pos = activeSteps.indexOf(currentStep);
   let h = '';
-  STEP_LABELS.forEach((l,i) => {
-    const done = i < currentStep, active = i === currentStep;
-    h += `<div class="step-circle ${done?'done':''} ${active?'active':''}" title="${l}">${done?'✓':i+1}</div>`;
-    if (i < STEP_LABELS.length-1) h += `<div class="step-line ${done?'done':''}"></div>`;
+  activeSteps.forEach((stepId, i) => {
+    const done = i < pos, active = i === pos;
+    h += `<div class="step-circle ${done?'done':''} ${active?'active':''}" title="${ALL_STEPS[stepId]}">${done?'✓':i+1}</div>`;
+    if (i < activeSteps.length-1) h += `<div class="step-line ${done?'done':''}"></div>`;
   });
   c.innerHTML = h;
 }
@@ -1025,10 +1048,10 @@ function checkVisionPass() {
 
 // ==================== SUBMIT ====================
 function submitQuestionnaire() {
-  if (!validateStep(8)) return;
+  if (!validateStep(lastStep())) return;
   const psqi=scorePSQI(), isi=scoreISI(), dass=scoreDASS();
   const habitPass = checkHabitPass();
-  const visionPass = checkVisionPass();
+  const visionPass = !visionRequired() || checkVisionPass();
   const chronoPass = checkChronotypePass();
   const dyePass = checkDyePass();
   const othersPass = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14
@@ -1110,7 +1133,8 @@ function collectSubmission() {
   const val = id => ((document.getElementById(id) || {}).value || '');
   const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
   const psqi = scorePSQI(), isi = scoreISI(), rmeq = scoreRMEQ(), dass = scoreDASS();
-  const visionPass = checkVisionPass();
+  const visionNeeded = visionRequired();
+  const visionPass = !visionNeeded || checkVisionPass();
   const habitPass  = checkHabitPass();
   const chronoPass = checkChronotypePass();
   const dyePass    = checkDyePass();
@@ -1164,7 +1188,8 @@ function collectSubmission() {
         threshold: '抑郁≤9 焦虑≤7 压力≤14', pass: dassPass
       }
     },
-    vision: {
+    vision: visionNeeded ? {
+      required: true,
       leftMyopia:     val('vision-left-myopia')      || '0',
       rightMyopia:    val('vision-right-myopia')     || '0',
       leftHyperopia:  val('vision-left-hyperopia')   || '0',
@@ -1172,7 +1197,7 @@ function collectSubmission() {
       astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
       glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
       pass: visionPass
-    },
+    } : { required: false, pass: true },
     habit: {
       answers: habitAnswers.concat([{ q: '三个月内染发', a: radioLabel('habit-dye') }]),
       conditions: conditions,

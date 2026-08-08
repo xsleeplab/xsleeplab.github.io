@@ -123,15 +123,19 @@ function buildCard(d) {
         '（' + safe(rmeq.threshold, 12) + '）' + yn(rmeq.pass),
       'DASS 抑郁' + safe(dass.depression, 6) + ' 焦虑' + safe(dass.anxiety, 6) +
         ' 压力' + safe(dass.stress, 6) + ' ' + yn(dass.pass),
-      '视力 ' + yn(vision.pass) + '　｜　环境适应 ' + yn(habit.pass) +
+      '视力 ' + (vision.required === false ? '—（本项目不筛查）' : yn(vision.pass)) +
+        '　｜　环境适应 ' + yn(habit.pass) +
         '　｜　三个月内未染发 ' + yn(habit.dyePass),
     ]),
     divider,
-    section('👁 视力', [
-      '左近视 ' + safe(vision.leftMyopia, 8) + '° ｜ 右近视 ' + safe(vision.rightMyopia, 8) + '°',
-      '左远视 ' + safe(vision.leftHyperopia, 8) + '° ｜ 右远视 ' + safe(vision.rightHyperopia, 8) + '°',
-      '散光：' + safe(vision.astigmatism, 8) + ' ｜ 佩戴眼镜：' + safe(vision.glasses, 8),
-    ]),
+    // 晚睡实验不采集视力，整段省略而不是显示一堆 0
+    section('👁 视力', vision.required === false
+      ? ['本项目不涉及精细视觉任务，未采集视力信息。']
+      : [
+          '左近视 ' + safe(vision.leftMyopia, 8) + '° ｜ 右近视 ' + safe(vision.rightMyopia, 8) + '°',
+          '左远视 ' + safe(vision.leftHyperopia, 8) + '° ｜ 右远视 ' + safe(vision.rightHyperopia, 8) + '°',
+          '散光：' + safe(vision.astigmatism, 8) + ' ｜ 佩戴眼镜：' + safe(vision.glasses, 8),
+        ]),
     divider,
     section('🛏 环境适应', qaLines(habit.answers, 10).concat([
       '· 睡眠障碍：' + (safeList(habit.conditions, 12).map(c => safe(c, 30)).join('、') || '无'),
