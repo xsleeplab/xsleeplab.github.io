@@ -123,7 +123,8 @@ function buildCard(d) {
         '（' + safe(rmeq.threshold, 12) + '）' + yn(rmeq.pass),
       'DASS 抑郁' + safe(dass.depression, 6) + ' 焦虑' + safe(dass.anxiety, 6) +
         ' 压力' + safe(dass.stress, 6) + ' ' + yn(dass.pass),
-      '视力 ' + yn(vision.pass) + '　｜　环境适应 ' + yn(habit.pass),
+      '视力 ' + yn(vision.pass) + '　｜　环境适应 ' + yn(habit.pass) +
+        '　｜　三个月内未染发 ' + yn(habit.dyePass),
     ]),
     divider,
     section('👁 视力', [
@@ -136,13 +137,19 @@ function buildCard(d) {
       '· 睡眠障碍：' + (safeList(habit.conditions, 12).map(c => safe(c, 30)).join('、') || '无'),
     ])),
     divider,
-    section('📋 PSQI 作答', qaLines(detail.psqi, 20)),
+    // 每份逐题作答前先给出该量表的总分与判定，避免只能靠数选项推算
+    section('📋 PSQI 逐题作答　总分 ' + safe(psqi.total, 6) +
+            '（' + safe(psqi.threshold, 12) + '）' + yn(psqi.pass), qaLines(detail.psqi, 20)),
     divider,
-    section('📋 ISI 作答', qaLines(detail.isi, 10)),
+    section('📋 ISI 逐题作答　总分 ' + safe(isi.total, 6) +
+            '（' + safe(isi.threshold, 12) + '）' + yn(isi.pass), qaLines(detail.isi, 10)),
     divider,
-    section('🌗 rMEQ 作答', qaLines(detail.rmeq, 8)),
+    section('🌗 rMEQ 逐题作答　总分 ' + safe(rmeq.total, 6) + ' — ' + safe(rmeq.type, 12) +
+            '（' + safe(rmeq.threshold, 12) + '）' + yn(rmeq.pass), qaLines(detail.rmeq, 8)),
     divider,
-    section('📋 DASS-21 作答', qaLines(detail.dass, 25)),
+    section('📋 DASS-21 逐题作答　抑郁 ' + safe(dass.depression, 6) +
+            ' / 焦虑 ' + safe(dass.anxiety, 6) + ' / 压力 ' + safe(dass.stress, 6) +
+            ' ' + yn(dass.pass), qaLines(detail.dass, 25)),
     divider,
     section('📅 时间安排', [
       '可用日：' + safe(sched.days, 60),

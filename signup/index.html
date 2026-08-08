@@ -424,9 +424,15 @@
             <div class="checkbox-group"><input type="checkbox" id="habit-q5b" value="不宁腿综合征（腿脚酸麻痒，睡前必须活动）"><label for="habit-q5b">不宁腿综合征（腿脚酸麻痒，睡前必须活动）</label></div>
             <div class="checkbox-group"><input type="checkbox" id="habit-q5c" value="夜尿症（每晚起床排尿≥2次）"><label for="habit-q5c">夜尿症（每晚起床排尿≥2次）</label></div>
             <div class="checkbox-group"><input type="checkbox" id="habit-q5d" value="倒班工作 / 近期跨时区旅行"><label for="habit-q5d">倒班工作 / 近期跨时区旅行</label></div>
-            <div class="checkbox-group"><input type="checkbox" id="habit-q5f" value="三个月内有过染发"><label for="habit-q5f">三个月内有过染发</label></div>
             <div class="checkbox-group"><input type="checkbox" id="habit-q5e" value="无以上情况"><label for="habit-q5e">无以上情况</label></div>
           </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">7.</span> 最近三个月内是否染过头发？</label>
+          <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">染发剂中的金属成分会干扰脑电信号，因此需要距上次染发满三个月。</p>
+          <div class="radio-group" id="habit-dye"></div>
+          <div class="form-error" id="err-dye">请选择是否染过头发</div>
         </div>
 
         <div class="form-error" id="err-habit">请完整填写所有问题</div>
@@ -536,6 +542,11 @@
       </div>
       <div id="result-fail" style="display:none">
         <div class="result-header fail"><div class="result-icon">🙏</div><h2>感谢您的参与</h2><p>非常感谢您愿意参与我们的研究。根据您填写的问卷，您目前的睡眠状况暂时不符合本次实验的筛选要求。这并不代表您的睡眠有任何问题，只是与当前实验的特定标准不完全匹配。</p><p style="margin-top:12px">我们未来可能会开展更多不同类型的实验，届时欢迎您再次报名参与。祝您拥有健康良好的睡眠！</p></div>
+        <div class="guide-section" id="fail-dye-note" style="display:none">
+          <h3>关于染发</h3>
+          <p>染发剂中的金属成分会显著干扰脑电信号，因此我们要求参与者距上次染发满三个月。</p>
+          <p id="fail-dye-text" style="margin-top:10px"></p>
+        </div>
         <div style="text-align:center;margin-top:24px"><button class="btn btn-ghost" onclick="backToLanding()">返回首页</button></div>
       </div>
     </div>
@@ -804,9 +815,10 @@ function renderHabit() {
       });
     }
   });
+  renderRadioGroup('habit-dye', 'habit-dye', [{value:0,label:'否'},{value:1,label:'是'}]);
   // 互斥逻辑：勾选"无以上情况"则取消其他选项，反之亦然
   const noneBox = document.getElementById('habit-q5e');
-  const otherBoxes = ['habit-q5a','habit-q5b','habit-q5c','habit-q5d','habit-q5f'].map(id => document.getElementById(id));
+  const otherBoxes = ['habit-q5a','habit-q5b','habit-q5c','habit-q5d'].map(id => document.getElementById(id));
   if (noneBox) {
     noneBox.addEventListener('change', () => {
       if (noneBox.checked) otherBoxes.forEach(b => { if(b) b.checked = false; });
@@ -904,6 +916,7 @@ function validateStep(step) {
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
     if (v) { const q5=document.querySelectorAll('#habit-q5 input:checked'); if (q5.length===0) { showErr('err-habit'); v=false; } }
+    if (!document.querySelector('input[name="habit-dye"]:checked')) { showErr('err-dye'); v=false; }
   }
   if (step===4) {
     const q2=document.getElementById('psqi-q2').value, q4=document.getElementById('psqi-q4').value;
@@ -990,6 +1003,13 @@ function checkHabitPass() {
   return true;
 }
 
+// 染发单列为一道判据：它不是睡眠障碍，而是脑电信号质量问题，
+// 且属于「等三个月后可再报名」，与其他永久性排除标准性质不同。
+function checkDyePass() {
+  const e = document.querySelector('input[name="habit-dye"]:checked');
+  return !!e && parseInt(e.value) === 0;
+}
+
 function checkVisionPass() {
   const lm = parseInt(document.getElementById('vision-left-myopia').value) || 0;
   const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
@@ -1010,7 +1030,10 @@ function submitQuestionnaire() {
   const habitPass = checkHabitPass();
   const visionPass = checkVisionPass();
   const chronoPass = checkChronotypePass();
-  const passed = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14 && habitPass && visionPass && chronoPass;
+  const dyePass = checkDyePass();
+  const othersPass = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14
+    && habitPass && visionPass && chronoPass;
+  const passed = othersPass && dyePass;
 
   document.getElementById('landing-page').style.display='none';
   document.getElementById('questionnaire-page').style.display='none';
@@ -1030,6 +1053,16 @@ function submitQuestionnaire() {
   } else {
     document.getElementById('result-pass').style.display='none';
     document.getElementById('result-fail').style.display='block';
+    // 染发是「等三个月后可再报名」，与其他永久性排除不同，单独说明。
+    const dyeNote = document.getElementById('fail-dye-note');
+    if (dyeNote) {
+      dyeNote.style.display = dyePass ? 'none' : 'block';
+      if (!dyePass) {
+        document.getElementById('fail-dye-text').textContent = othersPass
+          ? '您其他各项均符合筛选要求。请在距上次染发满三个月后再来报名，我们很期待您的参与。'
+          : '距上次染发满三个月后，欢迎您再次报名。';
+      }
+    }
   }
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1080,6 +1113,7 @@ function collectSubmission() {
   const visionPass = checkVisionPass();
   const habitPass  = checkHabitPass();
   const chronoPass = checkChronotypePass();
+  const dyePass    = checkDyePass();
   const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
 
   const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
@@ -1120,7 +1154,7 @@ function collectSubmission() {
     email: document.getElementById('confirm-email').value.trim(),
     phone: document.getElementById('confirm-phone').value.trim(),
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
-    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass && dassPass,
+    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass && dassPass && dyePass,
     scores: {
       psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
       isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
@@ -1139,7 +1173,12 @@ function collectSubmission() {
       glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
       pass: visionPass
     },
-    habit: { answers: habitAnswers, conditions: conditions, pass: habitPass },
+    habit: {
+      answers: habitAnswers.concat([{ q: '三个月内染发', a: radioLabel('habit-dye') }]),
+      conditions: conditions,
+      pass: habitPass,
+      dyePass: dyePass
+    },
     detail: {
       psqi: psqiDetail,
       isi:  ISI_Q.map((q, i)  => ({ q: q.text, a: radioLabel('isi-q' + i) })),
