@@ -64,15 +64,17 @@ const reply = (statusCode, origin, obj) => ({
   body: JSON.stringify(obj),
 });
 
-function postJSON(url, payload) {
+function postJSON(url, payload, extraHeaders) {
   return new Promise((resolve, reject) => {
     const u = new URL(url);
     const data = Buffer.from(JSON.stringify(payload), 'utf8');
+    const headers = { 'Content-Type': 'application/json', 'Content-Length': data.length };
+    if (extraHeaders) Object.assign(headers, extraHeaders);
     const req = https.request({
       hostname: u.hostname,
       path: u.pathname + u.search,
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Content-Length': data.length },
+      headers: headers,
       timeout: 8000,
     }, res => {
       let body = '';
@@ -85,6 +87,102 @@ function postJSON(url, payload) {
     req.write(data);
     req.end();
   });
+}
+
+// ------------------------------------------------------------- bitable
+// 把每份报名追加成多维表格的一行，供实验室筛选、排序、导出 Excel。
+// 飞书卡片是主通道（决定给被试的成败），写表是尽力而为——配置没弄好
+// 不该让被试提交失败，但会记进函数日志。
+
+const FEISHU_APP_ID = process.env.FEISHU_APP_ID || '';
+const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || '';
+const BITABLE_APP_TOKEN = process.env.BITABLE_APP_TOKEN || '';
+const BITABLE_TABLE_ID = process.env.BITABLE_TABLE_ID || '';
+const bitableReady = () =>
+  !!(FEISHU_APP_ID && FEISHU_APP_SECRET && BITABLE_APP_TOKEN && BITABLE_TABLE_ID);
+
+let tokenCache = { value: '', expireAt: 0 };
+
+async function tenantToken() {
+  if (tokenCache.value && Date.now() < tokenCache.expireAt) return tokenCache.value;
+  const res = await postJSON(
+    'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal',
+    { app_id: FEISHU_APP_ID, app_secret: FEISHU_APP_SECRET });
+  const j = JSON.parse(res.body);
+  if (j.code !== 0) throw new Error('取 tenant_access_token 失败: ' + res.body);
+  // 官方有效期 7200s，提前 5 分钟过期以留出余量
+  tokenCache = { value: j.tenant_access_token, expireAt: Date.now() + ((j.expire || 7200) - 300) * 1000 };
+  return tokenCache.value;
+}
+
+function beijingNow() {
+  return new Date(Date.now() + 8 * 3600 * 1000).toISOString().replace('T', ' ').slice(0, 19);
+}
+
+const asNumber = v => {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
+
+// 字段名必须与表格列名完全一致，否则飞书会整行拒绝。
+function buildFields(d) {
+  const s = d.scores || {};
+  const psqi = s.psqi || {}, isi = s.isi || {}, rmeq = s.rmeq || {}, dass = s.dass || {};
+  const vision = d.vision || {}, habit = d.habit || {}, sched = d.schedule || {};
+  const early = d.outcome === 'early-exit';
+
+  const f = {
+    '姓名': safe(d.name, 40),
+    '提交时间': beijingNow(),
+    '结果': d.outcome === 'passed' ? '合格' : early ? '中止' : '不合格',
+    '手机': safe(d.phone, 30),
+    '邮箱': safe(d.email, 60),
+    '报名项目': safe(d.project && d.project.title, 40),
+    '中止原因': d.exit ? safe(d.exit.where + '：' + d.exit.why, 100) : '',
+  };
+  const age = asNumber(d.age);
+  if (age !== null) f['年龄'] = age;
+
+  // 提前退出的人没答完量表，留空好过写入 0（那会被读成满分）
+  if (early) return f;
+
+  const put = (k, v) => { const n = asNumber(v); if (n !== null) f[k] = n; };
+  put('PSQI', psqi.total);
+  put('ISI', isi.total);
+  put('rMEQ', rmeq.total);
+  put('DASS抑郁', dass.depression);
+  put('DASS焦虑', dass.anxiety);
+  put('DASS压力', dass.stress);
+
+  f['昼夜类型'] = safe(rmeq.type, 12);
+  f['视力'] = vision.required === false
+    ? '本项目不筛查'
+    : '近视 ' + safe(vision.leftMyopia, 6) + '/' + safe(vision.rightMyopia, 6) +
+      '，远视 ' + safe(vision.leftHyperopia, 6) + '/' + safe(vision.rightHyperopia, 6) +
+      '，散光' + safe(vision.astigmatism, 4);
+  f['环境适应'] = habit.pass ? '通过' : '未通过';
+  f['三个月内染发'] = habit.dyePass === false ? '是' : '否';
+  f['可用日期'] = safe(sched.days, 60);
+  f['时间灵活度'] = safe(sched.flexibility, 40);
+  f['最早可参与'] = safe(sched.earliest, 20);
+  f['备注'] = safe(sched.note, 200);
+  return f;
+}
+
+async function appendBitableRow(d) {
+  if (!bitableReady()) return 'skipped';
+  const token = await tenantToken();
+  const url = 'https://open.feishu.cn/open-apis/bitable/v1/apps/' +
+              encodeURIComponent(BITABLE_APP_TOKEN) + '/tables/' +
+              encodeURIComponent(BITABLE_TABLE_ID) + '/records';
+  const res = await postJSON(url, { fields: buildFields(d) },
+    { Authorization: 'Bearer ' + token });
+  const j = JSON.parse(res.body);
+  if (j.code !== 0) {
+    // 91403 = 应用没有被添加进这张表格；1254045 = 列名对不上
+    throw new Error('写入多维表格失败 code=' + j.code + ' msg=' + j.msg);
+  }
+  return 'ok';
 }
 
 // ---------------------------------------------------------------- card
@@ -247,6 +345,10 @@ exports.main_handler = async (event) => {
     return reply(400, origin, { ok: false, error: 'missing name/email' });
   }
 
+  // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志
+  const archiving = appendBitableRow(data)
+    .catch(e => { console.error('[bitable]', e && e.message); return 'failed'; });
+
   try {
     const res = await postJSON(FEISHU_WEBHOOK, buildCard(data));
     let ok = res.status >= 200 && res.status < 300;
@@ -260,9 +362,11 @@ exports.main_handler = async (event) => {
       console.error('飞书返回异常:', res.status, res.body);
       return reply(502, origin, { ok: false, error: 'notify failed' });
     }
-    return reply(200, origin, { ok: true });
+    // archived 便于在浏览器控制台一眼看出归档是否配好
+    return reply(200, origin, { ok: true, archived: await archiving });
   } catch (e) {
     console.error('转发飞书失败:', e && e.message);
+    await archiving;   // 别让未处理的 promise 悬着
     return reply(502, origin, { ok: false, error: 'notify failed' });
   }
 };
