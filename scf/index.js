@@ -179,8 +179,11 @@ async function appendBitableRow(d) {
     { Authorization: 'Bearer ' + token });
   const j = JSON.parse(res.body);
   if (j.code !== 0) {
-    // 91403 = 应用没有被添加进这张表格；1254045 = 列名对不上
-    throw new Error('写入多维表格失败 code=' + j.code + ' msg=' + j.msg);
+    // 常见：99991672 权限未开通/未发版；91403 应用没被加进这张表格；
+    //      1254045 列名对不上；1254005 app_token 或 table_id 不对
+    const err = new Error('写入多维表格失败 code=' + j.code + ' msg=' + j.msg);
+    err.bitableCode = j.code;
+    throw err;
   }
   return 'ok';
 }
@@ -345,9 +348,16 @@ exports.main_handler = async (event) => {
     return reply(400, origin, { ok: false, error: 'missing name/email' });
   }
 
-  // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志
+  // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志。
+  // 把飞书返回的错误码一并带回响应，排查时不必每次去翻函数日志
+  // （只回数字码，不回含 app_id 的完整报错文本）。
+  let archiveCode = null;
   const archiving = appendBitableRow(data)
-    .catch(e => { console.error('[bitable]', e && e.message); return 'failed'; });
+    .catch(e => {
+      console.error('[bitable]', e && e.message);
+      archiveCode = (e && e.bitableCode) || 'exception';
+      return 'failed';
+    });
 
   try {
     const res = await postJSON(FEISHU_WEBHOOK, buildCard(data));
@@ -363,7 +373,10 @@ exports.main_handler = async (event) => {
       return reply(502, origin, { ok: false, error: 'notify failed' });
     }
     // archived 便于在浏览器控制台一眼看出归档是否配好
-    return reply(200, origin, { ok: true, archived: await archiving });
+    const archived = await archiving;
+    return reply(200, origin,
+      archiveCode === null ? { ok: true, archived }
+                           : { ok: true, archived, archiveCode });
   } catch (e) {
     console.error('转发飞书失败:', e && e.message);
     await archiving;   // 别让未处理的 promise 悬着
