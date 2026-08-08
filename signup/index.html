@@ -340,7 +340,7 @@
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">邮箱 <span style="color:#c0392b">*</span></label><input type="email" class="form-input" id="f-email" placeholder="用于接收实验指引"><div class="form-error" id="err-email">请输入有效的邮箱地址</div></div>
-          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="18" max="65" placeholder="18-65"><div class="form-error" id="err-age">请输入 18-65 之间的年龄</div></div>
+          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="16" max="80" placeholder="本实验招募 18-26 岁"><div class="form-error" id="err-age">请输入有效年龄</div></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
@@ -542,6 +542,11 @@
       </div>
       <div id="result-fail" style="display:none">
         <div class="result-header fail"><div class="result-icon">🙏</div><h2>感谢您的参与</h2><p>非常感谢您愿意参与我们的研究。根据您填写的问卷，您目前的睡眠状况暂时不符合本次实验的筛选要求。这并不代表您的睡眠有任何问题，只是与当前实验的特定标准不完全匹配。</p><p style="margin-top:12px">我们未来可能会开展更多不同类型的实验，届时欢迎您再次报名参与。祝您拥有健康良好的睡眠！</p></div>
+        <div class="guide-section" id="fail-reason" style="display:none">
+          <h3>未通过的原因</h3>
+          <p id="fail-reason-text"></p>
+          <p style="margin-top:10px">这些是本实验为保证数据质量而设定的入组条件，与您的健康状况无关。</p>
+        </div>
         <div class="guide-section" id="fail-dye-note" style="display:none">
           <h3>关于染发</h3>
           <p>染发剂中的金属成分会显著干扰脑电信号，因此我们要求参与者距上次染发满三个月。</p>
@@ -887,10 +892,73 @@ function showStep(step) {
   window.scrollTo({top:200,behavior:'smooth'});
 }
 
+// ==================== 提前退出 ====================
+// 只对客观、非敏感的判据做即时判定。PSQI / ISI / rMEQ / DASS 一律留到最后
+// 统一给中性结论——填完量表就立刻被弹出，等于告诉对方是哪一项心理或睡眠
+// 指标把他刷掉了。
+const AGE_MIN = 18, AGE_MAX = 26;
+
+function visionFailReason() {
+  const n = id => parseInt(document.getElementById(id).value) || 0;
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  if (!astig || parseInt(astig.value) !== 0) return '本实验要求参与者无散光';
+  if (n('vision-left-myopia') >= 800 || n('vision-right-myopia') >= 800) return '近视度数达到或超过 800 度';
+  if (n('vision-left-hyperopia') >= 200 || n('vision-right-hyperopia') >= 200) return '远视度数达到或超过 200 度';
+  return '视力条件不符合本实验要求';
+}
+
+function habitFailReason() {
+  if (getRadio('habit-q0') > 1) return '在陌生环境中入睡较为困难';
+  if (getRadio('habit-q1') > 1) return '对睡眠环境中的声音较为敏感';
+  if (getRadio('habit-q2') > 1) return '对皮肤异物感较为敏感（脑电帽佩戴时间较长）';
+  if (getRadio('habit-q3') !== 0) return '本实验要求参与者从不吸烟';
+  if (getRadio('habit-q4') !== 0) return '近期服用过助眠或精神类药物';
+  return '存在可能影响睡眠记录的健康状况';
+}
+
+// 返回 null 表示该步没有触发提前退出
+function earlyExitReason(step) {
+  if (step === 1) {
+    const age = parseInt(document.getElementById('f-age').value);
+    if (!isNaN(age) && (age < AGE_MIN || age > AGE_MAX))
+      return { where: '年龄', why: `本实验招募 ${AGE_MIN}–${AGE_MAX} 岁的参与者` };
+  }
+  if (step === 2 && visionRequired() && !checkVisionPass())
+    return { where: '视力', why: visionFailReason() };
+  if (step === 3) {
+    if (!checkDyePass()) return { where: '染发', why: '三个月内染过头发', dye: true };
+    if (!checkHabitPass()) return { where: '环境适应', why: habitFailReason() };
+  }
+  return null;
+}
+
+function showEarlyExit(exit) {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('questionnaire-page').style.display = 'none';
+  document.getElementById('results-page').style.display = 'block';
+  document.getElementById('result-pass').style.display = 'none';
+  document.getElementById('result-fail').style.display = 'block';
+
+  const reason = document.getElementById('fail-reason');
+  if (reason) {
+    reason.style.display = 'block';
+    document.getElementById('fail-reason-text').textContent = exit.why + '，因此无法参加本次实验。';
+  }
+  const dyeNote = document.getElementById('fail-dye-note');
+  if (dyeNote) {
+    dyeNote.style.display = exit.dye ? 'block' : 'none';
+    if (exit.dye) document.getElementById('fail-dye-text').textContent =
+      '距上次染发满三个月后，欢迎您再次报名。';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // 前进/后退都沿 activeSteps 走，而不是按 step-N 递增，
 // 这样跳过的步骤（如晚睡实验的视力）不会被访问到。
 function goNext() {
   if (!validateStep(currentStep)) return;
+  const exit = earlyExitReason(currentStep);
+  if (exit) { showEarlyExit(exit); return; }
   const i = activeSteps.indexOf(currentStep);
   if (i > -1 && i < activeSteps.length - 1) showStep(activeSteps[i + 1]);
 }
@@ -923,8 +991,10 @@ function validateStep(step) {
     if (!ph||ph.length<11) { showErr('err-phone'); v=false; }
     const em = document.getElementById('f-email').value.trim();
     if (!em||!em.includes('@')) { showErr('err-email'); v=false; }
+    // 这里只做合理性校验；18–26 岁的入组要求由 earlyExitReason 判定，
+    // 好让超龄的人看到明确原因，而不是一句"请输入有效年龄"。
     const ag = document.getElementById('f-age').value;
-    if (!ag||ag<18||ag>65) { showErr('err-age'); v=false; }
+    if (!ag||ag<16||ag>80) { showErr('err-age'); v=false; }
     if (!document.querySelector('input[name="gender"]:checked')) { showErr('err-gender'); v=false; }
   }
   if (step===2) {
@@ -1028,6 +1098,11 @@ function checkHabitPass() {
 
 // 染发单列为一道判据：它不是睡眠障碍，而是脑电信号质量问题，
 // 且属于「等三个月后可再报名」，与其他永久性排除标准性质不同。
+function checkAgePass() {
+  const age = parseInt(document.getElementById('f-age').value);
+  return !isNaN(age) && age >= AGE_MIN && age <= AGE_MAX;
+}
+
 function checkDyePass() {
   const e = document.querySelector('input[name="habit-dye"]:checked');
   return !!e && parseInt(e.value) === 0;
@@ -1054,8 +1129,9 @@ function submitQuestionnaire() {
   const visionPass = !visionRequired() || checkVisionPass();
   const chronoPass = checkChronotypePass();
   const dyePass = checkDyePass();
+  const agePass = checkAgePass();
   const othersPass = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14
-    && habitPass && visionPass && chronoPass;
+    && habitPass && visionPass && chronoPass && agePass;
   const passed = othersPass && dyePass;
 
   document.getElementById('landing-page').style.display='none';
@@ -1076,6 +1152,10 @@ function submitQuestionnaire() {
   } else {
     document.getElementById('result-pass').style.display='none';
     document.getElementById('result-fail').style.display='block';
+    // 走到最后才不合格的，一定是分数类判据（PSQI/ISI/rMEQ/DASS），
+    // 不列出具体原因——避免把淘汰归因到某项心理或睡眠指标上。
+    const reasonBox = document.getElementById('fail-reason');
+    if (reasonBox) reasonBox.style.display = 'none';
     // 染发是「等三个月后可再报名」，与其他永久性排除不同，单独说明。
     const dyeNote = document.getElementById('fail-dye-note');
     if (dyeNote) {
@@ -1178,7 +1258,9 @@ function collectSubmission() {
     email: document.getElementById('confirm-email').value.trim(),
     phone: document.getElementById('confirm-phone').value.trim(),
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
-    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass && dassPass && dyePass,
+    age: document.getElementById('f-age').value,
+    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
+      && dassPass && dyePass && checkAgePass(),
     scores: {
       psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
       isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
