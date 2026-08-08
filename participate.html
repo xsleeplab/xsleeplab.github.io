@@ -391,7 +391,52 @@
     }
 
     /* ----- Location card ----- */
-    .location-card { padding: 30px 32px; }
+    /* 两栏：地址 | 如何到达。单栏时右侧会空掉一大片。 */
+    .location-card {
+      padding: 30px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .location-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--color-primary-mid);
+      margin-bottom: 8px;
+    }
+    .location-routes {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 16px;
+    }
+    .location-routes dt {
+      display: inline-block;
+      min-width: 46px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-white);
+      background: var(--color-primary-mid);
+      border-radius: 4px;
+      padding: 2px 9px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .location-routes dd {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      color: var(--color-text-light);
+    }
+    .location-note {
+      margin: 0;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-bg-alt);
+      font-size: 0.93rem;
+      line-height: 1.75;
+      color: var(--color-text-light);
+    }
     .location-name {
       font-family: 'Noto Serif SC', Georgia, serif;
       font-size: 1.2rem;
@@ -686,6 +731,7 @@
       .info-card { padding: 22px 22px 20px; }
       .check-item { padding: 18px 20px; gap: 14px; }
       .location-card, .contact-card { padding: 24px; }
+      .location-card { grid-template-columns: 1fr; gap: 26px; }
       .timeline { padding-left: 30px; }
       .t-dot { left: -28px; }
     }
@@ -804,12 +850,17 @@
     <!-- ENVIRONMENT -->
     <section class="participant-section" id="environment">
       <h2>睡眠<em>环境</em>说明</h2>
-      <p class="lead">
-        实验室配有两间独立卧室和独立的洗漱更衣室，环境安静整洁，您可以安心休息。
-        床单、被褥与枕头均经过清洗消毒，并为每位参与者单独更换；洗漱区提供淋浴、洗发水、
-        沐浴露、拖鞋、毛巾与吹风机，实验结束后可在此清洗头发。参加晚睡实验的参与者，
-        次日清晨我们还会提供简单早餐（牛奶与面包）。
-      </p>
+      <article class="info-card env-intro">
+        <p>
+          实验室配有两间独立卧室和一间独立的洗漱更衣室，安静避光，您可以安心休息。
+          床单、被褥与枕头均经过清洗消毒，并为每位参与者单独更换。
+        </p>
+        <p>
+          洗漱区提供淋浴、洗发水、沐浴露、拖鞋、毛巾与吹风机，实验结束后可在此清洗头发。
+          参加晚睡实验的参与者，次日清晨我们还会提供简单早餐（牛奶与面包）。
+        </p>
+        <span class="info-card-tag">独立卧室 · 每人更换床品</span>
+      </article>
 
       <div class="env-photos">
         <figure class="env-photo">
@@ -932,16 +983,22 @@
       </p>
 
       <article class="info-card location-card">
-        <div class="location-info">
+        <div class="location-col">
+          <div class="location-label">地址</div>
           <div class="location-name">睡眠认知神经科学实验室</div>
           <div class="location-addr">
-            北京市朝阳区林萃路 16 号 · 中国科学院心理研究所<br>
-            和谐楼（南楼）829 室<br><br>
-            <strong>如何到达</strong><br>
-            地铁：8 号线北沙滩站 B2 东北口，步行约 10 分钟<br>
-            公交：奥运村西站下车，步行约 5 分钟<br><br>
-            到达楼下后请致电主试，我们会下楼接您。
+            北京市朝阳区林萃路 16 号<br>
+            中国科学院心理研究所<br>
+            和谐楼（南楼）829 室
           </div>
+        </div>
+        <div class="location-col">
+          <div class="location-label">如何到达</div>
+          <dl class="location-routes">
+            <div><dt>地铁</dt><dd>8 号线北沙滩站 B2 东北口，步行约 10 分钟</dd></div>
+            <div><dt>公交</dt><dd>奥运村西站下车，步行约 5 分钟</dd></div>
+          </dl>
+          <p class="location-note">到达楼下后请致电主试，我们会下楼接您。电话写在您的确认邮件中。</p>
         </div>
       </article>
     </section>
