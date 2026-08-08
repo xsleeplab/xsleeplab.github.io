@@ -255,12 +255,30 @@
     }
 
     /* ----- Checklist ----- */
+    /* 与 .info-card / .bring-card 同款：蓝色左边条 + 悬停上浮，
+       此前它是页面上唯一没有这两者的卡片。 */
     .checklist {
+      position: relative;
       background: var(--color-white);
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .checklist::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-primary) 100%);
+      z-index: 1;
+    }
+    .checklist:hover,
+    .bring-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent);
     }
     .check-item {
       display: flex;
@@ -373,51 +391,7 @@
     }
 
     /* ----- Location card ----- */
-    .location-card {
-      padding: 0;
-      display: flex;
-      align-items: stretch;
-      overflow: hidden;
-    }
-    .location-info { flex: 1; min-width: 0; padding: 30px 32px; }
-    .location-map {
-      width: 320px;
-      flex-shrink: 0;
-      background: var(--color-bg-alt);
-      border-left: 1px solid var(--color-border);
-    }
-    .location-map {
-      display: flex;
-      flex-direction: column;
-    }
-    .map-img {
-      width: 100%;
-      flex: 1;
-      min-height: 0;
-      object-fit: cover;
-      display: block;
-    }
-    .map-open {
-      display: block;
-      padding: 14px 16px;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--color-white);
-      background: var(--color-primary);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-    .map-open:hover { background: var(--color-primary-dark); }
-    /* 尚未放入截图时，地图栏收成一条按钮，不占整块空白 */
-    .location-map.no-map {
-      width: auto;
-      justify-content: center;
-      padding: 24px;
-      align-self: center;
-    }
-    .location-map.no-map .map-open { border-radius: 8px; }
+    .location-card { padding: 30px 32px; }
     .location-name {
       font-family: 'Noto Serif SC', Georgia, serif;
       font-size: 1.2rem;
@@ -479,8 +453,8 @@
        under the section rather than part of it. */
     .env-photos {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
       margin: 0;
     }
     .env-photo {
@@ -497,39 +471,20 @@
       transform: translateY(-4px);
       border-color: var(--color-accent);
     }
-    .env-photo {
-      display: flex;
-      align-items: stretch;
-    }
     .env-photo img {
-      width: 140px;
-      flex-shrink: 0;
-      align-self: stretch;
+      width: 100%;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
       display: block;
       background: var(--color-bg-alt);
     }
     .env-photo figcaption {
-      flex: 1;
-      min-width: 0;
-      padding: 20px 22px;
-      text-align: left;
-      border-left: 1px solid var(--color-bg-alt);
-    }
-    .env-photo figcaption strong {
-      display: block;
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.05rem;
-      font-weight: 700;
+      padding: 13px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
       color: var(--color-primary-dark);
-      letter-spacing: 0.03em;
-      margin-bottom: 8px;
-    }
-    .env-photo figcaption span {
-      display: block;
-      font-size: 0.93rem;
-      line-height: 1.75;
-      color: var(--color-text-light);
+      text-align: center;
+      border-top: 1px solid var(--color-bg-alt);
     }
 
     /* ----- Recruiting project cards ----- */
@@ -646,6 +601,8 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 24px 26px;
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .bring-card::before {
       content: '';
@@ -720,17 +677,7 @@
       .participant-section h2 { font-size: 1.45rem; }
 
       .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .location-card { flex-direction: column; }
-      .location-info { padding: 24px 22px; }
-      .location-map {
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid var(--color-border);
-      }
-      .env-photos { grid-template-columns: 1fr; }
-      .env-photo img { width: 112px; }
-      .env-photo figcaption { padding: 16px 18px; }
-      .map-img { max-height: 220px; }
+      .env-photos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .project-grid { grid-template-columns: 1fr; }
       .project-card { padding: 22px 22px 20px; }
       .bring-card { padding: 20px 22px; }
@@ -854,6 +801,36 @@
       </article>
     </section>
 
+    <!-- ENVIRONMENT -->
+    <section class="participant-section" id="environment">
+      <h2>睡眠<em>环境</em>说明</h2>
+      <p class="lead">
+        实验室配有两间独立卧室和独立的洗漱更衣室，环境安静整洁，您可以安心休息。
+        床单、被褥与枕头均经过清洗消毒，并为每位参与者单独更换；洗漱区提供淋浴、洗发水、
+        沐浴露、拖鞋、毛巾与吹风机，实验结束后可在此清洗头发。参加晚睡实验的参与者，
+        次日清晨我们还会提供简单早餐（牛奶与面包）。
+      </p>
+
+      <div class="env-photos">
+        <figure class="env-photo">
+          <img src="signup/photos/room1.jpg" alt="睡眠监测室 A：单人床与床边工作台" loading="lazy">
+          <figcaption>睡眠监测室 A</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/room2.jpg" alt="睡眠监测室 B：另一间独立卧室" loading="lazy">
+          <figcaption>睡眠监测室 B</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/control-room.jpg" alt="实验控制室：主试在此监看脑电信号" loading="lazy">
+          <figcaption>实验控制室</figcaption>
+        </figure>
+        <figure class="env-photo">
+          <img src="signup/photos/washroom.jpg" alt="洗漱更衣室：洗手台与洗漱区" loading="lazy">
+          <figcaption>洗漱更衣室</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- EQUIPMENT -->
     <section class="participant-section" id="equipment">
       <h2><em>实验设备</em>说明</h2>
@@ -879,46 +856,6 @@
           </p>
           <span class="info-card-tag">非侵入式 · 需佩戴</span>
         </article>
-      </div>
-    </section>
-
-    <!-- ENVIRONMENT -->
-    <section class="participant-section" id="environment">
-      <h2>睡眠<em>环境</em>说明</h2>
-      <p class="lead">
-        实验室配有两间独立卧室和独立的洗漱更衣室，环境安静整洁，您可以安心休息。
-        参加晚睡实验的参与者，次日清晨我们还会提供简单早餐（牛奶与面包）。
-      </p>
-
-      <div class="env-photos">
-        <figure class="env-photo">
-          <img src="signup/photos/room1.jpg" alt="睡眠监测室 A：单人床与床边工作台" loading="lazy">
-          <figcaption>
-            <strong>睡眠监测室 A</strong>
-            <span>床单、被褥与枕头均经过清洗消毒，并为每位参与者单独更换。</span>
-          </figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/room2.jpg" alt="睡眠监测室 B：另一间独立卧室" loading="lazy">
-          <figcaption>
-            <strong>睡眠监测室 B</strong>
-            <span>第二间独立卧室，与监测室 A 配置相同，安静避光，可单独使用。</span>
-          </figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/control-room.jpg" alt="实验控制室：主试在此监看脑电信号" loading="lazy">
-          <figcaption>
-            <strong>实验控制室</strong>
-            <span>主试全程在此监看脑电信号，与卧室相邻，不会打扰您休息。</span>
-          </figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/washroom.jpg" alt="洗漱更衣室：洗手台与洗漱区" loading="lazy">
-          <figcaption>
-            <strong>洗漱更衣室</strong>
-            <span>提供淋浴、洗发水、沐浴露、拖鞋、毛巾与吹风机，实验后可在此清洗头发。</span>
-          </figcaption>
-        </figure>
       </div>
     </section>
 
@@ -1006,11 +943,6 @@
             到达楼下后请致电主试，我们会下楼接您。
           </div>
         </div>
-        <div class="location-map">
-          <img class="map-img" src="images/lab-map.png" alt="实验室位置示意图" loading="lazy">
-          <a class="map-open" href="https://uri.amap.com/marker?position=116.3658,40.0036&amp;name=中国科学院心理研究所&amp;src=xsleeplab&amp;coordinate=gaode&amp;callnative=0"
-             target="_blank" rel="noopener">在高德地图中打开 →</a>
-        </div>
       </article>
     </section>
 
@@ -1082,9 +1014,8 @@
   <script src="js/lang-switch.js"></script>
   <script src="js/nav.js"></script>
   <script>
-    // 图片都是可选的：缺图时优雅降级，绝不在线上留下破图。
-
-    // 环境照片：单张缺失就隐藏那张卡，全部缺失则隐藏整个区块。
+    // 环境照片是可选的：单张缺失就隐藏那张卡，全部缺失则隐藏整个区块，
+    // 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
     (function () {
       var gallery = document.querySelector('.env-photos');
       if (!gallery) return;
@@ -1103,19 +1034,6 @@
       });
     })();
 
-    // 地图截图：没有 images/lab-map.png 时只保留「在高德地图中打开」按钮，
-    // 并让地图栏收缩，避免留下一片空白。
-    (function () {
-      var img = document.querySelector('.map-img');
-      if (!img) return;
-      function drop() {
-        img.style.display = 'none';
-        var box = img.closest('.location-map');
-        if (box) box.classList.add('no-map');
-      }
-      if (img.complete) { if (!img.naturalWidth) drop(); }
-      else img.addEventListener('error', drop);
-    })();
   </script>
 
 </body>
