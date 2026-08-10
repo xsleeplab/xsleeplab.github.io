@@ -218,6 +218,8 @@
     @media(max-width:768px){.slot-days{grid-template-columns:repeat(4,1fr)}}
     @media(max-width:480px){.slot-days{grid-template-columns:repeat(2,1fr)}}
     .form-submit-status{padding:16px;border-radius:var(--radius-sm);margin-top:16px;font-size:0.92rem;display:none}
+    .form-submit-status.pending{display:block;background:var(--color-bg-alt);color:var(--color-primary-dark);border:1px solid var(--color-border)}
+    .form-submit-status.notice{display:block;background:var(--color-warn-bg);color:var(--color-warn);border:1px solid var(--color-warn)}
     .form-submit-status.success{display:block;background:var(--color-success-bg);color:var(--color-success);border:1px solid var(--color-success)}
     .form-submit-status.error{display:block;background:#fef2f2;color:#c0392b;border:1px solid #f5c6cb}
 
@@ -984,7 +986,8 @@ function goNext() {
   const exit = earlyExitReason(currentStep);
   if (exit) { reportEarlyExit(exit); showEarlyExit(exit); return; }
   const i = activeSteps.indexOf(currentStep);
-  if (i > -1 && i < activeSteps.length - 1) showStep(activeSteps[i + 1]);
+  if (i === activeSteps.length - 1) { submitQuestionnaire(); return; }
+  if (i > -1) showStep(activeSteps[i + 1]);
 }
 
 function goPrev() {
@@ -1231,6 +1234,19 @@ function renderGuide(exp) {
 // 云函数只接受下面这份结构化数据并自行拼装卡片，因此即使有人直接
 // 调用该地址，也无法借实验室的机器人发送任意内容。
 const SUBMIT_ENDPOINT = 'https://1301866011-fg2ytpu440.ap-beijing.tencentscf.com';
+const SLOT_LOAD_TIMEOUT_MS = 12000;
+const SUBMISSION_TIMEOUT_MS = 65000;
+
+function fetchJSONWithTimeout(url, options, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .then(response => {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .finally(() => clearTimeout(timer));
+}
 
 // 读取某个单选题当前选中项的文字标签
 function radioLabel(name) {
@@ -1337,28 +1353,47 @@ let chosenSlot = null;
 
 function loadSlots() {
   const box = document.getElementById('slot-grid');
+  const picker = document.getElementById('slot-picker-card');
   chosenSlot = null;
-  fetch(SUBMIT_ENDPOINT, {
+  picker.style.display = 'block';
+  picker.dataset.slotState = 'loading';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选时段…</p>';
+  fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'slots' }),
-  })
-    .then(r => r.json())
+  }, SLOT_LOAD_TIMEOUT_MS)
     .then(d => {
       if (!d || !d.slots || !d.slots.length) {
-        // 时段功能没配好时不该挡住报名，退回为"我们邮件联系您"
-        document.getElementById('slot-picker-card').style.display = 'none';
+        showSlotFallback('在线时段暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
         return;
       }
       renderSlots(d.slots);
     })
     .catch(err => {
       console.error('[X-Sleep] 载入时段失败:', err);
-      document.getElementById('slot-picker-card').style.display = 'none';
+      showSlotFallback(err && err.name === 'AbortError'
+        ? '载入可选时段超时。您仍可提交报名，实验室会通过邮件或电话与您协调时间。'
+        : '在线时段暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
     });
 }
 
+function showSlotFallback(message) {
+  const picker = document.getElementById('slot-picker-card');
+  const box = document.getElementById('slot-grid');
+  picker.dataset.slotState = 'fallback';
+  box.innerHTML = '<p class="slot-fallback">' + message + '</p>';
+}
+
+function hasBookableSlot(slots) {
+  return slots.some(slot => slot.status === '可预约');
+}
+
 function renderSlots(slots) {
+  if (!hasBookableSlot(slots)) {
+    showSlotFallback('当前暂无可预约时段。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+    return;
+  }
   const byDate = {};
   slots.forEach(s => { (byDate[s.date] = byDate[s.date] || []).push(s); });
   const dates = Object.keys(byDate).sort();
@@ -1383,6 +1418,7 @@ function renderSlots(slots) {
   }
   const box = document.getElementById('slot-grid');
   box.innerHTML = h;
+  document.getElementById('slot-picker-card').dataset.slotState = 'ready';
   box.querySelectorAll('.slot-lab').forEach(btn => {
     btn.addEventListener('click', () => {
       box.querySelectorAll('.slot-lab').forEach(b => b.classList.remove('chosen'));
@@ -1420,6 +1456,24 @@ function reportEarlyExit(exit) {
   });
 }
 
+function classifySubmissionResponse(data, requestedSlot) {
+  const error = data && data.error ? data.error : '服务端未确认送达';
+  const retryableSlotErrors = ['slot-taken', 'slot-closed', 'slot-not-found'];
+  if (data && data.ok !== true && retryableSlotErrors.includes(error)) {
+    return { kind: 'retry', error: error };
+  }
+  if (data && data.ok !== true && requestedSlot && /^slot-/.test(error)) {
+    return { kind: 'unknown', error: error };
+  }
+  if (!data || data.ok !== true) return { kind: 'error', error: error };
+  if (requestedSlot && data.booking !== requestedSlot) return { kind: 'unconfirmed' };
+  if (requestedSlot && data.bookingStatus !== 'confirmed') {
+    return { kind: data.notification === 'failed' ? 'pending-warning' : 'pending' };
+  }
+  if (data.notification === 'failed') return { kind: 'warning' };
+  return { kind: 'confirmed' };
+}
+
 function sendEmail() {
   const btn = document.getElementById('btn-send-email');
   const st  = document.getElementById('email-status');
@@ -1427,8 +1481,13 @@ function sendEmail() {
   if (!email) { st.className = 'form-submit-status error'; st.textContent = '请输入邮箱地址'; return; }
 
   const picker = document.getElementById('slot-picker-card');
-  const needSlot = picker && picker.style.display !== 'none';
-  if (needSlot && !chosenSlot) {
+  const slotState = picker ? picker.dataset.slotState : 'fallback';
+  if (slotState === 'loading') {
+    st.className = 'form-submit-status pending';
+    st.textContent = '可选时段仍在载入，请稍候再提交。';
+    return;
+  }
+  if (slotState === 'ready' && !chosenSlot) {
     const err = document.getElementById('err-slot');
     if (err) err.classList.add('show');
     st.className = 'form-submit-status error';
@@ -1438,24 +1497,25 @@ function sendEmail() {
 
   btn.disabled = true;
   btn.textContent = '提交中...';
-  st.className = 'form-submit-status';
-  st.textContent = '';
+  st.className = 'form-submit-status pending';
+  st.textContent = '正在安全提交，请勿关闭页面或重复点击。';
 
   const submission = collectSubmission();
   submission.outcome = 'passed';
-  if (chosenSlot) submission.booking = { key: chosenSlot };
+  const requestedSlot = chosenSlot;
+  if (requestedSlot) submission.booking = { key: requestedSlot };
 
-  fetch(SUBMIT_ENDPOINT, {
+  fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(submission)
-  })
-    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  }, SUBMISSION_TIMEOUT_MS)
     .then(d => {
+      const outcome = classifySubmissionResponse(d, requestedSlot);
       // 时段被抢走是可恢复的：刷新日历让被试重选，而不是当成提交失败
-      if (d && d.ok !== true && /^slot-/.test(d.error || '')) {
+      if (outcome.kind === 'retry') {
         st.className = 'form-submit-status error';
-        st.textContent = d.error === 'slot-taken'
+        st.textContent = outcome.error === 'slot-taken'
           ? '很抱歉，该时段刚被其他参与者预约。已为您刷新，请重新选择。'
           : '该时段已不可预约，请重新选择。';
         chosenSlot = null;
@@ -1464,25 +1524,62 @@ function sendEmail() {
         btn.textContent = '确认并接收实验指引 →';
         return 'retry';
       }
-      if (!d || d.ok !== true) throw new Error((d && d.error) || '服务端未确认送达');
-      return 'done';
+      if (outcome.kind === 'error') return 'error';
+      return outcome.kind;
     })
     .then(result => {
       if (result === 'retry') return;
+      if (result === 'unknown') {
+        st.className = 'form-submit-status notice';
+        st.innerHTML = '服务器未能确认本次报名及预约状态，该时段可能已经写入。请勿重复提交，'
+          + '请通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室核对。';
+        btn.textContent = '状态待确认';
+        return;
+      }
+      if (result === 'error') {
+        st.className = 'form-submit-status error';
+        st.innerHTML = '服务端明确拒绝了本次提交。请检查信息后重新提交，'
+          + '或通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室。';
+        btn.disabled = false;
+        btn.textContent = '重新提交';
+        return;
+      }
+      if (result === 'unconfirmed') {
+        st.className = 'form-submit-status notice';
+        st.textContent = '报名信息已送达，但所选时段尚未得到服务器确认。请勿重复提交，实验室会尽快与您核对时间。';
+        btn.textContent = '信息已提交';
+        return;
+      }
+      if (result === 'pending' || result === 'pending-warning') {
+        st.className = 'form-submit-status notice';
+        st.textContent = result === 'pending-warning'
+          ? '报名信息和所选时段已记录，最终安排以实验室邮件或电话确认为准；系统通知暂时延迟，无需重复提交。'
+          : '报名信息和所选时段已记录，最终安排以实验室邮件或电话确认为准。请勿重复提交。';
+        btn.textContent = '时段待确认';
+        return;
+      }
+      if (result === 'warning') {
+        st.className = 'form-submit-status notice';
+        st.textContent = requestedSlot
+          ? '预约已确认，但系统通知暂时延迟。无需重复提交，实验室会核对记录并与您联系。'
+          : '报名信息已记录，但系统通知暂时延迟。无需重复提交，实验室会核对记录并与您联系。';
+        btn.textContent = requestedSlot ? '预约已确认' : '信息已提交';
+        return;
+      }
       st.className = 'form-submit-status success';
-      st.textContent = chosenSlot
-        ? '报名成功！已为您预约 ' + chosenSlot.replace('|', ' ') + '，我们会通过邮件与您确认。'
+      st.textContent = requestedSlot
+        ? '报名成功！已为您预约 ' + requestedSlot.replace('|', ' ') + '，我们会通过邮件与您确认。'
         : '报名信息已提交！我们将在 1-2 个工作日内通过邮件或电话与您联系，确认实验安排。';
       btn.textContent = '已提交';
     })
     .catch(err => {
-      // 失败必须如实告知，否则被试以为报名成功、数据却已丢失
+      // 网络、平台超时或非 JSON 响应都可能发生在服务端写入之后。此时
+      // 不能声称“未送达”或鼓励重试，否则可能造成重复预约/重复归档。
       console.error('[X-Sleep] 报名提交失败:', err);
-      st.className = 'form-submit-status error';
-      st.innerHTML = '提交失败，您的信息<strong>未能送达</strong>。请检查网络后点击重新提交，'
-        + '或直接将姓名、手机与邮箱发送至 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 完成报名。';
-      btn.disabled = false;
-      btn.textContent = '重新提交';
+      st.className = 'form-submit-status notice';
+      st.innerHTML = '服务器未能返回可验证结果，报名状态<strong>暂未确认</strong>。请勿重复提交，'
+        + '请通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室核对。';
+      btn.textContent = '状态待确认';
     });
 }
 

@@ -26,15 +26,17 @@ const ALLOWED_ORIGINS = [
 // 简易频率限制：同一 IP 每小时最多 5 次。
 // SCF 实例会被复用但不保证常驻，所以这是一道减速带而非强保证。
 const RATE_LIMIT_MAX = 5;
+const SLOT_RATE_LIMIT_MAX = 60;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const hits = new Map();
 
-function rateLimited(ip) {
+function rateLimited(key, max) {
   const now = Date.now();
-  const recent = (hits.get(ip) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT_MAX) { hits.set(ip, recent); return true; }
+  const limit = max || RATE_LIMIT_MAX;
+  const recent = (hits.get(key) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
+  if (recent.length >= limit) { hits.set(key, recent); return true; }
   recent.push(now);
-  hits.set(ip, recent);
+  hits.set(key, recent);
   if (hits.size > 5000) hits.clear();          // 防止内存无限增长
   return false;
 }
@@ -75,8 +77,8 @@ function postJSON(url, payload, extraHeaders) {
       path: u.pathname + u.search,
       method: 'POST',
       headers: headers,
-      // 单次请求 4s：一次提交最多三次调用（取 token、写表、发卡片），
-      // 累计仍留在函数 15s 超时之内。
+      // 单次请求 4s。带预约的冷启动提交还会依次查询、写入并回读时段，
+      // 因此 SCF 函数超时必须按 README 配置为至少 60s。
       timeout: 4000,
     }, res => {
       let body = '';
@@ -141,7 +143,9 @@ function buildFields(d) {
     '邮箱': safe(d.email, 60),
     '报名项目': safe(d.project && d.project.title, 40),
     '中止原因': d.exit ? safe(d.exit.where + '：' + d.exit.why, 100) : '',
-    '预约时段': d.booking && d.booking.key ? safe(String(d.booking.key).replace('|', ' '), 40) : '',
+    '预约时段': d.booking && d.booking.key
+      ? safe('[待确认] ' + String(d.booking.key).replace('|', ' '), 40)
+      : '',
   };
   const age = asNumber(d.age);
   if (age !== null) f['年龄'] = age;
@@ -332,13 +336,18 @@ async function bookSlot(key, d) {
   }, token);
   if (j.code !== 0) return { ok: false, reason: 'write-failed', code: j.code };
 
-  // 回读校验：多维表格没有唯一约束，并发写会互相覆盖。若回读到的
-  // 预约人不是自己，说明被别人抢先了，让后到者重选。
+  // 回读校验：多维表格没有唯一约束，并发写会互相覆盖。只有状态和
+  // 预约身份都完整、精确匹配时才确认；读失败或字段缺失必须失败关闭。
   const after = await requestJSON('GET', bitableUrl(BITABLE_SLOT_TABLE_ID, '/' + hit.record_id), null, token);
-  if (after.code === 0) {
-    const record = (after.data && after.data.record) || {};
-    const who = String(fieldText((record.fields || {})['预约人']) || '');
-    if (who && who !== safe(d.name, 40)) return { ok: false, reason: 'taken' };
+  if (after.code !== 0) return { ok: false, reason: 'confirm-failed', code: after.code };
+  const record = (after.data && after.data.record) || {};
+  const fields = record.fields || {};
+  const statusAfter = String(fieldText(fields['状态']) || '');
+  const who = String(fieldText(fields['预约人']) || '');
+  const email = String(fieldText(fields['预约邮箱']) || '');
+  if (!statusAfter || !who || !email) return { ok: false, reason: 'confirm-failed' };
+  if (statusAfter !== '已预约' || who !== safe(d.name, 40) || email !== safe(d.email, 60)) {
+    return { ok: false, reason: 'taken' };
   }
 
   return { ok: true, key: key };
@@ -438,8 +447,9 @@ function buildCard(d) {
             ' / 焦虑 ' + safe(dass.anxiety, 6) + ' / 压力 ' + safe(dass.stress, 6) +
             ' ' + yn(dass.pass), qaLines(detail.dass, 25)),
     divider,
-    section('📅 预约时段', d.booking && d.booking.key
-      ? ['**' + safe(String(d.booking.key).replace('|', '　'), 40) + '**',
+    section('📅 时段偏好（待确认）', d.booking && d.booking.key
+      ? ['**[待确认] ' + safe(String(d.booking.key).replace('|', '　'), 40) + '**',
+         '需由实验室邮件或电话最终确认',
          '备注：' + (safe(sched.note, 200) || '无')]
       : ['被试尚未选择时段', '备注：' + (safe(sched.note, 200) || '无')]),
   ];
@@ -488,7 +498,6 @@ exports.main_handler = async (event) => {
   const fwd = headers['x-forwarded-for'] || headers['X-Forwarded-For'];
   const ip = fwd ? String(fwd).split(',')[0].trim()
                  : ((event.requestContext && event.requestContext.sourceIp) || 'unknown');
-  if (rateLimited(ip)) return reply(429, origin, { ok: false, error: 'too many submissions' });
 
   let data;
   try {
@@ -498,8 +507,14 @@ exports.main_handler = async (event) => {
   } catch (e) {
     return reply(400, origin, { ok: false, error: 'invalid JSON' });
   }
+  const slotsRequest = data && data.action === 'slots';
+  const rateKey = (slotsRequest ? 'slots:' : 'submit:') + ip;
+  const rateMax = slotsRequest ? SLOT_RATE_LIMIT_MAX : RATE_LIMIT_MAX;
+  if (rateLimited(rateKey, rateMax)) {
+    return reply(429, origin, { ok: false, error: slotsRequest ? 'too many slot requests' : 'too many submissions' });
+  }
   // 查询可用时段：不需要身份，也不返回任何预约人信息
-  if (data && data.action === 'slots') {
+  if (slotsRequest) {
     if (!slotsReady()) return reply(200, origin, { ok: true, slots: [], disabled: true });
     try {
       return reply(200, origin, { ok: true, slots: await buildSlotGrid() });
@@ -526,19 +541,44 @@ exports.main_handler = async (event) => {
     }
   }
 
+  // 后续归档和通知只能使用服务端已经确认的预约结果。客户端传来的
+  // booking 只是请求，时段服务未配置或未确认时不能把它写成已预约。
+  const deliveryData = Object.assign({}, data, {
+    booking: booking ? { key: booking } : null,
+  });
+
   // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志。
   // 把飞书返回的错误码一并带回响应，排查时不必每次去翻函数日志
   // （只回数字码，不回含 app_id 的完整报错文本）。
   let archiveCode = null;
-  const archiving = appendBitableRow(data)
+  const archiving = appendBitableRow(deliveryData)
     .catch(e => {
       console.error('[bitable]', e && e.message);
       archiveCode = (e && e.bitableCode) || 'exception';
       return 'failed';
     });
 
+  const notificationFailureResponse = async () => {
+    const archived = await archiving;
+    // A confirmed booking or a completed archive is a durable receipt. Report
+    // notification delay without inviting a duplicate submission. If neither
+    // exists, the form still needs to surface a real delivery failure.
+    if (!booking && archived !== 'ok') {
+      const failedBody = { ok: false, error: 'notify failed', archived };
+      if (archiveCode !== null) failedBody.archiveCode = archiveCode;
+      return reply(502, origin, failedBody);
+    }
+    const body = { ok: true, archived, notification: 'failed' };
+    if (booking) {
+      body.booking = booking;
+      body.bookingStatus = 'pending';
+    }
+    if (archiveCode !== null) body.archiveCode = archiveCode;
+    return reply(200, origin, body);
+  };
+
   try {
-    const res = await postJSON(FEISHU_WEBHOOK, buildCard(data));
+    const res = await postJSON(FEISHU_WEBHOOK, buildCard(deliveryData));
     let ok = res.status >= 200 && res.status < 300;
     // 飞书即使 HTTP 200 也可能在 body 里返回非零 code
     try {
@@ -548,17 +588,21 @@ exports.main_handler = async (event) => {
 
     if (!ok) {
       console.error('飞书返回异常:', res.status, res.body);
-      return reply(502, origin, { ok: false, error: 'notify failed' });
+      return notificationFailureResponse();
     }
     // archived 便于在浏览器控制台一眼看出归档是否配好
     const archived = await archiving;
     const body = { ok: true, archived };
-    if (booking) body.booking = booking;
+    if (booking) {
+      body.booking = booking;
+      // Bitable has no atomic conditional update. Readback proves the request
+      // was present at that moment, but final confirmation remains manual.
+      body.bookingStatus = 'pending';
+    }
     if (archiveCode !== null) body.archiveCode = archiveCode;
     return reply(200, origin, body);
   } catch (e) {
     console.error('转发飞书失败:', e && e.message);
-    await archiving;   // 别让未处理的 promise 悬着
-    return reply(502, origin, { ok: false, error: 'notify failed' });
+    return notificationFailureResponse();
   }
 };

@@ -47,11 +47,12 @@
 
 ## 被试报名系统（`signup/`）
 
-自包含的单页表单，无后端依赖，可直接由 GitHub Pages 托管。
+前端是无构建依赖的单页表单，可由 GitHub Pages 托管；提交与预约依赖 `scf/` 云函数。
 
 - 入口：`signup/?project=nap-memory` 或 `signup/?project=overnight-sleep`
   （`participate.html` 的「报名筛选」按钮指向这里）
-- 9 步流程：知情同意 → 基本信息 → 视力 → 环境适应 → PSQI → ISI → 昼夜节律 → DASS-21 → 时间安排
+- 动态流程：午睡项目 8 步，夜间项目 7 步（跳过不适用的视力筛查）；完成 DASS-21 后立即显示筛选结果
+- 通过筛选的参与者在结果页提交具体时段偏好，最终由实验室邮件或电话确认；时段服务不可用时自动转人工协调，不阻断报名
 - 新增实验项目：编辑 `signup/index.html` 里的 `EXPERIMENTS` 数组
 
 ### 筛选阈值
@@ -90,11 +91,11 @@ python -m http.server 8000
 ## 测试
 
 ```bash
-node --test tests/site-audit.test.mjs
+node --test "tests\\*.test.mjs"
 ```
 
-覆盖：双语字段完整性、canonical/favicon/h1 等 SEO 与无障碍约定、
-图片引用与首页体积预算、内容预渲染。
+覆盖：报名步骤终态、预约确认与超时契约、SCF 提交边界，以及双语字段、
+SEO、无障碍、图片预算和内容预渲染。
 
 ## 设计规范
 
