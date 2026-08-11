@@ -390,11 +390,14 @@
           </div>
         </div>
 
-        <div class="q-item">
-          <label class="form-label">是否有散光？</label>
-          <div class="radio-group" id="vision-astigmatism">
-            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-yes" value="1"><label for="vision-astig-yes">有</label></div>
-            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-no" value="0"><label for="vision-astig-no">无</label></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">左眼散光度数（度，无散光填 0）</label>
+            <input type="number" class="form-input" id="vision-left-astigmatism" min="0" max="1000" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">右眼散光度数（度，无散光填 0）</label>
+            <input type="number" class="form-input" id="vision-right-astigmatism" min="0" max="1000" value="0">
           </div>
         </div>
 
@@ -403,6 +406,14 @@
           <div class="radio-group" id="vision-glasses">
             <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-yes" value="1"><label for="vision-gl-yes">是</label></div>
             <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-no" value="0"><label for="vision-gl-no">否</label></div>
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label">您之前佩戴 3D 眼镜时是否会感到晕眩？</label>
+          <div class="radio-group" id="vision-3d-dizzy">
+            <div class="radio-option"><input type="radio" name="vision-3d-dizzy" id="vision-3d-yes" value="1"><label for="vision-3d-yes">是</label></div>
+            <div class="radio-option"><input type="radio" name="vision-3d-dizzy" id="vision-3d-no" value="0"><label for="vision-3d-no">否</label></div>
           </div>
         </div>
 
@@ -926,10 +937,11 @@ const AGE_MIN = 18, AGE_MAX = 26;
 
 function visionFailReason() {
   const n = id => parseInt(document.getElementById(id).value) || 0;
-  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
-  if (!astig || parseInt(astig.value) !== 0) return '本实验要求参与者无散光';
-  if (n('vision-left-myopia') >= 800 || n('vision-right-myopia') >= 800) return '近视度数达到或超过 800 度';
-  if (n('vision-left-hyperopia') >= 200 || n('vision-right-hyperopia') >= 200) return '远视度数达到或超过 200 度';
+  if (n('vision-left-myopia') > 700 || n('vision-right-myopia') > 700) return '近视度数超过 700 度';
+  if (n('vision-left-hyperopia') > 200 || n('vision-right-hyperopia') > 200) return '远视度数超过 200 度';
+  if (n('vision-left-astigmatism') > 100 || n('vision-right-astigmatism') > 100) return '散光度数超过 100 度';
+  const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
+  if (!dizzy3d || parseInt(dizzy3d.value) !== 0) return '佩戴 3D 眼镜时会感到晕眩，本实验需要使用 3D 视觉刺激';
   return '视力条件不符合本实验要求';
 }
 
@@ -1029,9 +1041,11 @@ function validateStep(step) {
     const rm = parseInt(document.getElementById('vision-right-myopia').value);
     const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
     const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-    const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+    const la = parseInt(document.getElementById('vision-left-astigmatism').value) || 0;
+    const ra = parseInt(document.getElementById('vision-right-astigmatism').value) || 0;
     const glasses = document.querySelector('input[name="vision-glasses"]:checked');
-    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astig || !glasses) { showErr('err-vision'); v=false; }
+    const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
+    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || isNaN(la) || isNaN(ra) || !glasses || !dizzy3d) { showErr('err-vision'); v=false; }
   }
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
@@ -1140,11 +1154,14 @@ function checkVisionPass() {
   const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
   const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
   const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
-  // 排除标准：近视 ≥800 度、远视 ≥200 度、有散光（两项度数判据统一取“大于等于”）
-  if (lm >= 800 || rm >= 800) return false;
-  if (lh >= 200 || rh >= 200) return false;
-  if (!astig || parseInt(astig.value) !== 0) return false;
+  const la = parseInt(document.getElementById('vision-left-astigmatism').value) || 0;
+  const ra = parseInt(document.getElementById('vision-right-astigmatism').value) || 0;
+  const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
+  // 排除标准：近视 >700 度、远视 >200 度、散光 >100 度、佩戴3D眼镜晕眩
+  if (lm > 700 || rm > 700) return false;
+  if (lh > 200 || rh > 200) return false;
+  if (la > 100 || ra > 100) return false;
+  if (!dizzy3d || parseInt(dizzy3d.value) !== 0) return false;
   return true;
 }
 
@@ -1265,7 +1282,6 @@ function collectSubmission() {
   const dyePass    = checkDyePass();
   const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
 
-  const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
   const glassesEl = document.querySelector('input[name="vision-glasses"]:checked');
   const flexEl    = document.querySelector('input[name="flexibility"]:checked');
 
@@ -1318,12 +1334,14 @@ function collectSubmission() {
     },
     vision: visionNeeded ? {
       required: true,
-      leftMyopia:     val('vision-left-myopia')      || '0',
-      rightMyopia:    val('vision-right-myopia')     || '0',
-      leftHyperopia:  val('vision-left-hyperopia')   || '0',
-      rightHyperopia: val('vision-right-hyperopia')  || '0',
-      astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
+      leftMyopia:      val('vision-left-myopia')        || '0',
+      rightMyopia:     val('vision-right-myopia')       || '0',
+      leftHyperopia:   val('vision-left-hyperopia')     || '0',
+      rightHyperopia:  val('vision-right-hyperopia')    || '0',
+      leftAstigmatism:  val('vision-left-astigmatism')  || '0',
+      rightAstigmatism: val('vision-right-astigmatism') || '0',
       glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
+      dizzy3d:     (() => { const d = document.querySelector('input[name="vision-3d-dizzy"]:checked'); return d ? (d.value === '1' ? '是' : '否') : '未填'; })(),
       pass: visionPass
     } : { required: false, pass: true },
     habit: {
