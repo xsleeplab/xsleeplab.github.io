@@ -204,19 +204,40 @@
 
     .contact-form-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow);margin-bottom:24px}
     .contact-form-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:16px}
-    /* ----- 时段选择 ----- */
-    .slot-week{margin-bottom:18px}
-    .slot-week-label{font-size:0.8rem;font-weight:600;color:var(--color-text-light);margin-bottom:8px}
-    .slot-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-    .slot-day{border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-white);padding:8px 6px;text-align:center}
-    .slot-date{font-family:var(--font-display);font-size:0.78rem;font-weight:700;color:var(--color-primary-dark);line-height:1.3}
-    .slot-wd{font-size:0.7rem;color:var(--color-text-light);margin-bottom:6px}
-    .slot-lab{display:block;width:100%;margin-top:4px;padding:5px 2px;border:1px solid var(--color-border);border-radius:4px;background:var(--color-bg-alt);font-size:0.7rem;font-weight:600;color:var(--color-primary);cursor:pointer;transition:var(--transition)}
-    .slot-lab:hover:not(:disabled){border-color:var(--color-primary);background:var(--color-white)}
-    .slot-lab:disabled{cursor:not-allowed;color:#aab7c0;background:#f2f5f7;border-color:#e3e9ee;text-decoration:line-through}
-    .slot-lab.chosen{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary);text-decoration:none}
-    @media(max-width:768px){.slot-days{grid-template-columns:repeat(4,1fr)}}
-    @media(max-width:480px){.slot-days{grid-template-columns:repeat(2,1fr)}}
+    /* ----- 日历选择 ----- */
+    .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .cal-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark)}
+    .cal-nav{background:none;border:1px solid var(--color-border);border-radius:var(--radius-sm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--color-primary);font-size:1rem;transition:var(--transition)}
+    .cal-nav:hover:not(:disabled){background:var(--color-bg-alt);border-color:var(--color-primary)}
+    .cal-nav:disabled{opacity:0.3;cursor:not-allowed}
+    .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}
+    .cal-wd{text-align:center;font-size:0.72rem;font-weight:600;color:var(--color-text-light);padding:4px 0}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .cal-cell{border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-white);padding:8px 4px;text-align:center;cursor:default;transition:var(--transition);position:relative;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .cal-cell.empty{border-color:transparent;background:transparent}
+    .cal-cell .cal-num{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark);line-height:1.2}
+    .cal-cell .cal-wd-label{font-size:0.65rem;color:var(--color-text-light);margin-top:2px}
+    .cal-cell .cal-status{font-size:0.6rem;margin-top:4px;font-weight:600;line-height:1}
+    .cal-cell.available{cursor:pointer;border-color:var(--color-border)}
+    .cal-cell.available:hover{border-color:var(--color-primary);box-shadow:0 0 0 2px rgba(74,101,128,0.12)}
+    .cal-cell.available .cal-status{color:var(--color-success)}
+    .cal-cell.full{background:rgba(192,57,43,0.04)}
+    .cal-cell.full .cal-status{color:#c0392b}
+    .cal-cell.closed{opacity:0.35}
+    .cal-cell.closed .cal-num{text-decoration:line-through}
+    .cal-cell.disabled{opacity:0.35;cursor:not-allowed}
+    .cal-cell.chosen{background:var(--color-primary);border-color:var(--color-primary)}
+    .cal-cell.chosen .cal-num{color:var(--color-white)}
+    .cal-cell.chosen .cal-wd-label{color:rgba(255,255,255,0.8)}
+    .cal-cell.chosen .cal-status{color:rgba(255,255,255,0.9)}
+    .cal-cell.today .cal-num{color:var(--color-accent)}
+    .cal-legend{display:flex;gap:16px;margin-top:14px;font-size:0.75rem;color:var(--color-text-light);flex-wrap:wrap}
+    .cal-legend span{display:flex;align-items:center;gap:4px}
+    .cal-legend .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+    .cal-legend .dot.avail{background:var(--color-success)}
+    .cal-legend .dot.full{background:#c0392b}
+    .cal-legend .dot.closed{background:#aab7c0}
+    @media(max-width:480px){.cal-cell{min-height:52px;padding:6px 2px}.cal-cell .cal-num{font-size:0.9rem}.cal-cell .cal-wd-label{display:none}.cal-cell .cal-status{font-size:0.55rem}}
     .form-submit-status{padding:16px;border-radius:var(--radius-sm);margin-top:16px;font-size:0.92rem;display:none}
     .form-submit-status.pending{display:block;background:var(--color-bg-alt);color:var(--color-primary-dark);border:1px solid var(--color-border)}
     .form-submit-status.notice{display:block;background:var(--color-warn-bg);color:var(--color-warn);border:1px solid var(--color-warn)}
@@ -390,14 +411,11 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">左眼散光度数（度，无散光填 0）</label>
-            <input type="number" class="form-input" id="vision-left-astigmatism" min="0" max="1000" value="0">
-          </div>
-          <div class="form-group">
-            <label class="form-label">右眼散光度数（度，无散光填 0）</label>
-            <input type="number" class="form-input" id="vision-right-astigmatism" min="0" max="1000" value="0">
+        <div class="q-item">
+          <label class="form-label">是否有散光？</label>
+          <div class="radio-group" id="vision-astigmatism">
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-yes" value="1"><label for="vision-astig-yes">有</label></div>
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-no" value="0"><label for="vision-astig-no">无</label></div>
           </div>
         </div>
 
@@ -406,14 +424,6 @@
           <div class="radio-group" id="vision-glasses">
             <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-yes" value="1"><label for="vision-gl-yes">是</label></div>
             <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-no" value="0"><label for="vision-gl-no">否</label></div>
-          </div>
-        </div>
-
-        <div class="q-item">
-          <label class="form-label">您之前佩戴 3D 眼镜时是否会感到晕眩？</label>
-          <div class="radio-group" id="vision-3d-dizzy">
-            <div class="radio-option"><input type="radio" name="vision-3d-dizzy" id="vision-3d-yes" value="1"><label for="vision-3d-yes">是</label></div>
-            <div class="radio-option"><input type="radio" name="vision-3d-dizzy" id="vision-3d-no" value="0"><label for="vision-3d-no">否</label></div>
           </div>
         </div>
 
@@ -555,12 +565,12 @@
         <div class="result-header pass"><div class="result-icon">🎉</div><h2>恭喜，您通过了初筛！</h2><p id="pass-exp-desc"></p></div>
         <div id="guide-container"></div>
         <div class="contact-form-card" id="slot-picker-card">
-          <h3>选择实验时间</h3>
+          <h3>选择实验日期</h3>
           <p style="font-size:0.92rem;color:var(--color-text-light);margin-bottom:16px">
-            请选择一个方便的日期。灰色表示该时段已被预约或暂不开放。每天有两间实验室，各接待一位参与者。
+            请选择一个方便的日期。绿色表示可预约，红色表示已约满。
           </p>
-          <div id="slot-grid"><p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选时段…</p></div>
-          <div class="form-error" id="err-slot">请选择一个时段</div>
+          <div id="cal-container"><p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选日期…</p></div>
+          <div class="form-error" id="err-slot">请选择一个日期</div>
         </div>
 
         <div class="contact-form-card">
@@ -937,11 +947,10 @@ const AGE_MIN = 18, AGE_MAX = 26;
 
 function visionFailReason() {
   const n = id => parseInt(document.getElementById(id).value) || 0;
-  if (n('vision-left-myopia') > 700 || n('vision-right-myopia') > 700) return '近视度数超过 700 度';
-  if (n('vision-left-hyperopia') > 200 || n('vision-right-hyperopia') > 200) return '远视度数超过 200 度';
-  if (n('vision-left-astigmatism') > 100 || n('vision-right-astigmatism') > 100) return '散光度数超过 100 度';
-  const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
-  if (!dizzy3d || parseInt(dizzy3d.value) !== 0) return '佩戴 3D 眼镜时会感到晕眩，本实验需要使用 3D 视觉刺激';
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  if (!astig || parseInt(astig.value) !== 0) return '本实验要求参与者无散光';
+  if (n('vision-left-myopia') >= 800 || n('vision-right-myopia') >= 800) return '近视度数达到或超过 800 度';
+  if (n('vision-left-hyperopia') >= 200 || n('vision-right-hyperopia') >= 200) return '远视度数达到或超过 200 度';
   return '视力条件不符合本实验要求';
 }
 
@@ -1041,11 +1050,9 @@ function validateStep(step) {
     const rm = parseInt(document.getElementById('vision-right-myopia').value);
     const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
     const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-    const la = parseInt(document.getElementById('vision-left-astigmatism').value) || 0;
-    const ra = parseInt(document.getElementById('vision-right-astigmatism').value) || 0;
+    const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
     const glasses = document.querySelector('input[name="vision-glasses"]:checked');
-    const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
-    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || isNaN(la) || isNaN(ra) || !glasses || !dizzy3d) { showErr('err-vision'); v=false; }
+    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astig || !glasses) { showErr('err-vision'); v=false; }
   }
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
@@ -1154,14 +1161,11 @@ function checkVisionPass() {
   const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
   const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
   const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-  const la = parseInt(document.getElementById('vision-left-astigmatism').value) || 0;
-  const ra = parseInt(document.getElementById('vision-right-astigmatism').value) || 0;
-  const dizzy3d = document.querySelector('input[name="vision-3d-dizzy"]:checked');
-  // 排除标准：近视 >700 度、远视 >200 度、散光 >100 度、佩戴3D眼镜晕眩
-  if (lm > 700 || rm > 700) return false;
-  if (lh > 200 || rh > 200) return false;
-  if (la > 100 || ra > 100) return false;
-  if (!dizzy3d || parseInt(dizzy3d.value) !== 0) return false;
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  // 排除标准：近视 ≥800 度、远视 ≥200 度、有散光（两项度数判据统一取“大于等于”）
+  if (lm >= 800 || rm >= 800) return false;
+  if (lh >= 200 || rh >= 200) return false;
+  if (!astig || parseInt(astig.value) !== 0) return false;
   return true;
 }
 
@@ -1282,6 +1286,7 @@ function collectSubmission() {
   const dyePass    = checkDyePass();
   const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
 
+  const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
   const glassesEl = document.querySelector('input[name="vision-glasses"]:checked');
   const flexEl    = document.querySelector('input[name="flexibility"]:checked');
 
@@ -1334,14 +1339,12 @@ function collectSubmission() {
     },
     vision: visionNeeded ? {
       required: true,
-      leftMyopia:      val('vision-left-myopia')        || '0',
-      rightMyopia:     val('vision-right-myopia')       || '0',
-      leftHyperopia:   val('vision-left-hyperopia')     || '0',
-      rightHyperopia:  val('vision-right-hyperopia')    || '0',
-      leftAstigmatism:  val('vision-left-astigmatism')  || '0',
-      rightAstigmatism: val('vision-right-astigmatism') || '0',
+      leftMyopia:     val('vision-left-myopia')      || '0',
+      rightMyopia:    val('vision-right-myopia')     || '0',
+      leftHyperopia:  val('vision-left-hyperopia')   || '0',
+      rightHyperopia: val('vision-right-hyperopia')  || '0',
+      astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
       glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
-      dizzy3d:     (() => { const d = document.querySelector('input[name="vision-3d-dizzy"]:checked'); return d ? (d.value === '1' ? '是' : '否') : '未填'; })(),
       pass: visionPass
     } : { required: false, pass: true },
     habit: {
@@ -1365,17 +1368,21 @@ function collectSubmission() {
   };
 }
 
-// ==================== 时段选择 ====================
-// 服务端只回日期/实验室/是否可约，没有任何其他被试的信息。
+// ==================== 日历选择 ====================
 let chosenSlot = null;
+let calSlots = [];
+let calWindow = 14;
+let calViewYear = null;
+let calViewMonth = null;
+const WEEKDAYS_SHORT = ['日', '一', '二', '三', '四', '五', '六'];
 
 function loadSlots() {
-  const box = document.getElementById('slot-grid');
+  const box = document.getElementById('cal-container');
   const picker = document.getElementById('slot-picker-card');
   chosenSlot = null;
   picker.style.display = 'block';
   picker.dataset.slotState = 'loading';
-  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选时段…</p>';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选日期…</p>';
   fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1383,68 +1390,154 @@ function loadSlots() {
   }, SLOT_LOAD_TIMEOUT_MS)
     .then(d => {
       if (!d || !d.slots || !d.slots.length) {
-        showSlotFallback('在线时段暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+        showSlotFallback('在线日历暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
         return;
       }
-      renderSlots(d.slots);
+      calSlots = d.slots;
+      calWindow = d.bookingWindow || 14;
+      const now = new Date(Date.now() + 8 * 3600 * 1000);
+      calViewYear = now.getUTCFullYear();
+      calViewMonth = now.getUTCMonth();
+      renderCalendar();
     })
     .catch(err => {
-      console.error('[X-Sleep] 载入时段失败:', err);
+      console.error('[X-Sleep] 载入日历失败:', err);
       showSlotFallback(err && err.name === 'AbortError'
-        ? '载入可选时段超时。您仍可提交报名，实验室会通过邮件或电话与您协调时间。'
-        : '在线时段暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+        ? '载入可选日期超时。您仍可提交报名，实验室会通过邮件或电话与您协调时间。'
+        : '在线日历暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
     });
 }
 
 function showSlotFallback(message) {
   const picker = document.getElementById('slot-picker-card');
-  const box = document.getElementById('slot-grid');
+  const box = document.getElementById('cal-container');
   picker.dataset.slotState = 'fallback';
-  box.innerHTML = '<p class="slot-fallback">' + message + '</p>';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">' + message + '</p>';
 }
 
-function hasBookableSlot(slots) {
-  return slots.some(slot => slot.status === '可预约');
-}
+function renderCalendar() {
+  const box = document.getElementById('cal-container');
+  const slotMap = {};
+  calSlots.forEach(s => { slotMap[s.date] = s; });
 
-function renderSlots(slots) {
-  if (!hasBookableSlot(slots)) {
-    showSlotFallback('当前暂无可预约时段。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+  const year = calViewYear;
+  const month = calViewMonth;
+  const firstDay = new Date(Date.UTC(year, month, 1));
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const startWeekday = firstDay.getUTCDay();
+  const todayIso = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+
+  const hasBookable = calSlots.some(s => s.status === '可预约' && s.booked < s.capacity);
+  if (!hasBookable && !document.querySelector('.cal-cell.chosen')) {
+    showSlotFallback('当前暂无可预约日期。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
     return;
   }
-  const byDate = {};
-  slots.forEach(s => { (byDate[s.date] = byDate[s.date] || []).push(s); });
-  const dates = Object.keys(byDate).sort();
+
+  const MONTH_NAMES = ['一月', '二月', '三月', '四月', '五月', '六月',
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
   let h = '';
-  for (let w = 0; w < dates.length; w += 7) {
-    const chunk = dates.slice(w, w + 7);
-    h += '<div class="slot-week"><div class="slot-week-label">' +
-         chunk[0].slice(5) + ' – ' + chunk[chunk.length - 1].slice(5) + '</div><div class="slot-days">';
-    chunk.forEach(date => {
-      const day = byDate[date];
-      h += '<div class="slot-day"><div class="slot-date">' + date.slice(5) + '</div>' +
-           '<div class="slot-wd">' + day[0].weekday + '</div>';
-      day.forEach(s => {
-        const free = s.status === '可预约';
-        h += '<button type="button" class="slot-lab" data-key="' + s.key + '"' +
-             (free ? '' : ' disabled') + '>' + s.lab.replace('Lab ', 'L') + '</button>';
-      });
-      h += '</div>';
-    });
-    h += '</div></div>';
+  h += '<div class="cal-header">';
+  h += '<button type="button" class="cal-nav" id="cal-prev" aria-label="上月">\u2039</button>';
+  h += '<span class="cal-title">' + year + '年 ' + MONTH_NAMES[month] + '</span>';
+  h += '<button type="button" class="cal-nav" id="cal-next" aria-label="下月">\u203a</button>';
+  h += '</div>';
+
+  h += '<div class="cal-weekdays">';
+  WEEKDAYS_SHORT.forEach(w => { h += '<div class="cal-wd">' + w + '</div>'; });
+  h += '</div>';
+
+  h += '<div class="cal-grid">';
+  for (let i = 0; i < startWeekday; i++) {
+    h += '<div class="cal-cell empty"></div>';
   }
-  const box = document.getElementById('slot-grid');
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const slot = slotMap[iso];
+    const isToday = iso === todayIso;
+    const wdIdx = (firstDay.getUTCDay() + d - 1) % 7;
+    const wd = WEEKDAYS_SHORT[wdIdx];
+
+    let cls = 'cal-cell';
+    let statusText = '';
+    let clickable = false;
+
+    if (slot) {
+      if (slot.status === '关闭') {
+        cls += ' closed';
+        statusText = '关闭';
+      } else if (slot.booked >= slot.capacity) {
+        cls += ' full';
+        statusText = '已约满';
+      } else if (chosenSlot === iso) {
+        cls += ' chosen';
+        statusText = '已选择';
+        clickable = true;
+      } else {
+        cls += ' available';
+        const remaining = slot.capacity - slot.booked;
+        statusText = remaining > 1 ? '余 ' + remaining + ' 位' : '可预约';
+        clickable = true;
+      }
+    } else {
+      cls += ' disabled';
+    }
+    if (isToday) cls += ' today';
+
+    h += '<div class="' + cls + '"' + (clickable ? ' data-date="' + iso + '"' : '') + '>';
+    h += '<span class="cal-num">' + d + '</span>';
+    h += '<span class="cal-wd-label">周' + wd + '</span>';
+    if (statusText) h += '<span class="cal-status">' + statusText + '</span>';
+    h += '</div>';
+  }
+  h += '</div>';
+
+  h += '<div class="cal-legend">';
+  h += '<span><i class="dot avail"></i> 可预约</span>';
+  h += '<span><i class="dot full"></i> 已约满</span>';
+  h += '<span><i class="dot closed"></i> 暂不开放</span>';
+  h += '</div>';
+
   box.innerHTML = h;
   document.getElementById('slot-picker-card').dataset.slotState = 'ready';
-  box.querySelectorAll('.slot-lab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      box.querySelectorAll('.slot-lab').forEach(b => b.classList.remove('chosen'));
-      btn.classList.add('chosen');
-      chosenSlot = btn.getAttribute('data-key');
+
+  box.querySelectorAll('.cal-cell.available').forEach(cell => {
+    cell.addEventListener('click', () => {
+      box.querySelectorAll('.cal-cell').forEach(c => c.classList.remove('chosen'));
+      const date = cell.getAttribute('data-date');
+      const slot = slotMap[date];
+      if (slot) {
+        const remaining = slot.capacity - slot.booked;
+        cell.querySelector('.cal-status').textContent = remaining > 1 ? '余 ' + remaining + ' 位' : '可预约';
+      }
+      cell.classList.add('chosen');
+      cell.querySelector('.cal-status').textContent = '已选择';
+      chosenSlot = date;
       const err = document.getElementById('err-slot');
       if (err) err.classList.remove('show');
     });
+  });
+
+  const prevBtn = document.getElementById('cal-prev');
+  const nextBtn = document.getElementById('cal-next');
+  const nowDate = new Date(Date.now() + 8 * 3600 * 1000);
+  const curY = nowDate.getUTCFullYear(), curM = nowDate.getUTCMonth();
+  prevBtn.disabled = (year === curY && month <= curM);
+  const maxSlotDate = calSlots.length ? calSlots[calSlots.length - 1].date : '';
+  if (maxSlotDate) {
+    const maxParts = maxSlotDate.split('-').map(Number);
+    const maxY = maxParts[0], maxM = maxParts[1] - 1;
+    nextBtn.disabled = (year > maxY || (year === maxY && month >= maxM));
+  }
+  prevBtn.addEventListener('click', () => {
+    calViewMonth--;
+    if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
+    renderCalendar();
+  });
+  nextBtn.addEventListener('click', () => {
+    calViewMonth++;
+    if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+    renderCalendar();
   });
 }
 
@@ -1509,7 +1602,7 @@ function sendEmail() {
     const err = document.getElementById('err-slot');
     if (err) err.classList.add('show');
     st.className = 'form-submit-status error';
-    st.textContent = '请先在上方选择一个实验时段';
+    st.textContent = '请先在上方选择一个实验日期';
     return;
   }
 
@@ -1530,12 +1623,12 @@ function sendEmail() {
   }, SUBMISSION_TIMEOUT_MS)
     .then(d => {
       const outcome = classifySubmissionResponse(d, requestedSlot);
-      // 时段被抢走是可恢复的：刷新日历让被试重选，而不是当成提交失败
+      // 日期被抢走是可恢复的：刷新日历让被试重选，而不是当成提交失败
       if (outcome.kind === 'retry') {
         st.className = 'form-submit-status error';
         st.textContent = outcome.error === 'slot-taken'
-          ? '很抱歉，该时段刚被其他参与者预约。已为您刷新，请重新选择。'
-          : '该时段已不可预约，请重新选择。';
+          ? '很抱歉，该日期刚被其他参与者预约。已为您刷新，请重新选择。'
+          : '该日期已不可预约，请重新选择。';
         chosenSlot = null;
         loadSlots();
         btn.disabled = false;
@@ -1571,9 +1664,9 @@ function sendEmail() {
       if (result === 'pending' || result === 'pending-warning') {
         st.className = 'form-submit-status notice';
         st.textContent = result === 'pending-warning'
-          ? '报名信息和所选时段已记录，最终安排以实验室邮件或电话确认为准；系统通知暂时延迟，无需重复提交。'
-          : '报名信息和所选时段已记录，最终安排以实验室邮件或电话确认为准。请勿重复提交。';
-        btn.textContent = '时段待确认';
+          ? '报名信息和所选日期已记录，最终安排以实验室邮件或电话确认为准；系统通知暂时延迟，无需重复提交。'
+          : '报名信息和所选日期已记录，最终安排以实验室邮件或电话确认为准。请勿重复提交。';
+        btn.textContent = '日期待确认';
         return;
       }
       if (result === 'warning') {
@@ -1586,7 +1679,7 @@ function sendEmail() {
       }
       st.className = 'form-submit-status success';
       st.textContent = requestedSlot
-        ? '报名成功！已为您预约 ' + requestedSlot.replace('|', ' ') + '，我们会通过邮件与您确认。'
+        ? '报名成功！已为您预约 ' + requestedSlot + '，我们会通过邮件与您确认。'
         : '报名信息已提交！我们将在 1-2 个工作日内通过邮件或电话与您联系，确认实验安排。';
       btn.textContent = '已提交';
     })
