@@ -465,7 +465,16 @@
         </div>
 
         <div class="q-item">
-          <label class="form-label"><span class="q-item-number">7.</span> 最近三个月内是否染过头发？</label>
+          <label class="form-label"><span class="q-item-number">7.</span> 您是否有午睡习惯？</label>
+          <div class="radio-group" id="habit-nap"></div>
+          <div id="habit-nap-detail" style="display:none;margin-top:8px">
+            <label class="form-label" style="font-size:0.92rem">一般几点入睡？</label>
+            <input type="time" class="form-input short" id="habit-nap-time" style="max-width:140px">
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">8.</span> 最近三个月内是否染过头发？</label>
           <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">染发剂中的金属成分会干扰脑电信号，因此需要距上次染发满三个月。</p>
           <div class="radio-group" id="habit-dye"></div>
           <div class="form-error" id="err-dye">请选择是否染过头发</div>
@@ -626,7 +635,7 @@ const EXPERIMENTS = [
     title: '午睡与记忆研究',
     brief: '午睡对于记忆的影响',
     visits: '1 次',
-    duration: '约六个小时',
+    duration: '约6小时',
     reward: '共360 元',
     guide: {
       scheduleSummary: [
@@ -634,13 +643,12 @@ const EXPERIMENTS = [
         '下午：12:30 - 17:00 行为实验与睡眠脑电监测（包括脑电前的准备时间）',
       ],
       timeline: [
-        { time: '10:00', desc: '到达实验室，熟悉环境' },
-        { time: '10:00 - 11:30', desc: '完成当天行为实验任务' },
+        { time: '10:00 - 11:30', desc: '行为实验任务' },
         { time: '12:30 - 13:00', desc: '在洗漱间洗头，并用舒适的温度吹头' },
         { time: '13:00 - 13:30', desc: '脑电实验前期准备' },
-        { time: '13:30 - 14:30', desc: '脑电前的实验任务' },
+        { time: '13:30 - 14:30', desc: '睡前实验任务' },
         { time: '14:30 - 16:00', desc: '进行午休' },
-        { time: '16:00 - 16:30', desc: '睡醒后的实验任务' },
+        { time: '16:00 - 16:30', desc: '醒后实验任务' },
         { time: '16:30 - 17:00', desc: '在洗漱间洗头，并用舒适的温度吹头' },
       ],
       prep: [
@@ -878,6 +886,13 @@ function renderHabit() {
       });
     }
   });
+  renderRadioGroup('habit-nap', 'habit-nap', [{value:1,label:'有'},{value:0,label:'没有'}]);
+  document.querySelectorAll('input[name="habit-nap"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const det = document.getElementById('habit-nap-detail');
+      det.style.display = r.value === '1' ? 'block' : 'none';
+    });
+  });
   renderRadioGroup('habit-dye', 'habit-dye', [{value:0,label:'否'},{value:1,label:'是'}]);
   // 互斥逻辑：勾选"无以上情况"则取消其他选项，反之亦然
   const noneBox = document.getElementById('habit-q5e');
@@ -972,6 +987,8 @@ function earlyExitReason(step) {
   if (step === 2 && visionRequired() && !checkVisionPass())
     return { where: '视力', why: visionFailReason() };
   if (step === 3) {
+    if (selectedExpId === 'nap-memory' && !checkNapPass())
+      return { where: '午睡习惯', why: '本实验仅招募有午睡习惯的参与者' };
     if (!checkDyePass()) return { where: '染发', why: '三个月内染过头发', dye: true };
     if (!checkHabitPass()) return { where: '环境适应', why: habitFailReason() };
   }
@@ -1056,6 +1073,7 @@ function validateStep(step) {
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
     if (v) { const q5=document.querySelectorAll('#habit-q5 input:checked'); if (q5.length===0) { showErr('err-habit'); v=false; } }
+    if (!document.querySelector('input[name="habit-nap"]:checked')) { showErr('err-habit'); v=false; }
     if (!document.querySelector('input[name="habit-dye"]:checked')) { showErr('err-dye'); v=false; }
   }
   if (step===4) {
@@ -1141,6 +1159,11 @@ function checkHabitPass() {
     .filter(e => e.id !== 'habit-q5e');
   if (conditions.length > 0) return false;
   return true;
+}
+
+// 午睡习惯筛选：午睡实验只招收有午睡习惯的被试
+function checkNapPass() {
+  return getRadio('habit-nap') === 1;
 }
 
 // 染发单列为一道判据：它不是睡眠障碍，而是脑电信号质量问题，
@@ -1326,7 +1349,8 @@ function collectSubmission() {
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
     age: document.getElementById('f-age').value,
     overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
-      && dassPass && dyePass && checkAgePass(),
+      && dassPass && dyePass && checkAgePass()
+      && (selectedExpId !== 'nap-memory' || checkNapPass()),
     scores: {
       psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
       isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
@@ -1347,9 +1371,14 @@ function collectSubmission() {
       pass: visionPass
     } : { required: false, pass: true },
     habit: {
-      answers: habitAnswers.concat([{ q: '三个月内染发', a: radioLabel('habit-dye') }]),
+      answers: habitAnswers.concat([
+        { q: '午睡习惯', a: getRadio('habit-nap') === 1 ? '有' : '没有' },
+        { q: '午睡入睡时间', a: val('habit-nap-time') || '未填' },
+        { q: '三个月内染发', a: radioLabel('habit-dye') }
+      ]),
       conditions: conditions,
       pass: habitPass,
+      napPass: checkNapPass(),
       dyePass: dyePass
     },
     detail: {
@@ -1677,9 +1706,12 @@ function sendEmail() {
         return;
       }
       st.className = 'form-submit-status success';
-      st.textContent = requestedSlot
-        ? '报名成功！已为您预约 ' + requestedSlot + '，我们会通过邮件与您确认。'
-        : '报名信息已提交！我们将在 1-2 个工作日内通过邮件或电话与您联系，确认实验安排。';
+      const baseMsg = requestedSlot
+        ? '报名成功！已为您预约 ' + requestedSlot + '。'
+        : '报名信息已提交！';
+      st.innerHTML = baseMsg
+        + '<span style="display:block;margin-top:10px;padding:10px 14px;background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;color:#92400E;font-weight:600;font-size:1.02rem;text-align:center">📧 请注意查收邮件（含垃圾邮件箱）</span>'
+        + '<span style="display:block;margin-top:6px;color:var(--color-text-light);font-size:0.9rem">我们会通过邮件发送实验指引与确认信息，请留意收件箱。</span>';
       btn.textContent = '已提交';
     })
     .catch(err => {
