@@ -376,7 +376,7 @@
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">邮箱 <span style="color:#c0392b">*</span></label><input type="email" class="form-input" id="f-email" placeholder="用于接收实验指引"><div class="form-error" id="err-email">请输入有效的邮箱地址</div></div>
-          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="16" max="80" placeholder="本实验招募 18-26 岁"><div class="form-error" id="err-age">请输入有效年龄</div></div>
+          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="16" max="80" placeholder="本实验招募 18-24 岁"><div class="form-error" id="err-age">请输入有效年龄</div></div>
         </div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
@@ -638,22 +638,24 @@ const EXPERIMENTS = [
     type: 'nap',
     title: '午睡与记忆研究',
     brief: '午睡对于记忆的影响',
-    visits: '1 次',
-    duration: '约6小时',
-    reward: '共360 元',
+    visits: '2 次',
+    duration: '第一天约1.5小时，第二天约 4.5 小时',
+    reward: '共350 元',
     guide: {
       scheduleSummary: [
-        '上午：10:00 - 11:30 纯行为实验',
-        '下午：12:30 - 17:00 行为实验与睡眠脑电监测（包括脑电前的准备时间）',
+        '第一天：14:00 - 15:30 纯行为实验',
+        '第二天：12:00 - 16:30 行为实验与睡眠脑电监测（包括脑电前的准备时间）',
       ],
       timeline: [
-        { time: '10:00 - 11:30', desc: '行为实验任务' },
-        { time: '12:30 - 13:00', desc: '在洗漱间洗头，并用舒适的温度吹头' },
-        { time: '13:00 - 13:30', desc: '脑电实验前期准备' },
-        { time: '13:30 - 14:30', desc: '睡前实验任务' },
-        { time: '14:30 - 16:00', desc: '进行午休' },
-        { time: '16:00 - 16:30', desc: '醒后实验任务' },
-        { time: '16:30 - 17:00', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+        { time: '第一天 14:00', desc: '到达实验室，熟悉环境' },
+        { time: '第一天 14:00 - 15:30', desc: '完成当天行为实验任务' },
+        { time: '第二天 12:00', desc: '到达实验室' },
+        { time: '第二天 12:00 - 12:20', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+        { time: '第二天 12:20 - 13:00', desc: '脑电实验前期准备' },
+        { time: '第二天 13:00 - 14:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 14:00 - 15:30', desc: '进行午休' },
+        { time: '第二天 15:30 - 16:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 16:00 - 16:30', desc: '在洗漱间洗头，并用舒适的温度吹头' },
       ],
       prep: [
         '如眼睛较易疲劳，可以自行准备眼药水',
@@ -719,6 +721,29 @@ const DASS_Q = [
   '我觉得自己相当敏感','我感到心跳明显加快但并没有做任何体力活动','我无缘无故地感到害怕','我觉得生活没有意义',
 ];
 const DASS_OPT = [{value:0,label:'不符合'},{value:1,label:'有时符合'},{value:2,label:'常常符合'},{value:3,label:'总是符合'}];
+
+// DASS 测谎题：插入到 DASS-21 中间，不单独成步。
+// insertAfter = 在第几道 DASS 题之后插入（0-indexed）。
+// check: 'attention' = 必须选"有时符合"(value===1)；'impossible' = 选"常常/总是"(value>=2)视为不诚实。
+const DASS_LIE = [
+  { text: '请在本题选择"有时符合"', insertAfter: 9, check: 'attention' },
+  { text: '我从来没有感到过疲倦或困倦', insertAfter: 14, check: 'impossible' },
+];
+
+// 构建 DASS 显示序列（21 + 2 = 23 题），每项标记来源。
+function buildDassDisplay() {
+  const display = [];
+  let lieIdx = 0;
+  for (let i = 0; i < DASS_Q.length; i++) {
+    display.push({ type: 'dass', text: DASS_Q[i], dassIdx: i });
+    while (lieIdx < DASS_LIE.length && DASS_LIE[lieIdx].insertAfter === i) {
+      display.push({ type: 'lie', text: DASS_LIE[lieIdx].text, check: DASS_LIE[lieIdx].check });
+      lieIdx++;
+    }
+  }
+  return display;
+}
+const DASS_DISPLAY = buildDassDisplay();
 
 // rMEQ（简化版晨昏型问卷）— 取自 Horne & Östberg MEQ 中文版的第 1、7、10、18、19 题，
 // 选项权重与原版完全一致。总分 4–25，用于排除极端昼夜类型。
@@ -867,8 +892,10 @@ function renderISI() {
 
 function renderDASS() {
   const c = document.getElementById('dass-items');
-  c.innerHTML = DASS_Q.map((t,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${t}</label><div class="radio-group" id="dass-q${i}"></div></div>`).join('');
-  DASS_Q.forEach((_,i) => renderRadioGroup('dass-q'+i,'dass-q'+i,DASS_OPT));
+  c.innerHTML = DASS_DISPLAY.map((item, di) =>
+    `<div class="q-item"><label class="form-label"><span class="q-item-number">${di+1}.</span> ${item.text}</label><div class="radio-group" id="dass-q${di}"></div></div>`
+  ).join('');
+  DASS_DISPLAY.forEach((_, di) => renderRadioGroup('dass-q'+di, 'dass-q'+di, DASS_OPT));
 }
 
 function renderRMEQ() {
@@ -961,7 +988,7 @@ function showStep(step) {
 // 只对客观、非敏感的判据做即时判定。PSQI / ISI / rMEQ / DASS 一律留到最后
 // 统一给中性结论——填完量表就立刻被弹出，等于告诉对方是哪一项心理或睡眠
 // 指标把他刷掉了。
-const AGE_MIN = 18, AGE_MAX = 26;
+const AGE_MIN = 18, AGE_MAX = 24;
 
 function visionFailReason() {
   const n = id => parseInt(document.getElementById(id).value) || 0;
@@ -1087,7 +1114,7 @@ function validateStep(step) {
   }
   if (step===5) { for (let i=0;i<ISI_Q.length;i++) { if (!document.querySelector('input[name="isi-q'+i+'"]:checked')) { showErr('err-isi'); v=false; break; } } }
   if (step===6) { for (let i=0;i<RMEQ_Q.length;i++) { if (!document.querySelector('input[name="rmeq-q'+i+'"]:checked')) { showErr('err-rmeq'); v=false; break; } } }
-  if (step===7) { for (let i=0;i<DASS_Q.length;i++) { if (!document.querySelector('input[name="dass-q'+i+'"]:checked')) { showErr('err-dass'); v=false; break; } } }
+  if (step===7) { for (let i=0;i<DASS_DISPLAY.length;i++) { if (!document.querySelector('input[name="dass-q'+i+'"]:checked')) { showErr('err-dass'); v=false; break; } } }
   if (step===8) {
     const days = document.querySelectorAll('#avail-days input:checked');
     if (days.length===0) { showErr('err-days'); v=false; }
@@ -1148,9 +1175,26 @@ function checkChronotypePass() {
 }
 
 function scoreDASS() {
-  const di=[2,4,9,12,15,16,20],ai=[1,3,6,8,14,18,19],si=[0,5,7,10,11,13,17];
+  // 原始 DASS-21 下标：Depression [2,4,9,12,15,16,20], Anxiety [1,3,6,8,14,18,19], Stress [0,5,7,10,11,13,17]
+  // 测谎题插入在 DASS 第 9 题后(display 10)和第 14 题后(display 16)，
+  // 因此 DASS 0-9→display 0-9, DASS 10-14→display 11-15, DASS 15-20→display 17-22。
+  const di=[2,4,9,13,17,18,22],ai=[1,3,6,8,15,20,21],si=[0,5,7,11,12,14,19];
   const gv=i=>{const e=document.querySelector('input[name="dass-q'+i+'"]:checked');return e?parseInt(e.value):0;};
   return {depression:di.reduce((s,i)=>s+gv(i),0)*2,anxiety:ai.reduce((s,i)=>s+gv(i),0)*2,stress:si.reduce((s,i)=>s+gv(i),0)*2};
+}
+
+// 测谎判定：遍历 DASS_DISPLAY 中的 lie 项，任一触发即不合格。
+// attention: 必须选"有时符合"(value===1)；impossible: 选"常常/总是"(value>=2)视为不诚实。
+function checkLiePass() {
+  const gv = i => { const e = document.querySelector('input[name="dass-q'+i+'"]:checked'); return e ? parseInt(e.value) : -1; };
+  for (let di = 0; di < DASS_DISPLAY.length; di++) {
+    const item = DASS_DISPLAY[di];
+    if (item.type !== 'lie') continue;
+    const v = gv(di);
+    if (item.check === 'attention' && v !== 1) return false;
+    if (item.check === 'impossible' && v >= 2) return false;
+  }
+  return true;
 }
 
 function checkHabitPass() {
@@ -1305,6 +1349,7 @@ function collectSubmission() {
   const val = id => ((document.getElementById(id) || {}).value || '');
   const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
   const psqi = scorePSQI(), isi = scoreISI(), rmeq = scoreRMEQ(), dass = scoreDASS();
+  const liePass    = checkLiePass();
   const visionNeeded = visionRequired();
   const visionPass = !visionNeeded || checkVisionPass();
   const habitPass  = checkHabitPass();
@@ -1353,7 +1398,7 @@ function collectSubmission() {
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
     age: document.getElementById('f-age').value,
     overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
-      && dassPass && dyePass && checkAgePass()
+      && dassPass && dyePass && checkAgePass() && liePass
       && (selectedExpId !== 'nap-memory' || checkNapPass()),
     scores: {
       psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
@@ -1362,7 +1407,8 @@ function collectSubmission() {
       dass: {
         depression: dass.depression, anxiety: dass.anxiety, stress: dass.stress,
         threshold: '抑郁≤9 焦虑≤7 压力≤14', pass: dassPass
-      }
+      },
+      lie: { pass: liePass },
     },
     vision: visionNeeded ? {
       required: true,
@@ -1389,7 +1435,7 @@ function collectSubmission() {
       psqi: psqiDetail,
       isi:  ISI_Q.map((q, i)  => ({ q: q.text, a: radioLabel('isi-q' + i) })),
       rmeq: RMEQ_Q.map((q, i) => ({ q: q.text, a: radioLabel('rmeq-q' + i) })),
-      dass: DASS_Q.map((t, i) => ({ q: t,      a: radioLabel('dass-q' + i) }))
+      dass: DASS_DISPLAY.map((item, di) => ({ q: item.text, a: radioLabel('dass-q' + di), type: item.type }))
     },
     schedule: {
       days: Array.from(document.querySelectorAll('#avail-days input:checked')).map(e => e.value).join('、'),
