@@ -3,1120 +3,1806 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>睡眠实验参与者须知 | X-Sleep Lab</title>
-  <meta name="description" content="X-Sleep Lab 睡眠实验参与者须知 — 招募中的实验项目、设备说明、环境介绍、准备事项与实验地点。中国科学院心理研究所。">
-  <meta property="og:title" content="睡眠实验参与者须知 | X-Sleep Lab">
-  <meta property="og:description" content="X-Sleep Lab 睡眠实验参与者须知 — 招募中的实验项目、设备说明、环境介绍、准备事项与实验地点。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://xsleeplab.cn/participate.html">
-  <meta property="og:image" content="https://xsleeplab.cn/home_pic/xt.png">
-  <link rel="canonical" href="https://xsleeplab.cn/participate.html">
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Fonts (same family as main site) -->
+  <title>参与睡眠科学研究 — X-Sleep Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- 非阻塞加载：fonts.googleapis.com 在中国大陆不可达，
        用 media="print" 让它不阻塞首屏，加载成功后再切回 all。 -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap"></noscript>
-
-  <link rel="stylesheet" href="css/style.css">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"></noscript>
   <style>
-    /* =====================================================
-       Participant Guide — page-specific styles
-       Layered on top of css/style.css
-       ===================================================== */
+    :root {
+      --color-primary: #4A6580; --color-primary-dark: #2E4A63; --color-primary-mid: #6B8BA4;
+      --color-accent: #8AACBF; --color-accent-light: #B5CFD8;
+      --color-bg: #F0F4F7; --color-bg-alt: #E8EFF4; --color-white: #FFFFFF;
+      --color-text: #2C3E4A; --color-text-light: #5A7080; --color-border: #C8D8E4;
+      --color-nav: #1E3347; --color-footer: #1A2E3D;
+      --color-success: #4A8C6F; --color-success-bg: #EBF5EF;
+      --color-warn: #B8860B; --color-warn-bg: #FDF6E3;
+      /* 每个字体栈都以平台中文字体收尾：Google Fonts 在中国大陆不可达，
+         被试看到的必须是真实中文字体，而不是浏览器默认字体。 */
+      --font-zh-sans: 'PingFang SC','Microsoft YaHei','Hiragino Sans GB','Noto Sans SC';
+      --font-zh-serif: 'Songti SC','SimSun','Noto Serif SC';
+      --font-brand: 'Syne','Space Grotesk',var(--font-zh-sans),sans-serif;
+      --font-display: 'Space Grotesk','DM Sans',var(--font-zh-sans),sans-serif;
+      --font-body: 'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',var(--font-zh-sans),sans-serif;
+      --font-serif: 'Noto Serif SC',Georgia,var(--font-zh-serif),serif;
+      --radius: 12px; --radius-sm: 8px;
+      --shadow: 0 1px 2px rgba(46,74,99,0.06),0 4px 14px rgba(46,74,99,0.09),inset 0 1px 0 rgba(255,255,255,0.85);
+      --shadow-md: 0 2px 4px rgba(46,74,99,0.07),0 8px 24px rgba(46,74,99,0.13),inset 0 1px 0 rgba(255,255,255,0.75);
+      --shadow-hover: 0 6px 14px rgba(46,74,99,0.13),0 28px 56px rgba(46,74,99,0.26),inset 0 1px 0 rgba(255,255,255,0.60);
+      --transition: all 0.28s cubic-bezier(0.4,0,0.2,1); --max-width: 1200px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);color:var(--color-text);background:var(--color-bg);
+      background-image:radial-gradient(ellipse at 18% 52%,rgba(74,101,128,0.045) 0%,transparent 58%),
+      radial-gradient(ellipse at 82% 18%,rgba(138,172,191,0.04) 0%,transparent 55%);
+      background-attachment:fixed;line-height:1.7;-webkit-font-smoothing:antialiased}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--color-primary-mid);text-decoration:none;transition:var(--transition)}
+    a:hover{color:var(--color-primary-dark)}
 
-    /* Page content is Chinese-only regardless of lang attribute — pin to
-       platform Chinese sans so toggling the nav lang switch doesn't
-       fall the body text back to DM Sans (no CJK glyphs). */
-    body,
-    .participant-section p,
-    .info-card p,
-    .check-body p,
-    .t-step p {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB',
-                   'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+    .site-header{background:var(--color-nav);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(30,51,71,0.3)}
+    .nav-container{max-width:var(--max-width);margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:68px}
+    .site-title{font-family:var(--font-brand);font-size:1.52rem;font-weight:700;color:var(--color-white);text-decoration:none;letter-spacing:0.02em;display:flex;align-items:baseline;flex-shrink:0}
+    .site-title .x-letter{color:var(--color-accent);font-size:1.82rem;font-weight:800}
+    .site-title:hover{opacity:0.88}
+    .main-nav{display:flex;align-items:center;gap:28px}
+    .main-nav a{font-family:var(--font-display);font-size:1.05rem;font-weight:500;color:rgba(255,255,255,0.80);text-decoration:none;transition:var(--transition);position:relative;white-space:nowrap}
+    .main-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--color-accent);transition:width 0.25s ease}
+    .main-nav a:hover{color:var(--color-white)}
+    .main-nav a:hover::after{width:100%}
+    .main-nav a.active{color:var(--color-white)}
+    .main-nav a.active::after{width:100%}
 
-    /* ----- Hero ----- */
-    .participant-hero { padding: 76px 32px 64px; }
+    .recruit-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 60%,var(--color-primary-mid) 100%);padding:88px 32px 80px;position:relative;overflow:hidden;text-align:center}
+    .recruit-hero::after{content:'';position:absolute;right:-120px;top:-120px;width:480px;height:480px;border-radius:50%;background:rgba(138,172,191,0.08);pointer-events:none}
+    .recruit-hero::before{content:'';position:absolute;left:-80px;bottom:-100px;width:340px;height:340px;border-radius:50%;background:rgba(46,74,99,0.18);pointer-events:none}
+    .recruit-hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
+    .recruit-hero-label{display:inline-block;font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-light);background:rgba(138,172,191,0.15);border:1px solid rgba(181,207,216,0.40);padding:5px 18px;border-radius:20px;margin-bottom:24px}
+    .recruit-hero h1{font-family:var(--font-brand);font-size:2.8rem;font-weight:800;color:var(--color-white);letter-spacing:-0.025em;line-height:1.15;margin-bottom:18px;text-shadow:0 2px 16px rgba(0,0,0,0.18)}
+    .recruit-hero h1 .x-mark{color:var(--color-accent)}
+    .recruit-hero p{font-size:1.1rem;color:rgba(255,255,255,0.82);line-height:1.78;max-width:600px;margin:0 auto 32px}
+    .btn-hero{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-primary-dark);background:var(--color-white);padding:14px 36px;border-radius:8px;border:none;cursor:pointer;transition:var(--transition);letter-spacing:0.03em;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+    .btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.22);background:var(--color-accent-light);color:var(--color-white)}
 
-    /* Chinese-tuned override for inherited page-hero-label
-       (main style has uppercase + 0.16em letter-spacing — wrong for Chinese) */
-    .participant-hero .page-hero-label {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: none;
-    }
+    .section{padding:80px 32px}.section-inner{max-width:var(--max-width);margin:0 auto}
+    .section-label{font-family:var(--font-display);font-size:0.75rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-primary-mid);margin-bottom:10px}
+    .section-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-primary-dark);letter-spacing:-0.02em;line-height:1.2;margin-bottom:10px}
+    .section-desc{font-size:1rem;color:var(--color-text-light);max-width:560px;margin-bottom:40px}
+    .section-alt{background:var(--color-bg-alt)}
 
-    .participant-hero h1 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: clamp(2rem, 5vw, 2.9rem);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.25;
-      color: var(--color-white);
-      margin-bottom: 18px;
-    }
-    /* 标题作为一个完整短语呈现——此前 em 部分被降透明度/换色，
-       把每个标题劈成深浅两截。 */
-    .participant-hero h1 em {
-      font-style: normal;
-      font-weight: inherit;
-      color: inherit;
-      opacity: 1;
-    }
-    .participant-hero p {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.78;
-      color: rgba(255, 255, 255, 0.82);
-      max-width: 640px;
-    }
+    .lab-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .lab-photo-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition)}
+    .lab-photo-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .lab-photo-card img{width:100%;height:220px;object-fit:cover}
+    .lab-photo-card .photo-caption{padding:16px 18px;font-family:var(--font-display);font-size:0.88rem;font-weight:600;color:var(--color-primary-dark)}
 
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 26px;
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--color-primary-dark);
-      background: var(--color-white);
-      padding: 13px 30px;
-      border-radius: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .hero-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
-    }
+    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .why-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);transition:var(--transition);position:relative;overflow:hidden}
+    .why-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-accent) 0%,var(--color-primary) 100%)}
+    .why-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .why-card-icon{font-size:2rem;margin-bottom:14px;display:block}
+    .why-card h3{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:10px}
+    .why-card p{font-size:0.92rem;color:var(--color-text-light);line-height:1.68}
 
-    /* ----- Info strip (3 facts) ----- */
-    .info-strip {
-      background: var(--color-bg-alt);
-      border-bottom: 1px solid var(--color-border);
-      padding: 22px 32px;
-    }
-    .info-strip-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-    .info-item { flex: 1; min-width: 0; }
-    .info-label {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.84rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--color-primary-mid);
-      margin-bottom: 4px;
-    }
-    .info-text {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.98rem;
-      font-weight: 500;
-      color: var(--color-text);
-      line-height: 1.5;
-    }
-    .info-divider {
-      width: 1px;
-      height: 38px;
-      background: var(--color-border);
-      flex-shrink: 0;
-    }
+    .exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px}
+    .exp-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);transition:var(--transition);overflow:hidden;position:relative;display:flex;flex-direction:column}
+    .exp-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-accent) 0%,var(--color-primary) 100%)}
+    .exp-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
+    .exp-card-header{padding:28px 28px 0}
+    .exp-type-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-display);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+    .exp-type-badge.nap{color:#B8860B;background:#FDF6E3;border:1px solid #E8D5A0}
+    .exp-type-badge.overnight{color:#2E6B8A;background:#E8F4F8;border:1px solid #B8D8E8}
+    .exp-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:12px;line-height:1.35}
+    .exp-card-body{padding:0 28px;flex:1}
+    .exp-card-body p{font-size:0.9rem;color:var(--color-text-light);line-height:1.68;margin-bottom:16px}
+    .exp-card-meta{display:flex;flex-wrap:wrap;gap:16px;padding:16px 28px;border-top:1px solid var(--color-bg-alt)}
+    .exp-meta-item{display:flex;align-items:center;gap:6px}
+    .exp-meta-label{font-family:var(--font-display);font-size:0.72rem;font-weight:600;color:var(--color-text-light);text-transform:uppercase;letter-spacing:0.06em}
+    .exp-meta-value{font-family:var(--font-display);font-size:0.88rem;font-weight:700;color:var(--color-primary)}
+    .exp-card-action{padding:0 28px 24px}
+    .btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-size:0.92rem;font-weight:600;padding:11px 28px;border-radius:8px;border:1.5px solid transparent;cursor:pointer;transition:var(--transition);letter-spacing:0.03em}
+    .btn-primary{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary)}
+    .btn-primary:hover{background:var(--color-primary-dark);border-color:var(--color-primary-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(46,74,99,0.28)}
+    .btn-ghost{background:transparent;color:var(--color-text-light);border-color:var(--color-border)}
+    .btn-ghost:hover{color:var(--color-text);border-color:var(--color-primary-mid);background:var(--color-bg-alt)}
+    .btn-success{background:var(--color-success);color:var(--color-white);border-color:var(--color-success)}
+    .btn-success:hover{background:#3d7a5e;border-color:#3d7a5e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(74,140,111,0.28)}
+    .btn:disabled{opacity:0.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+    .btn-block{width:100%;justify-content:center}
 
-    /* ----- Main content ----- */
-    .participant-main {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 60px 32px 80px;
-    }
-    .participant-section { margin-bottom: 64px; }
-    .participant-section:last-child { margin-bottom: 0; }
+    .questionnaire-wrapper{max-width:780px;margin:0 auto}
+    .step-progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px;flex-wrap:wrap}
+    .step-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.82rem;font-weight:700;border:2px solid var(--color-border);color:var(--color-text-light);background:var(--color-white);transition:var(--transition);flex-shrink:0}
+    .step-circle.active{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary);box-shadow:0 2px 12px rgba(74,101,128,0.35)}
+    .step-circle.done{background:var(--color-success);color:var(--color-white);border-color:var(--color-success)}
+    .step-line{width:36px;height:2px;background:var(--color-border);transition:var(--transition)}
+    .step-line.done{background:var(--color-success)}
 
-    .eyebrow {
-      font-family: var(--font-display);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-primary-mid);
-      margin-bottom: 14px;
-    }
+    .q-step-panel{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:36px 40px;box-shadow:var(--shadow);display:none}
+    .q-step-panel.active{display:block}
+    .q-step-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:8px}
+    .q-step-desc{font-size:0.92rem;color:var(--color-text-light);margin-bottom:28px;line-height:1.65}
+    .scale-hint{display:inline-block;background:var(--color-bg-alt);padding:2px 10px;border-radius:4px;font-size:0.82rem;font-weight:600;color:var(--color-primary-mid);margin-top:4px}
 
-    .participant-section h2 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.78rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      line-height: 1.28;
-      letter-spacing: 0.03em;
-      margin-bottom: 18px;
-    }
-    .participant-section h2 em {
-      font-style: normal;
-      color: inherit;
-      font-weight: inherit;
-      margin: 0;
-    }
+    .form-group{margin-bottom:24px}
+    .form-label{display:block;font-weight:600;color:var(--color-text);margin-bottom:8px;font-size:0.95rem;line-height:1.55}
+    .form-sublabel{font-size:0.82rem;color:var(--color-text-light);font-weight:400;display:block;margin-top:2px}
+    .form-input{width:100%;padding:10px 14px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.95rem;color:var(--color-text);background:var(--color-white);transition:var(--transition);outline:none}
+    .form-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(74,101,128,0.12)}
+    .form-input::placeholder{color:var(--color-accent)}
+    .form-input.short{width:180px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 
-    .participant-section .lead {
-      font-size: 1.04rem;
-      line-height: 1.78;
-      color: var(--color-text-light);
-      max-width: 720px;
-      margin-bottom: 30px;
-    }
+    .radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+    .radio-option{position:relative}
+    .radio-option input[type="radio"]{position:absolute;opacity:0;width:0;height:0}
+    .radio-option label{display:inline-flex;align-items:center;padding:8px 16px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:0.88rem;color:var(--color-text);cursor:pointer;transition:var(--transition);background:var(--color-white);user-select:none}
+    .radio-option label:hover{border-color:var(--color-primary-mid);background:var(--color-bg-alt)}
+    .radio-option input[type="radio"]:checked+label{background:var(--color-primary);color:var(--color-white);border-color:var(--color-primary);box-shadow:0 2px 8px rgba(74,101,128,0.25)}
 
-    /* ----- Card grids ----- */
-    .card-grid { display: grid; gap: 20px; }
-    .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .checkbox-group{display:flex;align-items:flex-start;gap:10px}
+    .checkbox-group input[type="checkbox"]{width:18px;height:18px;margin-top:3px;accent-color:var(--color-primary);flex-shrink:0}
+    .checkbox-group label{font-size:0.92rem;color:var(--color-text);cursor:pointer;line-height:1.55}
 
-    /* ----- Info card (reusable) ----- */
-    .info-card {
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 26px 26px 24px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .info-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0;
-      width: 4px; height: 100%;
-      background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-primary) 100%);
-    }
-    .info-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-accent);
-    }
-    /* 线性 SVG 图标取代 emoji：emoji 在 Windows / iOS / Android 上字形与
-       配色各不相同，也无法与莫兰迪蓝统一。 */
-    .card-icon {
-      width: 26px;
-      height: 26px;
-      color: var(--color-primary);
-      margin-bottom: 14px;
-      display: block;
-    }
-    .check-icon {
-      width: 22px;
-      height: 22px;
-      color: var(--color-primary);
-      flex-shrink: 0;
-      margin-top: 3px;
-    }
-    .info-card h3 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.16rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.04em;
-      margin-bottom: 12px;
-    }
-    .info-card p {
-      font-size: 0.96rem;
-      line-height: 1.78;
-      color: var(--color-text);
-      margin-bottom: 14px;
-    }
-    .info-card p:last-of-type { margin-bottom: 14px; }
-    .info-card-tag {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      background: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: 4px 10px;
-    }
+    .checkbox-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:8px}
+    .checkbox-grid .checkbox-group{padding:10px 14px;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);transition:var(--transition);background:var(--color-white)}
+    .checkbox-grid .checkbox-group:has(input:checked){border-color:var(--color-primary);background:rgba(74,101,128,0.06)}
+    .checkbox-grid .checkbox-group:hover{border-color:var(--color-primary-mid)}
 
-    /* ----- Checklist ----- */
-    /* 与 .info-card / .bring-card 同款：蓝色左边条 + 悬停上浮，
-       此前它是页面上唯一没有这两者的卡片。 */
-    .checklist {
-      position: relative;
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .checklist::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0;
-      width: 4px; height: 100%;
-      background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-primary) 100%);
-      z-index: 1;
-    }
-    .checklist:hover,
-    .bring-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-accent);
-    }
-    .check-item {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      padding: 22px 26px;
-      border-bottom: 1px solid var(--color-bg-alt);
-    }
-    .check-item:last-child { border-bottom: none; }
-    .check-body { flex: 1; min-width: 0; }
-    .check-body h3 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.03em;
-      margin-bottom: 6px;
-    }
-    .check-body p {
-      font-size: 0.96rem;
-      line-height: 1.78;
-      color: var(--color-text-light);
-      margin: 0;
-    }
-    .check-body ul {
-      margin: 10px 0 0;
-      padding-left: 22px;
-      font-size: 0.94rem;
-      color: var(--color-text-light);
-      line-height: 1.85;
-    }
-    .check-body ul li { margin-bottom: 4px; }
+    .q-item{padding:18px 0;border-bottom:1px solid var(--color-bg-alt)}
+    .q-item:last-child{border-bottom:none}
+    .q-item-number{font-family:var(--font-display);font-size:0.78rem;font-weight:700;color:var(--color-accent);margin-right:6px}
+    .q-subsection{font-weight:600;color:var(--color-primary-dark);font-size:0.98rem;margin:24px 0 8px;padding-top:16px;border-top:1px solid var(--color-bg-alt)}
 
-    /* ----- Timeline ----- */
-    .timeline {
-      position: relative;
-      padding-left: 36px;
-      margin-bottom: 24px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 9px; top: 10px; bottom: 10px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--color-accent), var(--color-border));
-    }
-    .t-step { position: relative; padding-bottom: 6px; }
-    .t-dot {
-      position: absolute;
-      left: -32px; top: 6px;
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--color-accent);
-      box-shadow: 0 0 0 4px var(--color-bg);
-    }
-    .t-num {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--color-primary-mid);
-      margin-bottom: 6px;
-    }
-    .t-step h3 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.16rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-    .t-step p {
-      font-size: 0.97rem;
-      line-height: 1.78;
-      color: var(--color-text);
-      margin-bottom: 10px;
-      max-width: 720px;
-    }
-    .t-time {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--color-primary);
-      background: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-      padding: 4px 10px;
-      border-radius: 4px;
-    }
+    .consent-box{background:var(--color-bg);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:24px;max-height:320px;overflow-y:auto;margin-bottom:20px;font-size:0.92rem;line-height:1.85;color:var(--color-text);font-family:var(--font-serif)}
+    .consent-box h4{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:12px}
+    .consent-box p{margin-bottom:10px}
 
-    /* ----- Branching note ----- */
-    .branch-note {
-      background: linear-gradient(135deg, rgba(138, 172, 191, 0.10), rgba(74, 101, 128, 0.04));
-      border: 1px solid var(--color-border);
-      border-left: 3px solid var(--color-accent);
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      font-size: 0.97rem;
-      line-height: 1.7;
-      color: var(--color-text);
-    }
-    .branch-note .branch-num {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: var(--color-primary-dark);
-      margin-right: 8px;
-    }
+    .step-actions{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--color-bg-alt)}
+    .form-error{color:#c0392b;font-size:0.82rem;margin-top:4px;display:none;font-weight:500}
+    .form-error.show{display:block}
 
-    /* ----- Location card ----- */
-    /* 两栏：地址 | 如何到达。单栏时右侧会空掉一大片。 */
-    .location-card {
-      padding: 30px 32px;
-      display: grid;
-      grid-template-columns: 1fr 1.25fr;
-      gap: 36px;
-      align-items: start;
-    }
-    .location-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--color-primary-mid);
-      margin-bottom: 8px;
-    }
-    .location-routes {
-      display: grid;
-      gap: 12px;
-      margin: 0 0 16px;
-    }
-    .location-routes dt {
-      display: inline-block;
-      min-width: 46px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--color-white);
-      background: var(--color-primary-mid);
-      border-radius: 4px;
-      padding: 2px 9px;
-      text-align: center;
-      margin-bottom: 5px;
-    }
-    .location-routes dd {
-      margin: 0;
-      font-size: 0.96rem;
-      line-height: 1.7;
-      color: var(--color-text-light);
-    }
-    .location-note {
-      margin: 0;
-      padding-top: 14px;
-      border-top: 1px solid var(--color-bg-alt);
-      font-size: 0.93rem;
-      line-height: 1.75;
-      color: var(--color-text-light);
-    }
-    .location-name {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.04em;
-      margin-bottom: 10px;
-    }
-    .location-addr {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.98rem;
-      line-height: 1.85;
-      color: var(--color-text-light);
-    }
+    .result-panel{display:none;max-width:860px;margin:0 auto}.result-panel.active{display:block}
+    .result-header{text-align:center;padding:40px;border-radius:var(--radius);margin-bottom:32px}
+    .result-header.pass{background:var(--color-success-bg);border:1.5px solid var(--color-success)}
+    .result-header.fail{background:var(--color-warn-bg);border:1.5px solid var(--color-warn)}
+    .result-icon{font-size:3rem;margin-bottom:12px}
+    .result-header h2{font-family:var(--font-display);font-size:1.6rem;font-weight:700;margin-bottom:10px}
+    .result-header.pass h2{color:var(--color-success)}.result-header.fail h2{color:var(--color-warn)}
+    .result-header p{font-size:1rem;color:var(--color-text-light);max-width:520px;margin:0 auto;line-height:1.72}
 
-    /* ----- Contact card ----- */
-    .contact-card { padding: 30px 32px; }
-    .contact-name {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.18rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.04em;
-      margin-bottom: 4px;
-    }
-    .contact-role {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.92rem;
-      color: var(--color-text-light);
-      line-height: 1.55;
-      margin-bottom: 14px;
-    }
-    .contact-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-display);
-      font-size: 0.98rem;
-      font-weight: 600;
-      color: var(--color-primary);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: var(--transition);
-      margin-bottom: 12px;
-    }
-    .contact-email:hover { border-bottom-color: var(--color-primary); }
-    .contact-email svg { flex-shrink: 0; }
-    .contact-dept {
-      font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-      font-size: 0.88rem;
-      color: var(--color-text-light);
-      line-height: 1.55;
-    }
+    .guide-section{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:40px;box-shadow:var(--shadow);margin-bottom:24px}
+    .guide-section h3{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--color-bg-alt)}
+    .guide-section p{font-size:0.95rem;line-height:1.82;color:var(--color-text);margin-bottom:14px}
 
-    /* ----- Lab photos -----
-       Deliberately share .info-card's radius, border, shadow, hover lift and
-       caption colour: the photos previously used their own 12px radius, no
-       shadow and grey captions, which is why they read as a strip pasted
-       under the section rather than part of it. */
-    .env-photos {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 0;
-    }
-    .env-photo {
-      margin: 0;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow);
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .env-photo:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-accent);
-    }
-    .env-photo img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-      background: var(--color-bg-alt);
-    }
-    .env-photo figcaption {
-      padding: 13px 14px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--color-primary-dark);
-      text-align: center;
-      border-top: 1px solid var(--color-bg-alt);
-    }
+    .timeline{position:relative;padding-left:28px;margin:20px 0}
+    .timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--color-accent)}
+    .timeline-item{position:relative;padding:12px 0 12px 20px}
+    .timeline-item::before{content:'';position:absolute;left:-24px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--color-primary);border:2px solid var(--color-white);box-shadow:0 0 0 2px var(--color-accent)}
+    .timeline-time{font-family:var(--font-display);font-size:0.82rem;font-weight:700;color:var(--color-primary);margin-bottom:2px}
+    .timeline-desc{font-size:0.92rem;color:var(--color-text);line-height:1.6}
 
-    /* ----- Recruiting project cards ----- */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .project-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 26px 26px 24px;
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-accent);
-    }
-    /* Day vs night is carried by lightness, not by introducing a second hue —
-       the previous gold badge sat outside the Morandi blue palette. */
-    .project-badge {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 5px 14px;
-      border-radius: 20px;
-      margin-bottom: 14px;
-    }
-    .project-badge.day {
-      color: var(--color-primary-dark);
-      background: var(--color-bg-alt);
-      border: 1px solid var(--color-border);
-    }
-    .project-badge.night {
-      color: var(--color-white);
-      background: var(--color-primary-dark);
-      border: 1px solid var(--color-primary-dark);
-    }
-    .project-card h3 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.03em;
-      margin-bottom: 10px;
-    }
-    .project-card > p {
-      font-size: 0.96rem;
-      line-height: 1.8;
-      color: var(--color-text-light);
-      margin-bottom: 20px;
-    }
-    /* Fixed three-column grid so a long duration string can't shove the
-       other two facts out of alignment, as the old flex row did. */
-    .project-meta {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin: auto 0 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--color-bg-alt);
-    }
-    .project-meta > div { min-width: 0; }
-    .project-meta dt {
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--color-text-light);
-      margin-bottom: 5px;
-    }
-    .project-meta dd {
-      margin: 0;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      line-height: 1.55;
-    }
-    .project-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 600;
-      padding: 13px;
-      border-radius: 8px;
-      background: var(--color-primary);
-      color: var(--color-white);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-    .project-cta:hover { background: var(--color-primary-dark); }
+    .schedule-timeline-card{background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:20px 24px;margin-bottom:24px}
+    .schedule-timeline-card h4{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--color-primary);margin:0 0 12px 0}
+    .schedule-timeline-card .mini-timeline{list-style:none;padding:0;margin:0}
+    .schedule-timeline-card .mini-timeline li{display:flex;gap:12px;padding:6px 0;font-size:0.9rem;line-height:1.5;border-bottom:1px solid var(--color-border)}
+    .schedule-timeline-card .mini-timeline li:last-child{border-bottom:none}
+    .schedule-timeline-card .mini-timeline .mt-time{flex-shrink:0;font-weight:600;color:var(--color-primary);min-width:120px}
+    .schedule-timeline-card .mini-timeline .mt-desc{color:var(--color-text)}
 
-    /* ----- Optional items to bring -----
-       Split out of the checklist: the first five entries are requirements,
-       this one is a packing list, and nesting a bullet list inside a
-       checklist row broke the rhythm of the card. */
-    /* 与 .info-card 同款：白底、同样的蓝色左边条，此前它是唯一用
-       bg-alt 底色的模块，在一页里显得突兀。 */
-    .bring-card {
-      position: relative;
-      overflow: hidden;
-      margin-top: 20px;
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 24px 26px;
-      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .bring-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0;
-      width: 4px; height: 100%;
-      background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-primary) 100%);
-    }
-    .bring-list li {
-      background: var(--color-bg-alt);
-    }
-    .bring-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .bring-head .check-icon { margin-top: 0; }
-    .bring-head h3 {
-      font-family: 'Noto Serif SC', Georgia, serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      letter-spacing: 0.03em;
-      margin: 0;
-    }
-    .bring-card > p {
-      font-size: 0.96rem;
-      line-height: 1.78;
-      color: var(--color-text-light);
-      margin-bottom: 16px;
-    }
-    .bring-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .bring-list li {
-      background: var(--color-white);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      font-size: 0.93rem;
-      line-height: 1.7;
-      color: var(--color-text-light);
-    }
-    .bring-list strong {
-      display: block;
-      color: var(--color-primary-dark);
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
+    .prep-list{list-style:none;padding:0;margin:12px 0}
+    .prep-list li{padding:10px 0 10px 28px;position:relative;font-size:0.95rem;color:var(--color-text);line-height:1.6;border-bottom:1px solid var(--color-bg-alt)}
+    .prep-list li:last-child{border-bottom:none}
+    .prep-list li::before{content:'✓';position:absolute;left:0;top:10px;font-weight:700;color:var(--color-success);font-size:1.1rem}
 
-    /* ----- Responsive ----- */
-    @media (max-width: 768px) {
-      .participant-hero { padding: 52px 20px 44px; }
-      .participant-hero p { font-size: 1rem; }
+    .location-card{display:flex;gap:28px;margin-top:16px;align-items:flex-start}
+    .location-info{flex:1}.location-info p{margin-bottom:8px}
+    .location-map{width:300px;height:200px;background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--color-text-light);font-size:0.88rem;flex-shrink:0;overflow:hidden}
 
-      .info-strip { padding: 18px 20px; }
-      .info-strip-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-      }
-      .info-divider { display: none; }
+    .contact-form-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow);margin-bottom:24px}
+    .contact-form-card h3{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:16px}
+    /* ----- 日历选择 ----- */
+    .cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .cal-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark)}
+    .cal-nav{background:none;border:1px solid var(--color-border);border-radius:var(--radius-sm);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--color-primary);font-size:1rem;transition:var(--transition)}
+    .cal-nav:hover:not(:disabled){background:var(--color-bg-alt);border-color:var(--color-primary)}
+    .cal-nav:disabled{opacity:0.3;cursor:not-allowed}
+    .cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}
+    .cal-wd{text-align:center;font-size:0.72rem;font-weight:600;color:var(--color-text-light);padding:4px 0}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .cal-cell{border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-white);padding:8px 4px;text-align:center;cursor:default;transition:var(--transition);position:relative;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .cal-cell.empty{border-color:transparent;background:transparent}
+    .cal-cell .cal-num{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark);line-height:1.2}
+    .cal-cell .cal-wd-label{font-size:0.65rem;color:var(--color-text-light);margin-top:2px}
+    .cal-cell .cal-status{font-size:0.6rem;margin-top:4px;font-weight:600;line-height:1}
+    .cal-cell.available{cursor:pointer;border-color:var(--color-border)}
+    .cal-cell.available:hover{border-color:var(--color-primary);box-shadow:0 0 0 2px rgba(74,101,128,0.12)}
+    .cal-cell.available .cal-status{color:var(--color-success)}
+    .cal-cell.full{background:rgba(192,57,43,0.04)}
+    .cal-cell.full .cal-status{color:#c0392b}
+    .cal-cell.closed{opacity:0.35}
+    .cal-cell.closed .cal-num{text-decoration:line-through}
+    .cal-cell.disabled{opacity:0.35;cursor:not-allowed}
+    .cal-cell.chosen{background:var(--color-primary);border-color:var(--color-primary)}
+    .cal-cell.chosen .cal-num{color:var(--color-white)}
+    .cal-cell.chosen .cal-wd-label{color:rgba(255,255,255,0.8)}
+    .cal-cell.chosen .cal-status{color:rgba(255,255,255,0.9)}
+    .cal-cell.today .cal-num{color:var(--color-accent)}
+    .cal-legend{display:flex;gap:16px;margin-top:14px;font-size:0.75rem;color:var(--color-text-light);flex-wrap:wrap}
+    .cal-legend span{display:flex;align-items:center;gap:4px}
+    .cal-legend .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+    .cal-legend .dot.avail{background:var(--color-success)}
+    .cal-legend .dot.full{background:#c0392b}
+    .cal-legend .dot.closed{background:#aab7c0}
+    @media(max-width:480px){.cal-cell{min-height:52px;padding:6px 2px}.cal-cell .cal-num{font-size:0.9rem}.cal-cell .cal-wd-label{display:none}.cal-cell .cal-status{font-size:0.55rem}}
+    .form-submit-status{padding:16px;border-radius:var(--radius-sm);margin-top:16px;font-size:0.92rem;display:none}
+    .form-submit-status.pending{display:block;background:var(--color-bg-alt);color:var(--color-primary-dark);border:1px solid var(--color-border)}
+    .form-submit-status.notice{display:block;background:var(--color-warn-bg);color:var(--color-warn);border:1px solid var(--color-warn)}
+    .form-submit-status.success{display:block;background:var(--color-success-bg);color:var(--color-success);border:1px solid var(--color-success)}
+    .form-submit-status.error{display:block;background:#fef2f2;color:#c0392b;border:1px solid #f5c6cb}
 
-      .participant-main { padding: 44px 20px 60px; }
-      .participant-section { margin-bottom: 48px; }
-      .participant-section h2 { font-size: 1.45rem; }
+    .site-footer{background:var(--color-footer);color:rgba(255,255,255,0.82);padding:48px 32px 28px}
+    .footer-inner{max-width:var(--max-width);margin:0 auto;text-align:center}
+    .footer-brand{font-family:var(--font-brand);font-size:1.32rem;font-weight:700;color:var(--color-white);margin-bottom:8px}
+    .footer-brand .x-letter{color:var(--color-accent)}
+    .footer-desc{font-size:0.92rem;opacity:0.6;margin-bottom:20px}
+    .footer-bottom{padding-top:20px;border-top:1px solid rgba(255,255,255,0.10);font-size:0.85rem;opacity:0.46}
 
-      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .env-photos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-      .project-grid { grid-template-columns: 1fr; }
-      .project-card { padding: 22px 22px 20px; }
-      .bring-card { padding: 20px 22px; }
-      .bring-list { grid-template-columns: 1fr; }
+    .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+    .menu-toggle span{width:24px;height:2px;background:var(--color-white);border-radius:2px;transition:var(--transition)}
 
-      .info-card { padding: 22px 22px 20px; }
-      .check-item { padding: 18px 20px; gap: 14px; }
-      .location-card, .contact-card { padding: 24px; }
-      .location-card { grid-template-columns: 1fr; gap: 26px; }
-      .timeline { padding-left: 30px; }
-      .t-dot { left: -28px; }
-    }
+    @media(max-width:1024px){.lab-gallery{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}}
+    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.recruit-hero{padding:60px 20px 56px}.recruit-hero h1{font-size:2rem}.section{padding:56px 20px}.lab-gallery{grid-template-columns:1fr 1fr}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}/* 9×28 + 8×12 = 348px，窄至 481px 的屏幕仍是一行（可用约 401px） */
+      .step-line{width:12px}.step-circle{width:28px;height:28px;font-size:0.74rem}
+      /* 16px 是 iOS Safari 的临界值：小于它，聚焦输入框会自动放大页面且不会缩回 */
+      .form-input{font-size:16px}
+      /* 触控目标提到 44px：DASS 有 21 题 × 4 选项，误触代价高 */
+      .radio-option label{padding:12px 16px}
+      .checkbox-grid .checkbox-group{padding:12px 14px}
+      .btn{padding:13px 24px}}
+    @media(max-width:480px){.lab-gallery{grid-template-columns:1fr}.recruit-hero h1{font-size:1.65rem}.radio-group{flex-direction:column}.why-grid{grid-template-columns:1fr}
+      /* 9 个步骤圆点必须挤进一行，否则 flex-wrap 会把连线甩到行尾。
+         9×24 + 8×6 = 264px，窄至 360px 的手机仍装得下（可用约 280px）。 */
+      .step-circle{width:24px;height:24px;font-size:0.68rem}
+      .step-line{width:6px}
+      /* 竖排后让整块可点，而不是只有文字那一小条 */
+      .radio-option label{width:100%}
+      .step-actions .btn{padding:13px 18px;font-size:0.88rem}}
   </style>
 </head>
-
 <body>
 
-  <!-- ========== HEADER (shared with main site) ========== -->
-  <header class="site-header">
-    <div class="nav-container">
-      <a href="index.html" class="site-title">
-        <span class="x-letter">X</span>-Sleep Lab
-      </a>
-      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="main-nav" id="main-navigation">
-        <a href="index.html"        data-i18n="nav.home">Home</a>
-        <a href="team.html"         data-i18n="nav.team">Team</a>
-        <a href="research.html"     data-i18n="nav.research">Research</a>
-        <a href="publications.html" data-i18n="nav.publications">Publications</a>
-        <a href="news.html"         data-i18n="nav.news">News</a>
-        <a href="participate.html" class="active" aria-current="page" data-i18n="nav.participate">Participate</a>
-        <a href="join.html"         data-i18n="nav.join">Join Us</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ========== PAGE HERO ========== -->
-  <div class="page-hero participant-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">参与者须知 · 中国科学院心理研究所</p>
-      <h1>睡眠实验<em>参与者须知</em></h1>
-      <p>欢迎您参与我们的研究。下方列出了正在招募的实验项目，以及参与前需要了解的全部说明。如有任何不清楚的地方，欢迎随时联系我们。</p>
-      <a class="hero-cta" href="#projects">查看正在招募的项目 ↓</a>
-    </div>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="../index.html" class="site-title"><span class="x-letter">X</span>-Sleep Lab</a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="main-navigation">
+      <a href="../index.html">Home</a>
+      <a href="../team.html">Team</a>
+      <a href="../research.html">Research</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../news.html">News</a>
+      <a href="../participate.html" class="active" aria-current="page">Participate</a>
+      <a href="../join.html">Join Us</a>
+    </nav>
   </div>
+</header>
 
-  <!-- ========== INFO STRIP (3 facts) ========== -->
-  <section class="info-strip">
-    <div class="info-strip-inner">
-      <div class="info-item">
-        <div class="info-label">伦理审批</div>
-        <div class="info-text">经中国科学院心理研究所伦理委员会批准</div>
-      </div>
-      <div class="info-divider"></div>
-      <div class="info-item">
-        <div class="info-label">实验类型</div>
-        <div class="info-text">EEG · MEG · fMRI · 行为实验</div>
-      </div>
-      <div class="info-divider"></div>
-      <div class="info-item">
-        <div class="info-label">安全性</div>
-        <div class="info-text">完全非侵入式 · 无已知健康风险</div>
+<!-- ========== LANDING ========== -->
+<div id="landing-page">
+  <section class="recruit-hero">
+    <div class="recruit-hero-inner">
+      <span class="recruit-hero-label">被试招募</span>
+      <h1>参与睡眠科学研究<br>探索大脑的<span class="x-mark">奥秘</span></h1>
+      <p>X-Sleep Lab（中国科学院心理研究所）正在招募健康志愿者参与睡眠研究。您的参与将为理解人类大脑与睡眠做出重要贡献。</p>
+      <a href="#section-experiments" class="btn-hero">查看当前招募项目 →</a>
+    </div>
+  </section>
+
+  <section class="section" id="section-lab">
+    <div class="section-inner">
+      <div class="section-label">实验室环境</div>
+      <h2 class="section-title">舒适的睡眠实验室</h2>
+      <p class="section-desc">我们为您准备了专业、舒适的实验环境，确保您在参与研究期间拥有良好的体验。</p>
+      <div class="lab-gallery">
+        <div class="lab-photo-card"><img src="photos/room1.jpg" alt="睡眠监测室 A" loading="lazy"><div class="photo-caption">睡眠监测室 A</div></div>
+        <div class="lab-photo-card"><img src="photos/room2.jpg" alt="睡眠监测室 B" loading="lazy"><div class="photo-caption">睡眠监测室 B</div></div>
+        <div class="lab-photo-card"><img src="photos/control-room.jpg" alt="实验控制室" loading="lazy"><div class="photo-caption">实验控制室</div></div>
+        <div class="lab-photo-card"><img src="photos/washroom.jpg" alt="洗漱更衣室" loading="lazy"><div class="photo-caption">洗漱更衣室</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ========== MAIN CONTENT ========== -->
-  <main class="participant-main">
-
-    <!-- RECRUITING PROJECTS -->
-    <section class="participant-section" id="projects">
-      <h2>正在<em>招募</em>的实验项目</h2>
-      <p class="lead">
-        以下项目正在招募参与者，各自独立报名。请根据自己的时间选择合适的项目，点击「报名筛选」进入问卷。
-        本页下方是完整的参与者须知，建议报名前一并读完。
-      </p>
-
-      <div class="project-grid">
-        <article class="project-card">
-          <span class="project-badge day">☀️ 午睡实验</span>
-          <h3>午睡与记忆研究</h3>
-          <p>
-            考察午睡对新近学习内容的记忆巩固作用。您需要在一天内到访一次，中途佩戴脑电帽完成一次午睡。
-          </p>
-          <dl class="project-meta">
-            <div><dt>到访</dt><dd>1 次</dd></div>
-            <div><dt>时长</dt><dd>约 6 h</dd></div>
-            <div><dt>报酬</dt><dd>360 元</dd></div>
-          </dl>
-          <a class="project-cta" href="signup/?project=nap-memory">报名筛选 →</a>
-        </article>
-
-        <article class="project-card">
-          <span class="project-badge night">🌙 晚睡实验</span>
-          <h3>夜间睡眠研究</h3>
-          <p>
-            晚上到达实验室完成任务后入睡，我们全程记录约 8 小时的睡眠脑电。次日清晨用过早餐、完成一组简短测试后即可离开。
-          </p>
-          <dl class="project-meta">
-            <div><dt>到访</dt><dd>1 次（过夜）</dd></div>
-            <div><dt>时长</dt><dd>8h 睡眠 + 前后 5h 任务</dd></div>
-            <div><dt>报酬</dt><dd>450 元</dd></div>
-          </dl>
-          <a class="project-cta" href="signup/?project=overnight-sleep">报名筛选 →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ETHICS & CONSENT -->
-    <section class="participant-section" id="ethics">
-      <h2>伦理审查与<em>知情同意</em></h2>
-      <article class="info-card">
-        <p>
-          本实验室所有研究均已通过机构伦理审查委员会的审查与批准。在开始任何实验之前，您将收到详细的知情同意书，说明研究程序、时长、潜在风险及报酬。
-        </p>
-        <p>
-          参与完全出于自愿。您可以在任何阶段退出，无需说明理由，也不会影响您已获得的报酬或今后参与其他研究的机会。
-        </p>
-        <span class="info-card-tag">已通过伦理审查</span>
-      </article>
-    </section>
-
-    <!-- ENVIRONMENT -->
-    <section class="participant-section" id="environment">
-      <h2>睡眠<em>环境</em>说明</h2>
-      <article class="info-card env-intro">
-        <p>
-          实验室配有两间独立卧室和一间独立的洗漱更衣室，安静避光，您可以安心休息。
-          床单、被褥与枕头均经过清洗消毒，并为每位参与者单独更换。
-        </p>
-        <p>
-          洗漱区提供淋浴、洗发水、沐浴露、拖鞋、毛巾与吹风机，实验结束后可在此清洗头发。
-          参加晚睡实验的参与者，次日清晨我们还会提供简单早餐（牛奶与面包）。
-        </p>
-        <span class="info-card-tag">独立卧室 · 每人更换床品</span>
-      </article>
-
-      <div class="env-photos">
-        <figure class="env-photo">
-          <img src="signup/photos/room1.jpg" alt="睡眠监测室 A：单人床与床边工作台" loading="lazy">
-          <figcaption>睡眠监测室 A</figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/room2.jpg" alt="睡眠监测室 B：另一间独立卧室" loading="lazy">
-          <figcaption>睡眠监测室 B</figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/control-room.jpg" alt="实验控制室：主试在此监看脑电信号" loading="lazy">
-          <figcaption>实验控制室</figcaption>
-        </figure>
-        <figure class="env-photo">
-          <img src="signup/photos/washroom.jpg" alt="洗漱更衣室：洗手台与洗漱区" loading="lazy">
-          <figcaption>洗漱更衣室</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- EQUIPMENT -->
-    <section class="participant-section" id="equipment">
-      <h2><em>实验设备</em>说明</h2>
-      <p class="lead">
-        根据您参与的研究，实验可能使用以下一种或多种系统。主试会在报名确认时告知适用于您的设备，
-        并逐项与您核对相关的安全事项。
-      </p>
-
-      <div class="card-grid card-grid-2">
-        <article class="info-card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h3l2-5 3 10 3-13 3 16 2-8h4"/></svg>
-          <h3>脑电图（EEG）</h3>
-          <p>
-            实验过程中，您将佩戴一顶专用的脑电帽（EEG）。研究人员会在帽子上的小孔注入少量可溶解的淀粉胶液，以保证电极与头皮良好接触，从而记录高质量的脑电信号。脑电记录完全非侵入式，没有任何已知健康风险。唯一可能的不便是胶状液体会沾在头皮上，因此实验结束后，我们会提供淋浴设施（浴室、洗发露和毛巾），让您清洗干净后再离开实验室。
-          </p>
-          <span class="info-card-tag">无已知风险</span>
-        </article>
-
-        <article class="info-card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="3"/><path d="M12 9v6"/><path d="M2 11h3M19 11h3"/></svg>
-          <h3>高清头戴显示器</h3>
-          <p>
-            您将佩戴 GOOVIS 虚拟现实眼镜。研究人员会帮助调整头带和镜片，使佩戴舒适并保证视觉清晰。眼镜支持屈光度调节（近视/远视）和瞳距调节，即使不戴自己的眼镜，也能看清虚拟场景。眼镜通过微型高分辨率显示屏呈现内容，您可通过头部运动和视线观察画面。该设备完全非侵入式，无任何已知健康风险，实验结束后可安全取下。
-          </p>
-          <span class="info-card-tag">非侵入式 · 需佩戴</span>
-        </article>
-
-        <article class="info-card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="2.4"/><path d="M7.6 12.4a6 6 0 0 1 8.8 0"/><path d="M4.6 9.2a10 10 0 0 1 14.8 0"/></svg>
-          <h3>脑磁图（MEG）</h3>
-          <p>
-            脑磁图记录神经活动产生的极微弱磁场。实验时您将坐在或躺在一个头盔状的传感器阵列下，头部保持在头盔内不动。整个过程完全非侵入式，不使用任何放射线，设备本身也没有噪音。
-          </p>
-          <p>
-            由于 MEG 对磁场极为敏感，进入磁屏蔽室前需要取下全部金属物品：首饰、手表、发卡、含金属的内衣与眼镜等。如果您体内有心脏起搏器、人工耳蜗、金属植入物或牙科磁性附着体，请在报名时务必告知，这类情况通常无法参加。
-          </p>
-          <span class="info-card-tag">无辐射 · 需去除金属</span>
-        </article>
-
-        <article class="info-card">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="3"/><circle cx="12" cy="12" r="3.4"/><path d="M6.6 6.2v11.6M17.4 6.2v11.6"/></svg>
-          <h3>功能性磁共振（fMRI）</h3>
-          <p>
-            fMRI 通过强磁场与射频脉冲记录大脑活动，同样<strong>不使用任何放射线</strong>。实验时您将平躺在扫描床上，头部固定在线圈内并缓慢送入扫描腔。设备工作时会有较响的敲击声，我们会为您提供耳塞与耳机，扫描全程可通过对讲与主试通话，也可随时按下手中的呼叫球中止实验。
-          </p>
-          <p>
-            进入扫描间前需取下全部金属物品，并填写一份金属筛查表。心脏起搏器、人工耳蜗、动脉瘤夹、眼内金属异物等属于绝对禁忌。若您有幽闭恐惧倾向，也请提前告知。
-          </p>
-          <span class="info-card-tag">无辐射 · 需金属筛查</span>
-        </article>
-      </div>
-    </section>
-
-    <!-- PREPARATION -->
-    <section class="participant-section" id="preparation">
-      <h2><em>实验前</em>准备事项</h2>
-      <p class="lead">
-        以下简单的准备工作有助于我们采集到清晰、高质量的数据，并让实验过程更顺畅。
-      </p>
-
-      <div class="checklist">
-        <div class="check-item">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 4.9L19 9.8l-5.1 1.9L12 17l-1.9-5.3L5 9.8l5.1-1.9L12 3z"/><path d="M18.5 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z"/></svg>
-          <div class="check-body">
-            <h3>当天不要化妆</h3>
-            <p>请避免在实验当天化妆，粉底、遮瑕膏等面部产品会影响电极放置及面部周围的信号质量。</p>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="14" r="3.6"/><circle cx="17.5" cy="14" r="3.6"/><path d="M10.1 13.4c.9-.8 2.9-.8 3.8 0"/><path d="M2.9 10.6L5 6.9M21.1 10.6L19 6.9"/></svg>
-          <div class="check-body">
-            <h3>不要佩戴隐形眼镜</h3>
-            <p>如果您近视，请佩戴框架眼镜，避免隐形眼镜影响实验体验。</p>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.8A8.6 8.6 0 0 1 9.2 3.5a8.6 8.6 0 1 0 11.3 11.3z"/></svg>
-          <div class="check-body">
-            <h3>保持前一晚充足睡眠</h3>
-            <p>请在实验前一晚保持正常的睡眠作息。睡眠不足会大幅改变大脑电活动模式，可能影响所采集数据的有效性。</p>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v5a2 2 0 0 0 4 0V3"/><path d="M8 10v11"/><path d="M17.5 3c-1.6 1.4-2.3 3.4-2.3 5.4V13h4V8.4c0-2-.6-4-1.7-5.4z"/><path d="M17.5 13v8"/></svg>
-          <div class="check-body">
-            <h3>避免空腹或过量进食</h3>
-            <p>请在来实验室前正常进餐。饥饿可能在实验过程中引起不适和注意力分散；同时请避免在实验前立即大量进食，以免产生困意。</p>
-          </div>
-        </div>
-
-        <div class="check-item">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.8"/><path d="M5.8 5.8l12.4 12.4"/></svg>
-          <div class="check-body">
-            <h3>实验前 24 小时避免咖啡、酒精和吸烟</h3>
-            <p>请在实验前 24 小时内不要饮用咖啡、酒精或浓茶，也不要吸烟，以确保实验状态稳定，保证数据质量。</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="bring-card">
-        <div class="bring-head">
-          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.2 8h15.6l-1.2 12.2H5.4L4.2 8z"/><path d="M9 8V6.2a3 3 0 0 1 6 0V8"/></svg>
-          <h3>可自带的小物品</h3>
-        </div>
-        <p>以上五条是需要配合的事项。下面这些则完全可选——带上会更舒服，不带也不影响实验进行。</p>
-        <ul class="bring-list">
-          <li><strong>牙刷与牙膏</strong>出于卫生考虑实验室不提供，参加晚睡实验建议自备。</li>
-          <li><strong>睡衣</strong>穿惯的睡衣更容易放松入睡。</li>
-          <li><strong>毛巾</strong>实验室提供干净毛巾，习惯用自己的也可以带。</li>
-          <li><strong>个人洗漱用品</strong>如洗面奶、护肤品等日常用品。</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- LOCATION -->
-    <section class="participant-section" id="location">
-      <h2>实验室<em>地点</em></h2>
-      <p class="lead">
-        您将前往以下实验室。您的确认邮件会注明具体时间，请按邮件指引前往。
-      </p>
-
-      <article class="info-card location-card">
-        <div class="location-col">
-          <div class="location-label">地址</div>
-          <div class="location-name">睡眠认知神经科学实验室</div>
-          <div class="location-addr">
-            北京市朝阳区林萃路 16 号<br>
-            中国科学院心理研究所<br>
-            和谐楼（南楼）829 室
-          </div>
-        </div>
-        <div class="location-col">
-          <div class="location-label">如何到达</div>
-          <dl class="location-routes">
-            <div><dt>地铁</dt><dd>8 号线北沙滩站 B2 东北口，步行约 10 分钟</dd></div>
-            <div><dt>公交</dt><dd>奥运村西站下车，步行约 5 分钟</dd></div>
-          </dl>
-          <p class="location-note">到达楼下后请致电主试，我们会下楼接您。电话写在您的确认邮件中。</p>
-        </div>
-      </article>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="participant-section" id="contact">
-      <h2>联系<em>方式</em></h2>
-
-      <article class="info-card contact-card">
-        <div class="contact-name">夏涛 · 博士</div>
-        <div class="contact-role">X-Sleep Lab · 实验室负责人</div>
-        <a href="mailto:xiatao@psych.ac.cn" class="contact-email">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M2 7l10 7 10-7"/>
-          </svg>
-          xiatao@psych.ac.cn
-        </a>
-        <a href="mailto:xsleeplab@hotmail.com" class="contact-email" style="margin-top:4px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="M2 7l10 7 10-7"/>
-          </svg>
-          xsleeplab@hotmail.com（被试招募）
-        </a>
-        <div class="contact-dept">中国科学院心理研究所 · 睡眠认知神经科学实验室</div>
-      </article>
-    </section>
-
-  </main>
-
-  <!-- ========== FOOTER (shared with main site) ========== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-brand-name"><span class="x-letter">X</span>-Sleep Lab</div>
-        <p data-i18n="footer.desc">Sleep is where experience is sculpted.</p>
-        <p>Institute of Psychology, Chinese Academy of Sciences</p>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer.navTitle">Navigation</h4>
-        <ul>
-          <li><a href="index.html"        data-i18n="nav.home">Home</a></li>
-          <li><a href="team.html"         data-i18n="nav.team">Team</a></li>
-          <li><a href="research.html"     data-i18n="nav.research">Research</a></li>
-          <li><a href="publications.html" data-i18n="nav.publications">Publications</a></li>
-          <li><a href="news.html"         data-i18n="nav.news">News</a></li>
-          <li><a href="participate.html" data-i18n="nav.participate">Participate</a></li>
-          <li><a href="join.html"         data-i18n="nav.join">Join Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer.contactTitle">Contact</h4>
-        <ul>
-          <li><a href="mailto:xiatao@psych.ac.cn">xiatao@psych.ac.cn</a></li>
-          <li><a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a></li>
-          <li><a href="https://www.researchgate.net/profile/Tao-Xia-6" target="_blank" rel="noopener">ResearchGate</a></li>
-        </ul>
-        <p style="font-size:0.85rem; opacity:0.55; margin-top:10px; line-height:1.55;" data-i18n="footer.address">北京市朝阳区林萃路16号 中国科学院心理研究所 和谐楼（南楼）829室</p>
+  <section class="section section-alt" id="section-why">
+    <div class="section-inner">
+      <div class="section-label">为什么参加</div>
+      <h2 class="section-title">参与睡眠研究的意义</h2>
+      <p class="section-desc">作为志愿者参与科学研究，您将收获的不只是报酬。</p>
+      <div class="why-grid">
+        <div class="why-card"><span class="why-card-icon">🔬</span><h3>推动科学进步</h3><p>您的参与直接帮助科学家理解睡眠与大脑功能的奥秘。每一份数据都是推进人类知识的重要一步。</p></div>
+        <div class="why-card"><span class="why-card-icon">🌙</span><h3>了解自己的睡眠</h3><p>在实验过程中，您将更深入地了解自己的睡眠模式和健康状况，获得关于睡眠质量的科学评估。</p></div>
+        <div class="why-card"><span class="why-card-icon">💰</span><h3>获得合理报酬</h3><p>我们为您的时间和付出提供合理的经济补偿。具体报酬标准在各项目详情中说明。</p></div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p data-i18n="footer.copyright">© 2026 X-Sleep Lab · Institute of Psychology, Chinese Academy of Sciences</p>
-      <p>所有研究均已通过中国科学院心理研究所伦理审查委员会批准</p>
-    </div>
-  </footer>
+  </section>
 
-  <!-- Translations + lang switcher (so nav stays in sync with main site) -->
-  <script src="js/translations.js?v=2"></script>
-  <script src="js/lang-switch.js"></script>
-  <script src="js/nav.js"></script>
-  <script>
-    // 环境照片是可选的：单张缺失就隐藏那张卡，全部缺失则隐藏整个区块，
-    // 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
-    (function () {
-      var gallery = document.querySelector('.env-photos');
-      if (!gallery) return;
-      var imgs = gallery.querySelectorAll('img');
-      var pending = imgs.length;
-      var ok = 0;
-      function settle(img, loaded) {
-        if (loaded) ok++;
-        else { var item = img.closest('.env-photo'); if (item) item.style.display = 'none'; }
-        if (--pending === 0 && ok === 0) gallery.style.display = 'none';
-      }
-      Array.prototype.forEach.call(imgs, function (img) {
-        if (img.complete) { settle(img, img.naturalWidth > 0); return; }
-        img.addEventListener('load', function () { settle(img, true); });
-        img.addEventListener('error', function () { settle(img, false); });
+  <section class="section" id="section-experiments">
+    <div class="section-inner">
+      <div class="section-label">正在招募</div>
+      <h2 class="section-title">当前实验项目</h2>
+      <p class="section-desc">每个项目独立招募被试，请根据您的时间和偏好选择适合的项目报名。</p>
+      <div class="exp-grid" id="experiment-cards"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== QUESTIONNAIRE ========== -->
+<div id="questionnaire-page" style="display:none">
+  <section class="section">
+    <div class="questionnaire-wrapper">
+      <div style="text-align:center;margin-bottom:20px">
+        <span class="exp-type-badge" id="q-exp-badge"></span>
+        <h3 id="q-exp-title" style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-primary-dark);margin-top:8px"></h3>
+      </div>
+      <div class="step-progress" id="step-progress"></div>
+
+      <div class="q-step-panel" id="step-0">
+        <h3 class="q-step-title">知情同意</h3>
+        <p class="q-step-desc">在填写问卷之前，请您仔细阅读以下内容。</p>
+        <div class="consent-box">
+          <h4>知情同意书</h4>
+          <p>本研究由中国科学院心理研究所 X-Sleep Lab 开展，旨在探索睡眠相关的认知与神经机制。研究已通过伦理审查。</p>
+          <p><strong>参与内容：</strong>您需要到实验室参与睡眠实验。实验过程中可能使用脑电（EEG）等设备无创地记录您的生理活动。所有设备均为非侵入性的安全设备，不存在安全风险。</p>
+          <p><strong>数据保护：</strong>您的个人信息将严格保密，仅用于本研究目的。所有数据将以匿名方式存储和分析，公开发表的成果不会透露您的个人身份。</p>
+          <p><strong>自愿原则：</strong>您的参与完全自愿，可随时退出，且不会受到任何不利影响。被试费会按照实际参与项目的进度进行发放。</p>
+          <p><strong>报酬：</strong>完成实验后，您将获得相应的被试报酬，具体标准见项目详情。</p>
+          <p>如有任何疑问，请随时联系实验人员。</p>
+        </div>
+        <div class="form-group"><div class="checkbox-group"><input type="checkbox" id="consent-check"><label for="consent-check">我已阅读并理解以上知情同意书，自愿参加本研究</label></div><div class="form-error" id="err-consent">请勾选同意知情同意书</div></div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="backToLanding()">← 返回</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-1">
+        <h3 class="q-step-title">基本信息</h3>
+        <p class="q-step-desc">请填写您的基本联系方式，以便我们后续与您沟通实验安排。</p>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">姓名 <span style="color:#c0392b">*</span></label><input type="text" class="form-input" id="f-name" placeholder="请输入您的姓名"><div class="form-error" id="err-name">请输入姓名</div></div>
+          <div class="form-group"><label class="form-label">手机号 <span style="color:#c0392b">*</span></label><input type="tel" class="form-input" id="f-phone" placeholder="请输入您的手机号"><div class="form-error" id="err-phone">请输入手机号</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">邮箱 <span style="color:#c0392b">*</span></label><input type="email" class="form-input" id="f-email" placeholder="用于接收实验指引"><div class="form-error" id="err-email">请输入有效的邮箱地址</div></div>
+          <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="16" max="80" placeholder="本实验招募 18-24 岁"><div class="form-error" id="err-age">请输入有效年龄</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
+          <div class="form-group"><label class="form-label">身份</label><div class="radio-group"><div class="radio-option"><input type="radio" name="identity" id="id-student" value="学生"><label for="id-student">学生</label></div><div class="radio-option"><input type="radio" name="identity" id="id-work" value="在职"><label for="id-work">在职</label></div></div></div>
+        </div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-2">
+        <h3 class="q-step-title">视力情况</h3>
+        <p class="q-step-desc">实验过程中需要观看屏幕上的视觉刺激，因此我们需要了解您的视力状况。请如实填写以下信息。</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">左眼近视度数（度）</label>
+            <input type="number" class="form-input" id="vision-left-myopia" min="0" max="2000" placeholder="如：300">
+          </div>
+          <div class="form-group">
+            <label class="form-label">右眼近视度数（度）</label>
+            <input type="number" class="form-input" id="vision-right-myopia" min="0" max="2000" placeholder="如：300">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">左眼远视度数（度，无远视填 0）</label>
+            <input type="number" class="form-input" id="vision-left-hyperopia" min="0" max="1000" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">右眼远视度数（度，无远视填 0）</label>
+            <input type="number" class="form-input" id="vision-right-hyperopia" min="0" max="1000" value="0">
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label">是否有散光？</label>
+          <div class="radio-group" id="vision-astigmatism">
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-yes" value="1"><label for="vision-astig-yes">有</label></div>
+            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-no" value="0"><label for="vision-astig-no">无</label></div>
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label">是否佩戴眼镜或隐形眼镜？</label>
+          <div class="radio-group" id="vision-glasses">
+            <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-yes" value="1"><label for="vision-gl-yes">是</label></div>
+            <div class="radio-option"><input type="radio" name="vision-glasses" id="vision-gl-no" value="0"><label for="vision-gl-no">否</label></div>
+          </div>
+        </div>
+
+        <div class="form-error" id="err-vision">请完整填写视力信息</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-3">
+        <h3 class="q-step-title">环境适应与睡眠习惯</h3>
+        <p class="q-step-desc">以下问题帮助我们了解您在陌生环境中的睡眠状况和一些生活习惯，以便为您安排合适的实验条件。</p>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">1.</span> 换到陌生环境（如酒店、宿舍）睡觉，您的睡眠通常会受到多大影响？</label><div class="radio-group" id="habit-q0"></div></div>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">2.</span> 您对睡眠环境中的声音敏感吗？（如空调声、走廊脚步声）</label><div class="radio-group" id="habit-q1"></div></div>
+
+        <div class="q-item"><label class="form-label"><span class="q-item-number">3.</span> 您平时容易觉得皮肤发痒或有异物感吗？（如衣服标签摩擦、新面料的触感）</label><div class="radio-group" id="habit-q2"></div></div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">4.</span> 您目前的吸烟情况是？</label>
+          <div class="radio-group" id="habit-q3"></div>
+          <input type="text" class="form-input" id="habit-q3-detail" placeholder="约几支/天" style="margin-top:8px;display:none">
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">5.</span> 近期（过去3个月）是否服用过助眠药物、镇静剂或抗抑郁/焦虑药物？</label>
+          <div class="radio-group" id="habit-q4"></div>
+          <input type="text" class="form-input" id="habit-q4-detail" placeholder="请注明药名" style="margin-top:8px;display:none">
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">6.</span> 您是否有以下情况？（可多选）</label>
+          <div class="checkbox-grid" id="habit-q5">
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5a" value="严重打鼾或曾被诊断睡眠呼吸暂停（OSA）"><label for="habit-q5a">严重打鼾或曾被诊断睡眠呼吸暂停（OSA）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5b" value="不宁腿综合征（腿脚酸麻痒，睡前必须活动）"><label for="habit-q5b">不宁腿综合征（腿脚酸麻痒，睡前必须活动）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5c" value="夜尿症（每晚起床排尿≥2次）"><label for="habit-q5c">夜尿症（每晚起床排尿≥2次）</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5d" value="倒班工作 / 近期跨时区旅行"><label for="habit-q5d">倒班工作 / 近期跨时区旅行</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="habit-q5e" value="无以上情况"><label for="habit-q5e">无以上情况</label></div>
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">7.</span> 您是否有午睡习惯？</label>
+          <div class="radio-group" id="habit-nap"></div>
+          <div id="habit-nap-detail" style="display:none;margin-top:8px">
+            <label class="form-label" style="font-size:0.92rem">一般几点入睡？</label>
+            <input type="time" class="form-input short" id="habit-nap-time" style="max-width:140px">
+          </div>
+        </div>
+
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">8.</span> 最近三个月内是否染过头发？</label>
+          <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">染发剂中的金属成分会干扰脑电信号，因此需要距上次染发满三个月。</p>
+          <div class="radio-group" id="habit-dye"></div>
+          <div class="form-error" id="err-dye">请选择是否染过头发</div>
+        </div>
+
+        <div class="form-error" id="err-habit">请完整填写所有问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-4">
+        <h3 class="q-step-title">匹兹堡睡眠质量指数（PSQI）</h3>
+        <p class="q-step-desc">以下问题涉及您<strong>过去一个月</strong>的睡眠习惯，请根据实际情况如实填写。</p>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">1.</span> 过去一个月，您通常几点上床睡觉？</label><input type="time" class="form-input short" id="psqi-q1" value="23:00"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">2.</span> 过去一个月，您通常需要多长时间才能入睡？（分钟）</label><input type="number" class="form-input short" id="psqi-q2" min="0" max="240" placeholder="分钟"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">3.</span> 过去一个月，您通常早上几点起床？</label><input type="time" class="form-input short" id="psqi-q3" value="07:00"></div>
+        <div class="form-group"><label class="form-label"><span class="q-item-number">4.</span> 过去一个月，您每晚实际睡眠时间有多少小时？</label><input type="number" class="form-input short" id="psqi-q4" min="0" max="24" step="0.5" placeholder="小时"></div>
+        <div class="q-subsection">5. 过去一个月，您有多少次因为以下原因难以入睡？</div>
+        <div id="psqi-q5-items"></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">6.</span> 过去一个月，您多久服用一次助眠药物？</label><div class="radio-group" id="psqi-q6"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">7.</span> 过去一个月，您在开车、吃饭或从事社交活动时，有多少次感到难以保持清醒？</label><div class="radio-group" id="psqi-q7"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">8.</span> 过去一个月，您在做事时保持足够热情有多大困难？</label><div class="radio-group" id="psqi-q8"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">9.</span> 过去一个月，您对自己的睡眠质量总体评价如何？</label><div class="radio-group" id="psqi-q9"></div></div>
+        <div class="form-error" id="err-psqi">请完整填写所有 PSQI 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-5">
+        <h3 class="q-step-title">失眠严重程度指数（ISI）</h3>
+        <p class="q-step-desc">请根据您<strong>过去两周</strong>的实际情况，对以下问题进行评分。</p>
+        <div id="isi-items"></div>
+        <div class="form-error" id="err-isi">请完整填写所有 ISI 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-6">
+        <h3 class="q-step-title">昼夜节律类型（rMEQ）</h3>
+        <p class="q-step-desc">请选择<strong>最符合您日常习惯</strong>的选项。这有助于我们把实验安排在您状态较好的时段。</p>
+        <div id="rmeq-items"></div>
+        <div class="form-error" id="err-rmeq">请完整填写所有昼夜节律问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-7">
+        <h3 class="q-step-title">抑郁焦虑压力量表（DASS-21）</h3>
+        <p class="q-step-desc">以下陈述与您的某些感受或状态有关，请根据<strong>过去一周</strong>的实际情况评分。</p>
+        <div id="dass-items"></div>
+        <div class="form-error" id="err-dass">请完整填写所有 DASS-21 问题</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
+      </div>
+
+      <div class="q-step-panel" id="step-8">
+        <h3 class="q-step-title">可用时间安排</h3>
+        <p class="q-step-desc">请告诉我们您通常哪些时间段方便参加实验，我们会据此为您协调安排。</p>
+        <div id="schedule-timeline" class="schedule-timeline-card"></div>
+        <div class="form-group">
+          <label class="form-label">您通常哪些天可以参加实验？（可多选）<span style="color:#c0392b"> *</span></label>
+          <p class="form-sublabel" style="color:#c0392b;font-weight:600;margin-bottom:10px">⚠ 实验要求连续两天参加，请务必选择连续的两天</p>
+          <div class="checkbox-grid" id="avail-days">
+            <div class="checkbox-group"><input type="checkbox" id="day-mon" value="周一"><label for="day-mon">周一</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-tue" value="周二"><label for="day-tue">周二</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-wed" value="周三"><label for="day-wed">周三</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-thu" value="周四"><label for="day-thu">周四</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-fri" value="周五"><label for="day-fri">周五</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-sat" value="周六"><label for="day-sat">周六</label></div>
+            <div class="checkbox-group"><input type="checkbox" id="day-sun" value="周日"><label for="day-sun">周日</label></div>
+          </div>
+          <div class="form-error" id="err-days">请至少选择一天</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">您的时间灵活度</label>
+          <div class="radio-group">
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-high" value="flexible"><label for="flex-high">比较灵活，工作日和周末都可以</label></div>
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-weekday" value="weekday"><label for="flex-weekday">主要工作日可以</label></div>
+            <div class="radio-option"><input type="radio" name="flexibility" id="flex-weekend" value="weekend"><label for="flex-weekend">主要周末可以</label></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">最早可以开始实验的日期</label>
+          <input type="date" class="form-input short" id="earliest-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">备注（可选）</label>
+          <textarea class="form-input" id="schedule-note" rows="3" placeholder="如有特殊时间安排或其他说明，请在此处备注"></textarea>
+        </div>
+        <div class="form-error" id="err-schedule">请至少选择可用日期</div>
+        <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-success" onclick="submitQuestionnaire()">提交报名</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== RESULTS ========== -->
+<div id="results-page" style="display:none">
+  <section class="section">
+    <div class="result-panel active">
+      <div id="result-pass" style="display:none">
+        <div class="result-header pass"><div class="result-icon">🎉</div><h2>恭喜，您通过了初筛！</h2><p id="pass-exp-desc"></p></div>
+        <div id="guide-container"></div>
+        <div class="contact-form-card" id="slot-picker-card">
+          <h3>选择实验日期</h3>
+          <p style="font-size:0.92rem;color:var(--color-text-light);margin-bottom:16px">
+            请选择一个方便的日期。绿色表示可预约，红色表示已约满。
+          </p>
+          <div id="cal-container"><p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选日期…</p></div>
+          <div class="form-error" id="err-slot">请选择一个日期</div>
+        </div>
+
+        <div class="contact-form-card">
+          <h3>确认信息并接收实验指引</h3>
+          <p style="font-size:0.92rem;color:var(--color-text-light);margin-bottom:12px">请确认您的联系方式，我们会将实验指引详情发送到您的邮箱，并安排后续实验时间。</p>
+          <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:12px 16px;margin-bottom:20px;text-align:center">
+            <strong style="color:#92400E;font-size:0.95rem">📧 提交后请及时查看邮箱（含垃圾邮件箱）</strong>
+            <p style="margin:6px 0 0;font-size:0.88rem;color:#78350F">我们会发送实验指引与确认信息，请留意收件箱并按指引回复确认。</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">姓名</label><input type="text" class="form-input" id="confirm-name" readonly></div>
+            <div class="form-group"><label class="form-label">邮箱</label><input type="email" class="form-input" id="confirm-email"></div>
+          </div>
+          <div class="form-group"><label class="form-label">手机号</label><input type="tel" class="form-input" id="confirm-phone"></div>
+          <button class="btn btn-success btn-block" id="btn-send-email" onclick="sendEmail()">确认并接收实验指引 →</button>
+          <div class="form-submit-status" id="email-status"></div>
+        </div>
+      </div>
+      <div id="result-fail" style="display:none">
+        <div class="result-header fail"><div class="result-icon">🙏</div><h2>感谢您的参与</h2><p>非常感谢您愿意参与我们的研究。根据您填写的问卷，您目前的睡眠状况暂时不符合本次实验的筛选要求。这并不代表您的睡眠有任何问题，只是与当前实验的特定标准不完全匹配。</p><p style="margin-top:12px">我们未来可能会开展更多不同类型的实验，届时欢迎您再次报名参与。祝您拥有健康良好的睡眠！</p></div>
+        <div class="guide-section" id="fail-reason" style="display:none">
+          <h3>未通过的原因</h3>
+          <p id="fail-reason-text"></p>
+          <p style="margin-top:10px">这些是本实验为保证数据质量而设定的入组条件，与您的健康状况无关。</p>
+        </div>
+        <div class="guide-section" id="fail-dye-note" style="display:none">
+          <h3>关于染发</h3>
+          <p>染发剂中的金属成分会显著干扰脑电信号，因此我们要求参与者距上次染发满三个月。</p>
+          <p id="fail-dye-text" style="margin-top:10px"></p>
+        </div>
+        <div style="text-align:center;margin-top:24px"><button class="btn btn-ghost" onclick="backToLanding()">返回首页</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="x-letter">X</span>-Sleep Lab</div>
+    <p class="footer-desc">中国科学院心理研究所 · 睡眠认知神经科学实验室</p>
+    <div class="footer-bottom"><p>&copy; 2026 X-Sleep Lab. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<script>
+
+// ==================== EXPERIMENT DATA ====================
+
+// type → 显示标签映射
+const TYPE_LABEL = { nap: '午睡实验', overnight: '晚睡实验' };
+const TYPE_ICON  = { nap: '☀️', overnight: '🌙' };
+
+const EXPERIMENTS = [
+  {
+    id: 'nap-memory',
+    type: 'nap',
+    title: '午睡与记忆研究',
+    brief: '午睡对于记忆的影响',
+    visits: '2 次',
+    duration: '第一天约1.5小时，第二天约 4.5 小时',
+    reward: '共350 元',
+    guide: {
+      scheduleSummary: [
+        '第一天：14:00 - 15:30 纯行为实验',
+        '第二天：12:00 - 16:30 行为实验与睡眠脑电监测（包括脑电前的准备时间）',
+      ],
+      timeline: [
+        { time: '第一天 14:00', desc: '到达实验室，熟悉环境' },
+        { time: '第一天 14:00 - 15:30', desc: '完成当天行为实验任务' },
+        { time: '第二天 12:00', desc: '到达实验室' },
+        { time: '第二天 12:00 - 12:20', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+        { time: '第二天 12:20 - 13:00', desc: '脑电实验前期准备' },
+        { time: '第二天 13:00 - 14:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 14:00 - 15:30', desc: '进行午休' },
+        { time: '第二天 15:30 - 16:00', desc: '完成当天行为实验任务' },
+        { time: '第二天 16:00 - 16:30', desc: '在洗漱间洗头，并用舒适的温度吹头' },
+      ],
+      prep: [
+        '如眼睛较易疲劳，可以自行准备眼药水',
+      ],
+    },
+  },
+  {
+    id: 'overnight-sleep',
+    type: 'overnight',
+    title: '夜间睡眠研究',
+    brief: '在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。',
+    visits: '1 次（过夜）',
+    duration: '约 8 小时睡眠，睡前约 3 小时、睡后约 2 小时任务',
+    reward: '450 元',
+    guide: {
+      scheduleSummary: [
+        '第一天：20:00 - 23:00 实验准备、任务与入睡（全程脑电记录）',
+        '第二天：07:30 - 09:30 晨间测试后离开',
+      ],
+      timeline: [
+        { time: '第一天 20:00', desc: '到达实验室，熟悉环境，洗漱准备' },
+        { time: '第一天 20:30', desc: '佩戴脑电设备' },
+        { time: '第一天 21:00 - 22:30', desc: '完成当晚实验任务' },
+        { time: '第一天 23:00', desc: '入睡（全程脑电记录）' },
+        { time: '第二天 07:30', desc: '起床，洗漱' },
+        { time: '第二天 08:00 - 09:00', desc: '完成晨间测试任务' },
+        { time: '第二天 09:30', desc: '洗漱后离开实验室' },
+      ],
+      prep: [
+        '<strong>牙刷与牙膏</strong> — 出于卫生考虑，实验室不提供牙刷',
+        '<strong>睡衣</strong> — 建议携带舒适的睡衣',
+        '<strong>毛巾</strong> — 我们会提供毛巾，您也可以自带',
+        '<strong>其他洗漱用品</strong> — 洗面奶、护肤品等个人用品',
+        '<strong>助眠物品</strong> — 如有耳塞、眼罩等习惯可携带',
+      ],
+    },
+  },
+  // Add more experiments here as needed
+];
+
+const PSQI_Q5 = [
+  {key:'q5a',text:'不能在 30 分钟内入睡'},{key:'q5b',text:'半夜或凌晨醒来'},
+  {key:'q5c',text:'起夜上厕所'},{key:'q5d',text:'呼吸不畅'},{key:'q5e',text:'咳嗽或鼾声大'},
+  {key:'q5f',text:'感到太冷'},{key:'q5g',text:'感到太热'},{key:'q5h',text:'做噩梦'},
+  {key:'q5i',text:'感到疼痛'},{key:'q5j',text:'其他原因而难以入睡'},
+];
+const FREQ03 = [{value:0,label:'无'},{value:1,label:'每周不到一次'},{value:2,label:'每周一两次'},{value:3,label:'每周三次以上'}];
+const ISI_Q = [
+  {text:'入睡困难程度',options:['无','轻微','中度','严重','非常严重']},
+  {text:'维持睡眠困难程度',options:['无','轻微','中度','严重','非常严重']},
+  {text:'早醒问题',options:['无','轻微','中度','严重','非常严重']},
+  {text:'对睡眠模式的满意程度',options:['非常满意','满意','一般','不满意','非常不满意']},
+  {text:'睡眠问题对日常功能的影响程度',options:['没有影响','轻微影响','有些影响','较大影响','非常影响']},
+  {text:'睡眠问题被他人注意到的程度',options:['没有','轻微','有些','较明显','非常明显']},
+  {text:'对睡眠问题的担忧程度',options:['一点也不担忧','轻微担忧','有些担忧','较为担忧','非常担忧']},
+];
+const DASS_Q = [
+  '我发现自己很难放松下来','我感到口干','我好像不能有什么好的感觉','我感到呼吸困难',
+  '我感到做事缺乏主动性','我对事情容易反应过度','我有颤抖的感觉（例如手抖）','我感到精神紧张',
+  '我担心自己在某些场合会惊慌失措出洋相','我觉得对未来没什么可期望的','我发现自己变得烦躁不安',
+  '我发现自己很难放松','我感到悲伤和沮丧','我不能容忍任何阻碍我做事的事物',
+  '我感到快要惊慌失措了','我对任何事情都不能产生热情','我觉得自己不怎么有价值',
+  '我觉得自己相当敏感','我感到心跳明显加快但并没有做任何体力活动','我无缘无故地感到害怕','我觉得生活没有意义',
+];
+const DASS_OPT = [{value:0,label:'不符合'},{value:1,label:'有时符合'},{value:2,label:'常常符合'},{value:3,label:'总是符合'}];
+
+// DASS 测谎题：插入到 DASS-21 中间，不单独成步。
+// insertAfter = 在第几道 DASS 题之后插入（0-indexed）。
+// check: 'attention' = 必须选"有时符合"(value===1)；'impossible' = 选"常常/总是"(value>=2)视为不诚实。
+const DASS_LIE = [
+  { text: '请在本题选择"有时符合"', insertAfter: 9, check: 'attention' },
+  { text: '我从来没有感到过疲倦或困倦', insertAfter: 14, check: 'impossible' },
+];
+
+// 构建 DASS 显示序列（21 + 2 = 23 题），每项标记来源。
+function buildDassDisplay() {
+  const display = [];
+  let lieIdx = 0;
+  for (let i = 0; i < DASS_Q.length; i++) {
+    display.push({ type: 'dass', text: DASS_Q[i], dassIdx: i });
+    while (lieIdx < DASS_LIE.length && DASS_LIE[lieIdx].insertAfter === i) {
+      display.push({ type: 'lie', text: DASS_LIE[lieIdx].text, check: DASS_LIE[lieIdx].check });
+      lieIdx++;
+    }
+  }
+  return display;
+}
+const DASS_DISPLAY = buildDassDisplay();
+
+// rMEQ（简化版晨昏型问卷）— 取自 Horne & Östberg MEQ 中文版的第 1、7、10、18、19 题，
+// 选项权重与原版完全一致。总分 4–25，用于排除极端昼夜类型。
+const RMEQ_Q = [
+  { text: '如果您能够完全自由地计划白天的时间，您希望大约在什么时间起床？', options: [
+    {value:5,label:'早上 5:00 – 6:30'},
+    {value:4,label:'早上 6:30 – 7:45'},
+    {value:3,label:'早上 7:45 – 9:45'},
+    {value:2,label:'早上 9:45 – 11:00'},
+    {value:1,label:'早上 11:00 – 正午 12:00'},
+  ]},
+  { text: '清晨起床后的半小时内，您的感觉如何？', options: [
+    {value:1,label:'非常疲倦'},
+    {value:2,label:'稍微疲倦'},
+    {value:3,label:'一般清醒'},
+    {value:4,label:'非常清醒'},
+  ]},
+  { text: '在夜晚，您大约到什么时候会感到疲倦、需要睡觉？', options: [
+    {value:5,label:'晚上 20:00 – 21:00'},
+    {value:4,label:'晚上 21:00 – 22:15'},
+    {value:3,label:'晚上 22:15 – 次日 00:45'},
+    {value:2,label:'凌晨 00:45 – 02:00'},
+    {value:1,label:'凌晨 02:00 – 03:00'},
+  ]},
+  { text: '一天之中，哪个时段是您状态最好的时间？', options: [
+    {value:5,label:'早上 5:00 – 8:00'},
+    {value:4,label:'早上 8:00 – 10:00'},
+    {value:3,label:'上午 10:00 – 下午 17:00'},
+    {value:2,label:'下午 17:00 – 22:00'},
+    {value:1,label:'晚上 22:00 – 次日 05:00'},
+  ]},
+  { text: '人可分为「清晨」型（早鸟）和「夜晚」型（夜猫）两类，您认为自己属于哪一类？', options: [
+    {value:6,label:'绝对「清晨」型'},
+    {value:4,label:'「清晨」型多过「夜晚」型'},
+    {value:2,label:'「夜晚」型多过「清晨」型'},
+    {value:0,label:'绝对「夜晚」型'},
+  ]},
+];
+
+let currentStep = 0;
+let selectedExpId = null;
+// 步骤定义。数组下标即 DOM 里的 step-N。
+const ALL_STEPS = ['知情同意','基本信息','视力','环境适应','PSQI','ISI','昼夜节律','DASS-21','时间安排'];
+
+// 每个项目实际要走的步骤。视力只对午睡实验有意义——该实验含精细视觉任务，
+// 晚睡实验不涉及，因此整步跳过，也不参与合格判定。
+const STEP_VISION = 2;
+// 不含第 8 步：时间不再在问卷里问，改为通过筛选后在结果页选具体时段，
+// 免得被淘汰的人白填一遍时间。
+const EXPERIMENT_STEPS = {
+  'nap-memory':      [0, 1, 2, 3, 4, 5, 6, 7],
+  'overnight-sleep': [0, 1,    3, 4, 5, 6, 7],
+};
+let activeSteps = ALL_STEPS.map((_, i) => i);
+const visionRequired = () => activeSteps.indexOf(STEP_VISION) !== -1;
+const lastStep = () => activeSteps[activeSteps.length - 1];
+
+const HABIT_Q = [
+  { text: '换到陌生环境睡觉，睡眠受到多大影响？', options: [
+    {value:0,label:'完全没影响，沾枕头就睡着'},{value:1,label:'轻微影响，半小时内能睡着'},
+    {value:2,label:'明显影响，需要1小时以上'},{value:3,label:'严重影响，几乎整晚睡不着'}
+  ]},
+  { text: '对睡眠环境中的声音敏感吗？', options: [
+    {value:0,label:'不敏感，甚至需要背景音'},{value:1,label:'一般，普通安静即可'},{value:2,label:'非常敏感，细微声音都会惊醒'}
+  ]},
+  { text: '平时容易觉得皮肤发痒或有异物感吗？', options: [
+    {value:0,label:'不容易，皮肤耐受度高'},{value:1,label:'一般'},{value:2,label:'容易，对异物感很敏感'}
+  ]},
+  { text: '目前的吸烟情况', options: [
+    {value:0,label:'不吸烟'},{value:1,label:'已戒烟'},{value:2,label:'吸烟'}
+  ], hasDetail: true },
+  { text: '近期是否服用过助眠药物等', options: [
+    {value:0,label:'否'},{value:1,label:'是'}
+  ], hasDetail: true },
+];
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderExperiments();
+  renderPSQI();
+  renderISI();
+  renderRMEQ();
+  renderDASS();
+  renderHabit();
+  // Auto-select project from URL parameter (?project=xxx)
+  const params = new URLSearchParams(window.location.search);
+  const projectId = params.get('project');
+  if (projectId && EXPERIMENTS.find(e => e.id === projectId)) {
+    selectExperiment(projectId);
+  }
+});
+
+function renderExperiments() {
+  const c = document.getElementById('experiment-cards');
+  c.innerHTML = EXPERIMENTS.map(exp => `
+    <div class="exp-card">
+      <div class="exp-card-header">
+        <span class="exp-type-badge ${exp.type}">${TYPE_ICON[exp.type] || ''} ${TYPE_LABEL[exp.type] || exp.type}</span>
+        <h3>${exp.title}</h3>
+      </div>
+      <div class="exp-card-body"><p>${exp.brief}</p></div>
+      <div class="exp-card-meta">
+        <div class="exp-meta-item"><span class="exp-meta-label">到访</span><span class="exp-meta-value">${exp.visits}</span></div>
+        <div class="exp-meta-item"><span class="exp-meta-label">时长</span><span class="exp-meta-value">${exp.duration}</span></div>
+        <div class="exp-meta-item"><span class="exp-meta-label">报酬</span><span class="exp-meta-value">${exp.reward}</span></div>
+      </div>
+      <div class="exp-card-action"><button class="btn btn-primary btn-block" onclick="selectExperiment('${exp.id}')">立即报名 →</button></div>
+    </div>
+  `).join('');
+}
+
+function renderRadioGroup(cid, name, opts) {
+  const c = document.getElementById(cid);
+  if (!c) return;
+  c.innerHTML = opts.map(o => `<div class="radio-option"><input type="radio" name="${name}" id="${name}-${o.value}" value="${o.value}"><label for="${name}-${o.value}">${o.label}</label></div>`).join('');
+}
+
+function renderPSQI() {
+  const c = document.getElementById('psqi-q5-items');
+  c.innerHTML = PSQI_Q5.map((it, i) => {
+    let extra = '';
+    if (it.key === 'q5j') {
+      extra = '<input type="text" class="form-input" id="psqi-q5j-detail" placeholder="请简要说明其他原因" style="margin-top:8px;display:none">';
+    }
+    return `<div class="q-item"><label class="form-label"><span class="q-item-number">5.${i+1}</span> ${it.text}</label><div class="radio-group" id="psqi-${it.key}"></div>${extra}</div>`;
+  }).join('');
+  PSQI_Q5.forEach(it => renderRadioGroup('psqi-'+it.key, 'psqi-'+it.key, FREQ03));
+  // "其他原因"选非零时显示文字输入框
+  document.querySelectorAll('input[name="psqi-q5j"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const det = document.getElementById('psqi-q5j-detail');
+      det.style.display = r.value > 0 ? 'block' : 'none';
+    });
+  });
+  renderRadioGroup('psqi-q6','psqi-q6',FREQ03);
+  renderRadioGroup('psqi-q7','psqi-q7',FREQ03);
+  renderRadioGroup('psqi-q8','psqi-q8',[{value:0,label:'没有困难'},{value:1,label:'一点困难'},{value:2,label:'比较困难'},{value:3,label:'很大困难'}]);
+  renderRadioGroup('psqi-q9','psqi-q9',[{value:0,label:'很好'},{value:1,label:'较好'},{value:2,label:'较差'},{value:3,label:'很差'}]);
+}
+
+function renderISI() {
+  const c = document.getElementById('isi-items');
+  c.innerHTML = ISI_Q.map((q,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${q.text}</label><div class="radio-group" id="isi-q${i}"></div></div>`).join('');
+  ISI_Q.forEach((q,i) => renderRadioGroup('isi-q'+i,'isi-q'+i, q.options.map((l,v) => ({value:v,label:l}))));
+}
+
+function renderDASS() {
+  const c = document.getElementById('dass-items');
+  c.innerHTML = DASS_DISPLAY.map((item, di) =>
+    `<div class="q-item"><label class="form-label"><span class="q-item-number">${di+1}.</span> ${item.text}</label><div class="radio-group" id="dass-q${di}"></div></div>`
+  ).join('');
+  DASS_DISPLAY.forEach((_, di) => renderRadioGroup('dass-q'+di, 'dass-q'+di, DASS_OPT));
+}
+
+function renderRMEQ() {
+  const c = document.getElementById('rmeq-items');
+  if (!c) return;
+  c.innerHTML = RMEQ_Q.map((q,i) => `<div class="q-item"><label class="form-label"><span class="q-item-number">${i+1}.</span> ${q.text}</label><div class="radio-group" id="rmeq-q${i}"></div></div>`).join('');
+  RMEQ_Q.forEach((q,i) => renderRadioGroup('rmeq-q'+i,'rmeq-q'+i, q.options));
+}
+
+function renderHabit() {
+  HABIT_Q.forEach((q, i) => {
+    renderRadioGroup('habit-q'+i, 'habit-q'+i, q.options);
+    if (q.hasDetail) {
+      document.querySelectorAll('input[name="habit-q'+i+'"]').forEach(r => {
+        r.addEventListener('change', () => {
+          const det = document.getElementById('habit-q'+i+'-detail');
+          det.style.display = r.value > 0 ? 'block' : 'none';
+        });
       });
-    })();
+    }
+  });
+  renderRadioGroup('habit-nap', 'habit-nap', [{value:1,label:'有'},{value:0,label:'没有'}]);
+  document.querySelectorAll('input[name="habit-nap"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const det = document.getElementById('habit-nap-detail');
+      det.style.display = r.value === '1' ? 'block' : 'none';
+    });
+  });
+  renderRadioGroup('habit-dye', 'habit-dye', [{value:0,label:'否'},{value:1,label:'是'}]);
+  // 互斥逻辑：勾选"无以上情况"则取消其他选项，反之亦然
+  const noneBox = document.getElementById('habit-q5e');
+  const otherBoxes = ['habit-q5a','habit-q5b','habit-q5c','habit-q5d'].map(id => document.getElementById(id));
+  if (noneBox) {
+    noneBox.addEventListener('change', () => {
+      if (noneBox.checked) otherBoxes.forEach(b => { if(b) b.checked = false; });
+    });
+  }
+  otherBoxes.forEach(b => {
+    if (b) b.addEventListener('change', () => {
+      if (b.checked && noneBox) noneBox.checked = false;
+    });
+  });
+}
 
-  </script>
+// ==================== NAVIGATION ====================
+function renderScheduleTimeline(exp) {
+  const el = document.getElementById('schedule-timeline');
+  if (!el || !exp.guide) { if (el) el.style.display='none'; return; }
+  const summary = exp.guide.scheduleSummary;
+  if (!summary || summary.length === 0) { el.style.display='none'; return; }
+  let h = '<h4>📅 实验时间安排</h4><ul class="mini-timeline">';
+  summary.forEach(s => { h += '<li><span class="mt-desc">' + s + '</span></li>'; });
+  h += '</ul>';
+  el.innerHTML = h;
+  el.style.display = 'block';
+}
 
+function selectExperiment(id) {
+  selectedExpId = id;
+  const exp = EXPERIMENTS.find(e => e.id === id);
+  if (!exp) return;
+  activeSteps = EXPERIMENT_STEPS[id] || ALL_STEPS.map((_, i) => i);
+  document.getElementById('q-exp-badge').className = 'exp-type-badge ' + exp.type;
+  document.getElementById('q-exp-badge').textContent = (TYPE_ICON[exp.type] || '') + ' ' + (TYPE_LABEL[exp.type] || exp.type);
+  document.getElementById('q-exp-title').textContent = exp.title;
+  renderScheduleTimeline(exp);
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('questionnaire-page').style.display = 'block';
+  document.getElementById('results-page').style.display = 'none';
+  showStep(0);
+}
+
+function backToLanding() {
+  document.getElementById('landing-page').style.display = 'block';
+  document.getElementById('questionnaire-page').style.display = 'none';
+  document.getElementById('results-page').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showStep(step) {
+  currentStep = step;
+  document.querySelectorAll('.q-step-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('step-'+step);
+  if (panel) panel.classList.add('active');
+  renderProgress();
+  window.scrollTo({top:200,behavior:'smooth'});
+}
+
+// ==================== 提前退出 ====================
+// 只对客观、非敏感的判据做即时判定。PSQI / ISI / rMEQ / DASS 一律留到最后
+// 统一给中性结论——填完量表就立刻被弹出，等于告诉对方是哪一项心理或睡眠
+// 指标把他刷掉了。
+const AGE_MIN = 18, AGE_MAX = 24;
+
+function visionFailReason() {
+  const n = id => parseInt(document.getElementById(id).value) || 0;
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  if (!astig || parseInt(astig.value) !== 0) return '本实验要求参与者无散光';
+  if (n('vision-left-myopia') >= 800 || n('vision-right-myopia') >= 800) return '近视度数达到或超过 800 度';
+  if (n('vision-left-hyperopia') >= 200 || n('vision-right-hyperopia') >= 200) return '远视度数达到或超过 200 度';
+  return '视力条件不符合本实验要求';
+}
+
+function habitFailReason() {
+  if (getRadio('habit-q0') > 1) return '在陌生环境中入睡较为困难';
+  if (getRadio('habit-q1') > 1) return '对睡眠环境中的声音较为敏感';
+  if (getRadio('habit-q2') > 1) return '对皮肤异物感较为敏感（脑电帽佩戴时间较长）';
+  if (getRadio('habit-q3') !== 0) return '本实验要求参与者从不吸烟';
+  if (getRadio('habit-q4') !== 0) return '近期服用过助眠或精神类药物';
+  return '存在可能影响睡眠记录的健康状况';
+}
+
+// 返回 null 表示该步没有触发提前退出
+function earlyExitReason(step) {
+  if (step === 1) {
+    const age = parseInt(document.getElementById('f-age').value);
+    if (!isNaN(age) && (age < AGE_MIN || age > AGE_MAX))
+      return { where: '年龄', why: `本实验招募 ${AGE_MIN}–${AGE_MAX} 岁的参与者` };
+  }
+  if (step === 2 && visionRequired() && !checkVisionPass())
+    return { where: '视力', why: visionFailReason() };
+  if (step === 3) {
+    if (selectedExpId === 'nap-memory' && !checkNapPass())
+      return { where: '午睡习惯', why: '本实验仅招募有午睡习惯的参与者' };
+    if (!checkDyePass()) return { where: '染发', why: '三个月内染过头发', dye: true };
+    if (!checkHabitPass()) return { where: '环境适应', why: habitFailReason() };
+  }
+  return null;
+}
+
+function showEarlyExit(exit) {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('questionnaire-page').style.display = 'none';
+  document.getElementById('results-page').style.display = 'block';
+  document.getElementById('result-pass').style.display = 'none';
+  document.getElementById('result-fail').style.display = 'block';
+
+  const reason = document.getElementById('fail-reason');
+  if (reason) {
+    reason.style.display = 'block';
+    document.getElementById('fail-reason-text').textContent = exit.why + '，因此无法参加本次实验。';
+  }
+  const dyeNote = document.getElementById('fail-dye-note');
+  if (dyeNote) {
+    dyeNote.style.display = exit.dye ? 'block' : 'none';
+    if (exit.dye) document.getElementById('fail-dye-text').textContent =
+      '距上次染发满三个月后，欢迎您再次报名。';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 前进/后退都沿 activeSteps 走，而不是按 step-N 递增，
+// 这样跳过的步骤（如晚睡实验的视力）不会被访问到。
+function goNext() {
+  if (!validateStep(currentStep)) return;
+  const exit = earlyExitReason(currentStep);
+  if (exit) { reportEarlyExit(exit); showEarlyExit(exit); return; }
+  const i = activeSteps.indexOf(currentStep);
+  if (i === activeSteps.length - 1) { submitQuestionnaire(); return; }
+  if (i > -1) showStep(activeSteps[i + 1]);
+}
+
+function goPrev() {
+  const i = activeSteps.indexOf(currentStep);
+  if (i > 0) showStep(activeSteps[i - 1]);
+  else backToLanding();
+}
+
+function renderProgress() {
+  const c = document.getElementById('step-progress');
+  const pos = activeSteps.indexOf(currentStep);
+  let h = '';
+  activeSteps.forEach((stepId, i) => {
+    const done = i < pos, active = i === pos;
+    h += `<div class="step-circle ${done?'done':''} ${active?'active':''}" title="${ALL_STEPS[stepId]}">${done?'✓':i+1}</div>`;
+    if (i < activeSteps.length-1) h += `<div class="step-line ${done?'done':''}"></div>`;
+  });
+  c.innerHTML = h;
+}
+
+// ==================== VALIDATION ====================
+function validateStep(step) {
+  clearErrors(); let v = true;
+  if (step===0) { if (!document.getElementById('consent-check').checked) { showErr('err-consent'); v=false; } }
+  if (step===1) {
+    if (!document.getElementById('f-name').value.trim()) { showErr('err-name'); v=false; }
+    const ph = document.getElementById('f-phone').value.trim();
+    if (!ph||ph.length<11) { showErr('err-phone'); v=false; }
+    const em = document.getElementById('f-email').value.trim();
+    if (!em||!em.includes('@')) { showErr('err-email'); v=false; }
+    // 这里只做合理性校验；18–26 岁的入组要求由 earlyExitReason 判定，
+    // 好让超龄的人看到明确原因，而不是一句"请输入有效年龄"。
+    const ag = document.getElementById('f-age').value;
+    if (!ag||ag<16||ag>80) { showErr('err-age'); v=false; }
+    if (!document.querySelector('input[name="gender"]:checked')) { showErr('err-gender'); v=false; }
+  }
+  if (step===2) {
+    const lm = parseInt(document.getElementById('vision-left-myopia').value);
+    const rm = parseInt(document.getElementById('vision-right-myopia').value);
+    const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
+    const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
+    const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+    const glasses = document.querySelector('input[name="vision-glasses"]:checked');
+    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astig || !glasses) { showErr('err-vision'); v=false; }
+  }
+  if (step===3) {
+    for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
+    if (v) { const q5=document.querySelectorAll('#habit-q5 input:checked'); if (q5.length===0) { showErr('err-habit'); v=false; } }
+    if (!document.querySelector('input[name="habit-nap"]:checked')) { showErr('err-habit'); v=false; }
+    if (!document.querySelector('input[name="habit-dye"]:checked')) { showErr('err-dye'); v=false; }
+  }
+  if (step===4) {
+    const q2=document.getElementById('psqi-q2').value, q4=document.getElementById('psqi-q4').value;
+    if (!q2||!q4) { showErr('err-psqi'); v=false; }
+    if (v) { for (const k of [...PSQI_Q5.map(i=>i.key),'q6','q7','q8','q9']) { if (!document.querySelector('input[name="psqi-'+k+'"]:checked')) { showErr('err-psqi'); v=false; break; } } }
+  }
+  if (step===5) { for (let i=0;i<ISI_Q.length;i++) { if (!document.querySelector('input[name="isi-q'+i+'"]:checked')) { showErr('err-isi'); v=false; break; } } }
+  if (step===6) { for (let i=0;i<RMEQ_Q.length;i++) { if (!document.querySelector('input[name="rmeq-q'+i+'"]:checked')) { showErr('err-rmeq'); v=false; break; } } }
+  if (step===7) { for (let i=0;i<DASS_DISPLAY.length;i++) { if (!document.querySelector('input[name="dass-q'+i+'"]:checked')) { showErr('err-dass'); v=false; break; } } }
+  if (step===8) {
+    const days = document.querySelectorAll('#avail-days input:checked');
+    if (days.length===0) { showErr('err-days'); v=false; }
+  }
+  if (!v) { const e=document.querySelector('.form-error.show'); if(e) e.scrollIntoView({behavior:'smooth',block:'center'}); }
+  return v;
+}
+function showErr(id) { const e=document.getElementById(id); if(e) e.classList.add('show'); }
+function clearErrors() { document.querySelectorAll('.form-error').forEach(e=>e.classList.remove('show')); }
+
+// ==================== SCORING ====================
+function getRadio(n) { const e=document.querySelector('input[name="'+n+'"]:checked'); return e?parseInt(e.value):0; }
+function parseTime(t) { const p=t.split(':').map(Number); return p[0]+p[1]/60; }
+
+function scorePSQI() {
+  const c1=getRadio('psqi-q9');
+  const lat=parseFloat(document.getElementById('psqi-q2').value)||0;
+  const q2s=lat<=15?0:lat<=30?1:lat<=60?2:3;
+  const s2=q2s+getRadio('psqi-q5a'); const c2=s2===0?0:s2<=2?1:s2<=4?2:3;
+  const hrs=parseFloat(document.getElementById('psqi-q4').value)||0;
+  const c3=hrs>7?0:hrs>=6?1:hrs>=5?2:3;
+  let bt=parseTime(document.getElementById('psqi-q1').value||'23:00');
+  let wt=parseTime(document.getElementById('psqi-q3').value||'07:00');
+  if(wt<=bt) wt+=24; const tib=wt-bt; const eff=tib>0?(hrs/tib)*100:0;
+  const c4=eff>=85?0:eff>=75?1:eff>=65?2:3;
+  const dk=['q5b','q5c','q5d','q5e','q5f','q5g','q5h','q5i','q5j'];
+  const ds=dk.reduce((s,k)=>s+getRadio('psqi-'+k),0); const c5=ds===0?0:ds<=9?1:ds<=18?2:3;
+  const c6=getRadio('psqi-q6');
+  const dy=getRadio('psqi-q7')+getRadio('psqi-q8'); const c7=dy===0?0:dy<=2?1:dy<=4?2:3;
+  return c1+c2+c3+c4+c5+c6+c7;
+}
+
+function scoreISI() { let t=0; for(let i=0;i<ISI_Q.length;i++){const e=document.querySelector('input[name="isi-q'+i+'"]:checked');if(e)t+=parseInt(e.value);} return t; }
+
+// rMEQ 总分 4–25（分越高越偏清晨型）
+function scoreRMEQ() {
+  let t = 0;
+  for (let i = 0; i < RMEQ_Q.length; i++) {
+    const e = document.querySelector('input[name="rmeq-q'+i+'"]:checked');
+    if (e) t += parseInt(e.value);
+  }
+  return t;
+}
+
+function chronotypeLabel(s) {
+  if (s <= 7)  return '明显夜晚型';
+  if (s <= 11) return '中度夜晚型';
+  if (s <= 17) return '中间型';
+  if (s <= 21) return '中度清晨型';
+  return '明显清晨型';
+}
+
+// 排除极端昼夜类型：明显夜晚型（≤7）与明显清晨型（≥22）。
+// 实验固定在 14:00 小睡 / 23:00 入睡，极端类型难以配合。
+function checkChronotypePass() {
+  const s = scoreRMEQ();
+  return s >= 8 && s <= 21;
+}
+
+function scoreDASS() {
+  // 原始 DASS-21 下标：Depression [2,4,9,12,15,16,20], Anxiety [1,3,6,8,14,18,19], Stress [0,5,7,10,11,13,17]
+  // 测谎题插入在 DASS 第 9 题后(display 10)和第 14 题后(display 16)，
+  // 因此 DASS 0-9→display 0-9, DASS 10-14→display 11-15, DASS 15-20→display 17-22。
+  const di=[2,4,9,13,17,18,22],ai=[1,3,6,8,15,20,21],si=[0,5,7,11,12,14,19];
+  const gv=i=>{const e=document.querySelector('input[name="dass-q'+i+'"]:checked');return e?parseInt(e.value):0;};
+  return {depression:di.reduce((s,i)=>s+gv(i),0)*2,anxiety:ai.reduce((s,i)=>s+gv(i),0)*2,stress:si.reduce((s,i)=>s+gv(i),0)*2};
+}
+
+// 测谎判定：遍历 DASS_DISPLAY 中的 lie 项，任一触发即不合格。
+// attention: 必须选"有时符合"(value===1)；impossible: 选"常常/总是"(value>=2)视为不诚实。
+function checkLiePass() {
+  const gv = i => { const e = document.querySelector('input[name="dass-q'+i+'"]:checked'); return e ? parseInt(e.value) : -1; };
+  for (let di = 0; di < DASS_DISPLAY.length; di++) {
+    const item = DASS_DISPLAY[di];
+    if (item.type !== 'lie') continue;
+    const v = gv(di);
+    if (item.check === 'attention' && v !== 1) return false;
+    if (item.check === 'impossible' && v >= 2) return false;
+  }
+  return true;
+}
+
+function checkHabitPass() {
+  const q0 = getRadio('habit-q0'); if (q0 > 1) return false;
+  const q1 = getRadio('habit-q1'); if (q1 > 1) return false;
+  const q2 = getRadio('habit-q2'); if (q2 > 1) return false;
+  const q3 = getRadio('habit-q3'); if (q3 !== 0) return false;
+  const q4 = getRadio('habit-q4'); if (q4 !== 0) return false;
+  const conditions = Array.from(document.querySelectorAll('#habit-q5 input:checked'))
+    .filter(e => e.id !== 'habit-q5e');
+  if (conditions.length > 0) return false;
+  return true;
+}
+
+// 午睡习惯筛选：午睡实验只招收有午睡习惯的被试
+function checkNapPass() {
+  return getRadio('habit-nap') === 1;
+}
+
+// 染发单列为一道判据：它不是睡眠障碍，而是脑电信号质量问题，
+// 且属于「等三个月后可再报名」，与其他永久性排除标准性质不同。
+function checkAgePass() {
+  const age = parseInt(document.getElementById('f-age').value);
+  return !isNaN(age) && age >= AGE_MIN && age <= AGE_MAX;
+}
+
+function checkDyePass() {
+  const e = document.querySelector('input[name="habit-dye"]:checked');
+  return !!e && parseInt(e.value) === 0;
+}
+
+function checkVisionPass() {
+  const lm = parseInt(document.getElementById('vision-left-myopia').value) || 0;
+  const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
+  const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
+  const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
+  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+  // 排除标准：近视 ≥800 度、远视 ≥200 度、有散光（两项度数判据统一取“大于等于”）
+  if (lm >= 800 || rm >= 800) return false;
+  if (lh >= 200 || rh >= 200) return false;
+  if (!astig || parseInt(astig.value) !== 0) return false;
+  return true;
+}
+
+// ==================== SUBMIT ====================
+function submitQuestionnaire() {
+  if (!validateStep(lastStep())) return;
+  const psqi=scorePSQI(), isi=scoreISI(), dass=scoreDASS();
+  const habitPass = checkHabitPass();
+  const visionPass = !visionRequired() || checkVisionPass();
+  const chronoPass = checkChronotypePass();
+  const dyePass = checkDyePass();
+  const agePass = checkAgePass();
+  const othersPass = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14
+    && habitPass && visionPass && chronoPass && agePass;
+  const passed = othersPass && dyePass;
+
+  document.getElementById('landing-page').style.display='none';
+  document.getElementById('questionnaire-page').style.display='none';
+  document.getElementById('results-page').style.display='block';
+
+  if (passed) {
+    document.getElementById('result-pass').style.display='block';
+    document.getElementById('result-fail').style.display='none';
+    document.getElementById('confirm-name').value=document.getElementById('f-name').value;
+    document.getElementById('confirm-email').value=document.getElementById('f-email').value;
+    document.getElementById('confirm-phone').value=document.getElementById('f-phone').value;
+    const exp = EXPERIMENTS.find(e=>e.id===selectedExpId);
+    if (exp) {
+      document.getElementById('pass-exp-desc').textContent = '您的睡眠状况符合「'+exp.title+'」的筛选要求。以下是该实验的详细指引。';
+      renderGuide(exp);
+    }
+    loadSlots();
+  } else {
+    document.getElementById('result-pass').style.display='none';
+    document.getElementById('result-fail').style.display='block';
+    // 走到最后才不合格的，一定是分数类判据（PSQI/ISI/rMEQ/DASS），
+    // 不列出具体原因——避免把淘汰归因到某项心理或睡眠指标上。
+    const reasonBox = document.getElementById('fail-reason');
+    if (reasonBox) reasonBox.style.display = 'none';
+    // 走完全程仍不合格的，此处自动记录（合格者改为在确认页提交时记录）
+    const record = collectSubmission();
+    record.outcome = 'failed';
+    postOutcome(record);
+    // 染发是「等三个月后可再报名」，与其他永久性排除不同，单独说明。
+    const dyeNote = document.getElementById('fail-dye-note');
+    if (dyeNote) {
+      dyeNote.style.display = dyePass ? 'none' : 'block';
+      if (!dyePass) {
+        document.getElementById('fail-dye-text').textContent = othersPass
+          ? '您其他各项均符合筛选要求。请在距上次染发满三个月后再来报名，我们很期待您的参与。'
+          : '距上次染发满三个月后，欢迎您再次报名。';
+      }
+    }
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderGuide(exp) {
+  const g = exp.guide;
+  const c = document.getElementById('guide-container');
+  let h = '';
+
+  // Intro + timeline
+  h += '<div class="guide-section"><h3>实验流程</h3><p>'+( g.intro || exp.brief )+'</p><div class="timeline">';
+  g.timeline.forEach(t => { h += '<div class="timeline-item"><div class="timeline-time">'+t.time+'</div><div class="timeline-desc">'+t.desc+'</div></div>'; });
+  h += '</div></div>';
+
+  // EEG (all experiments use EEG)
+  h += '<div class="guide-section"><h3>脑电图（EEG）说明</h3><p>实验过程中将使用脑电图（EEG）设备无创地记录您的脑电活动。您需要佩戴一个特制的电极帽，帽中的导电凝胶用于连接头皮与电极。EEG 记录完全无创，没有已知危险。实验结束后您可以在实验室洗漱后再离开，我们提供洗发水和吹风机。</p></div>';
+
+  // Prep
+  h += '<div class="guide-section"><h3>您需要准备什么？</h3><ul class="prep-list">';
+  g.prep.forEach(p => { h += '<li>'+p+'</li>'; });
+  h += '</ul>';
+  if (exp.type === 'overnight') h += '<p style="margin-top:16px;color:var(--color-text-light);font-size:0.9rem">早晨我们将提供简单的早餐（牛奶与面包）。</p>';
+  h += '</div>';
+
+  // Location
+  h += '<div class="guide-section"><h3>实验地点与交通</h3><div class="location-card"><div class="location-info"><p><strong>睡眠认知神经科学实验室</strong></p><p>北京市朝阳区林萃路16号 中国科学院心理研究所 和谐楼（南楼）829室</p><p style="margin-top:12px"><strong>如何到达：</strong></p><p>奥运村西公交站 / 北沙滩地铁站（B2东北口）。到达后请联系实验人员。</p><p style="margin-top:12px"><strong>联系方式：</strong></p><p>邮箱：xsleeplab@hotmail.com</p></div><div class="location-map"><iframe src="https://uri.amap.com/marker?position=116.3658,40.0036&name=X-Sleep Lab 睡眠实验室&src=xsleeplab&coordinate=gaode&callnative=0" width="100%" height="100%" style="border:0;border-radius:var(--radius-sm)" loading="lazy"></iframe></div></div></div>';
+
+  c.innerHTML = h;
+}
+
+// ==================== 提交 ====================
+// 报名数据提交到腾讯云函数（境内节点），由云函数负责转发飞书通知。
+// 飞书 webhook 保存在云函数的环境变量里，不出现在前端代码中；
+// 云函数只接受下面这份结构化数据并自行拼装卡片，因此即使有人直接
+// 调用该地址，也无法借实验室的机器人发送任意内容。
+const SUBMIT_ENDPOINT = 'https://1301866011-fg2ytpu440.ap-beijing.tencentscf.com';
+const SLOT_LOAD_TIMEOUT_MS = 12000;
+const SUBMISSION_TIMEOUT_MS = 65000;
+
+function fetchJSONWithTimeout(url, options, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+    .then(response => {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .finally(() => clearTimeout(timer));
+}
+
+// 读取某个单选题当前选中项的文字标签
+function radioLabel(name) {
+  const el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.parentElement.textContent.trim() : '未填';
+}
+
+function collectSubmission() {
+  const val = id => ((document.getElementById(id) || {}).value || '');
+  const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
+  const psqi = scorePSQI(), isi = scoreISI(), rmeq = scoreRMEQ(), dass = scoreDASS();
+  const liePass    = checkLiePass();
+  const visionNeeded = visionRequired();
+  const visionPass = !visionNeeded || checkVisionPass();
+  const habitPass  = checkHabitPass();
+  const chronoPass = checkChronotypePass();
+  const dyePass    = checkDyePass();
+  const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
+
+  const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
+  const glassesEl = document.querySelector('input[name="vision-glasses"]:checked');
+  const flexEl    = document.querySelector('input[name="flexibility"]:checked');
+
+  const habitLabels = ['环境适应', '声音敏感', '皮肤敏感', '吸烟情况', '药物使用'];
+  const habitAnswers = HABIT_Q.map((q, i) => {
+    let a = radioLabel('habit-q' + i);
+    if (q.hasDetail) {
+      const sel = document.querySelector('input[name="habit-q' + i + '"]:checked');
+      const det = document.getElementById('habit-q' + i + '-detail');
+      if (sel && parseInt(sel.value) > 0 && det && det.value.trim()) a += '（' + det.value.trim() + '）';
+    }
+    return { q: habitLabels[i], a: a };
+  });
+  const conditions = Array.from(document.querySelectorAll('#habit-q5 input:checked'))
+    .filter(e => e.id !== 'habit-q5e').map(e => e.value);
+
+  const psqiOther = document.getElementById('psqi-q5j-detail');
+  const psqiDetail = [
+    { q: '上床时间', a: val('psqi-q1') || '未填' },
+    { q: '入睡时长', a: (val('psqi-q2') || '未填') + ' 分钟' },
+    { q: '起床时间', a: val('psqi-q3') || '未填' },
+    { q: '实际睡眠', a: (val('psqi-q4') || '未填') + ' 小时' }
+  ]
+    .concat(PSQI_Q5.map(it => ({ q: it.text, a: radioLabel('psqi-' + it.key) })))
+    .concat(psqiOther && psqiOther.value.trim() ? [{ q: '其他原因说明', a: psqiOther.value.trim() }] : [])
+    .concat([
+      { q: '助眠药物', a: radioLabel('psqi-q6') },
+      { q: '日间困倦', a: radioLabel('psqi-q7') },
+      { q: '保持热情', a: radioLabel('psqi-q8') },
+      { q: '总体评价', a: radioLabel('psqi-q9') }
+    ]);
+
+  return {
+    // 不合格与提前退出不会经过确认页，联系方式回落到第 1 步填的
+    name:  (val('confirm-name')  || val('f-name')).trim(),
+    email: (val('confirm-email') || val('f-email')).trim(),
+    phone: (val('confirm-phone') || val('f-phone')).trim(),
+    project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
+    age: document.getElementById('f-age').value,
+    overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
+      && dassPass && dyePass && checkAgePass() && liePass
+      && (selectedExpId !== 'nap-memory' || checkNapPass()),
+    scores: {
+      psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
+      isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
+      rmeq: { total: rmeq, threshold: '8–21', pass: chronoPass, type: chronotypeLabel(rmeq) },
+      dass: {
+        depression: dass.depression, anxiety: dass.anxiety, stress: dass.stress,
+        threshold: '抑郁≤9 焦虑≤7 压力≤14', pass: dassPass
+      },
+      lie: { pass: liePass },
+    },
+    vision: visionNeeded ? {
+      required: true,
+      leftMyopia:     val('vision-left-myopia')      || '0',
+      rightMyopia:    val('vision-right-myopia')     || '0',
+      leftHyperopia:  val('vision-left-hyperopia')   || '0',
+      rightHyperopia: val('vision-right-hyperopia')  || '0',
+      astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
+      glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
+      pass: visionPass
+    } : { required: false, pass: true },
+    habit: {
+      answers: habitAnswers.concat([
+        { q: '午睡习惯', a: getRadio('habit-nap') === 1 ? '有' : '没有' },
+        { q: '午睡入睡时间', a: val('habit-nap-time') || '未填' },
+        { q: '三个月内染发', a: radioLabel('habit-dye') }
+      ]),
+      conditions: conditions,
+      pass: habitPass,
+      napPass: checkNapPass(),
+      dyePass: dyePass
+    },
+    detail: {
+      psqi: psqiDetail,
+      isi:  ISI_Q.map((q, i)  => ({ q: q.text, a: radioLabel('isi-q' + i) })),
+      rmeq: RMEQ_Q.map((q, i) => ({ q: q.text, a: radioLabel('rmeq-q' + i) })),
+      dass: DASS_DISPLAY.map((item, di) => ({ q: item.text, a: radioLabel('dass-q' + di), type: item.type }))
+    },
+    schedule: {
+      days: Array.from(document.querySelectorAll('#avail-days input:checked')).map(e => e.value).join('、'),
+      flexibility: flexEl ? flexEl.parentElement.textContent.trim() : '未填',
+      earliest: val('earliest-date') || '未填',
+      note: val('schedule-note').trim() || '无'
+    }
+  };
+}
+
+// ==================== 日历选择 ====================
+let chosenSlot = null;
+let calSlots = [];
+let calWindow = 14;
+let calViewYear = null;
+let calViewMonth = null;
+const WEEKDAYS_SHORT = ['日', '一', '二', '三', '四', '五', '六'];
+
+function loadSlots() {
+  const box = document.getElementById('cal-container');
+  const picker = document.getElementById('slot-picker-card');
+  chosenSlot = null;
+  picker.style.display = 'block';
+  picker.dataset.slotState = 'loading';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">正在载入可选日期…</p>';
+  fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'slots' }),
+  }, SLOT_LOAD_TIMEOUT_MS)
+    .then(d => {
+      if (!d || !d.slots || !d.slots.length) {
+        showSlotFallback('在线日历暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+        return;
+      }
+      calSlots = d.slots;
+      calWindow = d.bookingWindow || 14;
+      const now = new Date(Date.now() + 8 * 3600 * 1000);
+      calViewYear = now.getUTCFullYear();
+      calViewMonth = now.getUTCMonth();
+      renderCalendar();
+    })
+    .catch(err => {
+      console.error('[X-Sleep] 载入日历失败:', err);
+      showSlotFallback(err && err.name === 'AbortError'
+        ? '载入可选日期超时。您仍可提交报名，实验室会通过邮件或电话与您协调时间。'
+        : '在线日历暂时不可用。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+    });
+}
+
+function showSlotFallback(message) {
+  const picker = document.getElementById('slot-picker-card');
+  const box = document.getElementById('cal-container');
+  picker.dataset.slotState = 'fallback';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">' + message + '</p>';
+}
+
+function renderCalendar() {
+  const box = document.getElementById('cal-container');
+  const slotMap = {};
+  calSlots.forEach(s => { slotMap[s.date] = s; });
+
+  const year = calViewYear;
+  const month = calViewMonth;
+  const firstDay = new Date(Date.UTC(year, month, 1));
+  const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+  const startWeekday = firstDay.getUTCDay();
+  const todayIso = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+
+  const hasBookable = calSlots.some(s => s.status === '可预约' && s.booked < s.capacity);
+  if (!hasBookable && !document.querySelector('.cal-cell.chosen')) {
+    showSlotFallback('当前暂无可预约日期。您仍可提交报名，实验室会通过邮件或电话与您协调时间。');
+    return;
+  }
+
+  const MONTH_NAMES = ['一月', '二月', '三月', '四月', '五月', '六月',
+                       '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+  let h = '';
+  h += '<div class="cal-header">';
+  h += '<button type="button" class="cal-nav" id="cal-prev" aria-label="上月">\u2039</button>';
+  h += '<span class="cal-title">' + year + '年 ' + MONTH_NAMES[month] + '</span>';
+  h += '<button type="button" class="cal-nav" id="cal-next" aria-label="下月">\u203a</button>';
+  h += '</div>';
+
+  h += '<div class="cal-weekdays">';
+  WEEKDAYS_SHORT.forEach(w => { h += '<div class="cal-wd">' + w + '</div>'; });
+  h += '</div>';
+
+  h += '<div class="cal-grid">';
+  for (let i = 0; i < startWeekday; i++) {
+    h += '<div class="cal-cell empty"></div>';
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const iso = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const slot = slotMap[iso];
+    const isToday = iso === todayIso;
+    const wdIdx = (firstDay.getUTCDay() + d - 1) % 7;
+    const wd = WEEKDAYS_SHORT[wdIdx];
+
+    let cls = 'cal-cell';
+    let statusText = '';
+    let clickable = false;
+
+    if (slot) {
+      if (slot.status === '关闭') {
+        cls += ' closed';
+        statusText = '关闭';
+      } else if (slot.booked >= slot.capacity) {
+        cls += ' full';
+        statusText = '已约满';
+      } else if (chosenSlot === iso) {
+        cls += ' chosen';
+        statusText = '已选择';
+        clickable = true;
+      } else {
+        cls += ' available';
+        const remaining = slot.capacity - slot.booked;
+        statusText = remaining > 1 ? '余 ' + remaining + ' 位' : '可预约';
+        clickable = true;
+      }
+    } else {
+      cls += ' disabled';
+    }
+    if (isToday) cls += ' today';
+
+    h += '<div class="' + cls + '"' + (clickable ? ' data-date="' + iso + '"' : '') + '>';
+    h += '<span class="cal-num">' + d + '</span>';
+    h += '<span class="cal-wd-label">周' + wd + '</span>';
+    if (statusText) h += '<span class="cal-status">' + statusText + '</span>';
+    h += '</div>';
+  }
+  h += '</div>';
+
+  h += '<div class="cal-legend">';
+  h += '<span><i class="dot avail"></i> 可预约</span>';
+  h += '<span><i class="dot full"></i> 已约满</span>';
+  h += '<span><i class="dot closed"></i> 暂不开放</span>';
+  h += '</div>';
+
+  box.innerHTML = h;
+  document.getElementById('slot-picker-card').dataset.slotState = 'ready';
+
+  box.querySelectorAll('.cal-cell.available').forEach(cell => {
+    cell.addEventListener('click', () => {
+      box.querySelectorAll('.cal-cell').forEach(c => c.classList.remove('chosen'));
+      const date = cell.getAttribute('data-date');
+      const slot = slotMap[date];
+      if (slot) {
+        const remaining = slot.capacity - slot.booked;
+        cell.querySelector('.cal-status').textContent = remaining > 1 ? '余 ' + remaining + ' 位' : '可预约';
+      }
+      cell.classList.add('chosen');
+      cell.querySelector('.cal-status').textContent = '已选择';
+      chosenSlot = date;
+      const err = document.getElementById('err-slot');
+      if (err) err.classList.remove('show');
+    });
+  });
+
+  const prevBtn = document.getElementById('cal-prev');
+  const nextBtn = document.getElementById('cal-next');
+  const nowDate = new Date(Date.now() + 8 * 3600 * 1000);
+  const curY = nowDate.getUTCFullYear(), curM = nowDate.getUTCMonth();
+  prevBtn.disabled = (year === curY && month <= curM);
+  const maxSlotDate = calSlots.length ? calSlots[calSlots.length - 1].date : '';
+  if (maxSlotDate) {
+    const maxParts = maxSlotDate.split('-').map(Number);
+    const maxY = maxParts[0], maxM = maxParts[1] - 1;
+    nextBtn.disabled = (year > maxY || (year === maxY && month >= maxM));
+  }
+  prevBtn.addEventListener('click', () => {
+    calViewMonth--;
+    if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
+    renderCalendar();
+  });
+  nextBtn.addEventListener('click', () => {
+    calViewMonth++;
+    if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+    renderCalendar();
+  });
+}
+
+// 不合格与提前退出也要记录，否则无从知道招募漏斗在哪一环流失、
+// 也无从判断某条筛选标准是不是过严。这类记录静默发送，失败不打扰被试。
+function postOutcome(payload) {
+  try {
+    fetch(SUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  } catch (e) {
+    console.error('[X-Sleep] 记录失败:', e);
+  }
+}
+
+function reportEarlyExit(exit) {
+  const exp = EXPERIMENTS.find(e => e.id === selectedExpId);
+  const v = id => ((document.getElementById(id) || {}).value || '').trim();
+  postOutcome({
+    outcome: 'early-exit',
+    overallPass: false,
+    name: v('f-name'), email: v('f-email'), phone: v('f-phone'), age: v('f-age'),
+    project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
+    exit: { where: exit.where, why: exit.why },
+  });
+}
+
+function classifySubmissionResponse(data, requestedSlot) {
+  const error = data && data.error ? data.error : '服务端未确认送达';
+  const retryableSlotErrors = ['slot-taken', 'slot-closed', 'slot-not-found'];
+  if (data && data.ok !== true && retryableSlotErrors.includes(error)) {
+    return { kind: 'retry', error: error };
+  }
+  if (data && data.ok !== true && requestedSlot && /^slot-/.test(error)) {
+    return { kind: 'unknown', error: error };
+  }
+  if (!data || data.ok !== true) return { kind: 'error', error: error };
+  if (requestedSlot && data.booking !== requestedSlot) return { kind: 'unconfirmed' };
+  if (requestedSlot && data.bookingStatus !== 'confirmed') {
+    return { kind: data.notification === 'failed' ? 'pending-warning' : 'pending' };
+  }
+  if (data.notification === 'failed') return { kind: 'warning' };
+  return { kind: 'confirmed' };
+}
+
+function sendEmail() {
+  const btn = document.getElementById('btn-send-email');
+  const st  = document.getElementById('email-status');
+  const email = document.getElementById('confirm-email').value.trim();
+  if (!email) { st.className = 'form-submit-status error'; st.textContent = '请输入邮箱地址'; return; }
+
+  const picker = document.getElementById('slot-picker-card');
+  const slotState = picker ? picker.dataset.slotState : 'fallback';
+  if (slotState === 'loading') {
+    st.className = 'form-submit-status pending';
+    st.textContent = '可选时段仍在载入，请稍候再提交。';
+    return;
+  }
+  if (slotState === 'ready' && !chosenSlot) {
+    const err = document.getElementById('err-slot');
+    if (err) err.classList.add('show');
+    st.className = 'form-submit-status error';
+    st.textContent = '请先在上方选择一个实验日期';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '提交中...';
+  st.className = 'form-submit-status pending';
+  st.textContent = '正在安全提交，请勿关闭页面或重复点击。';
+
+  const submission = collectSubmission();
+  submission.outcome = 'passed';
+  const requestedSlot = chosenSlot;
+  if (requestedSlot) submission.booking = { key: requestedSlot };
+
+  fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(submission)
+  }, SUBMISSION_TIMEOUT_MS)
+    .then(d => {
+      const outcome = classifySubmissionResponse(d, requestedSlot);
+      // 日期被抢走是可恢复的：刷新日历让被试重选，而不是当成提交失败
+      if (outcome.kind === 'retry') {
+        st.className = 'form-submit-status error';
+        st.textContent = outcome.error === 'slot-taken'
+          ? '很抱歉，该日期刚被其他参与者预约。已为您刷新，请重新选择。'
+          : '该日期已不可预约，请重新选择。';
+        chosenSlot = null;
+        loadSlots();
+        btn.disabled = false;
+        btn.textContent = '确认并接收实验指引 →';
+        return 'retry';
+      }
+      if (outcome.kind === 'error') return 'error';
+      return outcome.kind;
+    })
+    .then(result => {
+      if (result === 'retry') return;
+      if (result === 'unknown') {
+        st.className = 'form-submit-status notice';
+        st.innerHTML = '服务器未能确认本次报名及预约状态，该时段可能已经写入。请勿重复提交，'
+          + '请通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室核对。';
+        btn.textContent = '状态待确认';
+        return;
+      }
+      if (result === 'error') {
+        st.className = 'form-submit-status error';
+        st.innerHTML = '服务端明确拒绝了本次提交。请检查信息后重新提交，'
+          + '或通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室。';
+        btn.disabled = false;
+        btn.textContent = '重新提交';
+        return;
+      }
+      if (result === 'unconfirmed') {
+        st.className = 'form-submit-status notice';
+        st.textContent = '报名信息已送达，但所选时段尚未得到服务器确认。请勿重复提交，实验室会尽快与您核对时间。';
+        btn.textContent = '信息已提交';
+        return;
+      }
+      if (result === 'pending' || result === 'pending-warning') {
+        st.className = 'form-submit-status notice';
+        st.textContent = result === 'pending-warning'
+          ? '报名信息和所选日期已记录，最终安排以实验室邮件或电话确认为准；系统通知暂时延迟，无需重复提交。'
+          : '报名信息和所选日期已记录，最终安排以实验室邮件或电话确认为准。请勿重复提交。';
+        btn.textContent = '日期待确认';
+        return;
+      }
+      if (result === 'warning') {
+        st.className = 'form-submit-status notice';
+        st.textContent = requestedSlot
+          ? '预约已确认，但系统通知暂时延迟。无需重复提交，实验室会核对记录并与您联系。'
+          : '报名信息已记录，但系统通知暂时延迟。无需重复提交，实验室会核对记录并与您联系。';
+        btn.textContent = requestedSlot ? '预约已确认' : '信息已提交';
+        return;
+      }
+      st.className = 'form-submit-status success';
+      const baseMsg = requestedSlot
+        ? '报名成功！已为您预约 ' + requestedSlot + '。'
+        : '报名信息已提交！';
+      st.innerHTML = baseMsg
+        + '<span style="display:block;margin-top:10px;padding:10px 14px;background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;color:#92400E;font-weight:600;font-size:1.02rem;text-align:center">📧 请注意查收邮件（含垃圾邮件箱）</span>'
+        + '<span style="display:block;margin-top:6px;color:var(--color-text-light);font-size:0.9rem">我们会通过邮件发送实验指引与确认信息，请留意收件箱。</span>';
+      btn.textContent = '已提交';
+    })
+    .catch(err => {
+      // 网络、平台超时或非 JSON 响应都可能发生在服务端写入之后。此时
+      // 不能声称“未送达”或鼓励重试，否则可能造成重复预约/重复归档。
+      console.error('[X-Sleep] 报名提交失败:', err);
+      st.className = 'form-submit-status notice';
+      st.innerHTML = '服务器未能返回可验证结果，报名状态<strong>暂未确认</strong>。请勿重复提交，'
+        + '请通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室核对。';
+      btn.textContent = '状态待确认';
+    });
+}
+
+// Mobile menu toggle
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.menu-toggle')) {
+    const nav = document.getElementById('main-navigation');
+    const btn = e.target.closest('.menu-toggle');
+    nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', nav.classList.contains('open'));
+  }
+});
+
+// 实验室照片可选：缺图时隐藏对应卡片，全部缺失则隐藏整个相册，
+// 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
+(function () {
+  const gallery = document.querySelector('.lab-gallery');
+  if (!gallery) return;
+  const imgs = gallery.querySelectorAll('img');
+  let pending = imgs.length, ok = 0;
+  const settle = (img, loaded) => {
+    if (loaded) ok++;
+    else { const card = img.closest('.lab-photo-card'); if (card) card.style.display = 'none'; }
+    if (--pending === 0 && ok === 0) gallery.style.display = 'none';
+  };
+  imgs.forEach(img => {
+    if (img.complete) { settle(img, img.naturalWidth > 0); return; }
+    img.addEventListener('load', () => settle(img, true));
+    img.addEventListener('error', () => settle(img, false));
+  });
+})();
+</script>
 </body>
 </html>
