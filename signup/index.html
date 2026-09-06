@@ -416,10 +416,10 @@
         </div>
 
         <div class="q-item">
-          <label class="form-label">是否有散光？</label>
-          <div class="radio-group" id="vision-astigmatism">
-            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-yes" value="1"><label for="vision-astig-yes">有</label></div>
-            <div class="radio-option"><input type="radio" name="vision-astigmatism" id="vision-astig-no" value="0"><label for="vision-astig-no">无</label></div>
+          <label class="form-label">散光度数（如无散光请填 0）</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="number" class="form-input" id="vision-astigmatism-degree" min="0" max="1000" value="0" style="max-width:120px">
+            <span style="color:var(--color-text-light);font-size:0.9rem">度</span>
           </div>
         </div>
 
@@ -1084,8 +1084,8 @@ const AGE_MIN = 18, AGE_MAX = 24;
 
 function visionFailReason() {
   const n = id => parseInt(document.getElementById(id).value) || 0;
-  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
-  if (!astig || parseInt(astig.value) !== 0) return '本实验要求参与者无散光';
+  const astigDeg = n('vision-astigmatism-degree');
+  if (astigDeg >= 100) return '散光度数达到或超过 100 度';
   if (n('vision-left-myopia') >= 800 || n('vision-right-myopia') >= 800) return '近视度数达到或超过 800 度';
   if (n('vision-left-hyperopia') >= 200 || n('vision-right-hyperopia') >= 200) return '远视度数达到或超过 200 度';
   return '视力条件不符合本实验要求';
@@ -1210,9 +1210,9 @@ function validateStep(step) {
     const rm = parseInt(document.getElementById('vision-right-myopia').value);
     const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
     const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-    const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
+    const astigDeg = document.getElementById('vision-astigmatism-degree');
     const glasses = document.querySelector('input[name="vision-glasses"]:checked');
-    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astig || !glasses) { showErr('err-vision'); v=false; }
+    if (isNaN(lm) || isNaN(rm) || isNaN(lh) || isNaN(rh) || !astigDeg || astigDeg.value === '' || !glasses) { showErr('err-vision'); v=false; }
   }
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
@@ -1344,11 +1344,11 @@ function checkVisionPass() {
   const rm = parseInt(document.getElementById('vision-right-myopia').value) || 0;
   const lh = parseInt(document.getElementById('vision-left-hyperopia').value) || 0;
   const rh = parseInt(document.getElementById('vision-right-hyperopia').value) || 0;
-  const astig = document.querySelector('input[name="vision-astigmatism"]:checked');
-  // 排除标准：近视 ≥800 度、远视 ≥200 度、有散光（两项度数判据统一取“大于等于”）
+  const astigDeg = parseInt(document.getElementById('vision-astigmatism-degree').value) || 0;
+  // 排除标准：近视 ≥800 度、远视 ≥200 度、散光 ≥100 度
   if (lm >= 800 || rm >= 800) return false;
   if (lh >= 200 || rh >= 200) return false;
-  if (!astig || parseInt(astig.value) !== 0) return false;
+  if (astigDeg >= 100) return false;
   return true;
 }
 
@@ -1470,7 +1470,7 @@ function collectSubmission() {
   const dyePass    = checkDyePass();
   const dassPass   = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
 
-  const astigEl   = document.querySelector('input[name="vision-astigmatism"]:checked');
+  const astigDeg  = document.getElementById('vision-astigmatism-degree');
   const glassesEl = document.querySelector('input[name="vision-glasses"]:checked');
   const flexEl    = document.querySelector('input[name="flexibility"]:checked');
 
@@ -1529,7 +1529,7 @@ function collectSubmission() {
       rightMyopia:    val('vision-right-myopia')     || '0',
       leftHyperopia:  val('vision-left-hyperopia')   || '0',
       rightHyperopia: val('vision-right-hyperopia')  || '0',
-      astigmatism: astigEl   ? (astigEl.value   === '1' ? '有' : '无') : '未填',
+      astigmatism: astigDeg ? (parseInt(astigDeg.value) || 0) + '度' : '未填',
       glasses:     glassesEl ? (glassesEl.value === '1' ? '是' : '否') : '未填',
       pass: visionPass
     } : { required: false, pass: true },
