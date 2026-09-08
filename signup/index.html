@@ -705,6 +705,7 @@ const EXPERIMENTS = [
     id: 'overnight-sleep',
     type: 'overnight',
     title: '夜间睡眠研究',
+    active: false,
     brief: '在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。',
     visits: '1 次（过夜）',
     duration: '约 8 小时睡眠，睡前约 3 小时、睡后约 2 小时任务',
@@ -877,7 +878,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHabit();
   // Auto-select project from URL parameter (?project=xxx)
   const projectId = params.get('project');
-  if (projectId && EXPERIMENTS.find(e => e.id === projectId)) {
+  if (projectId && EXPERIMENTS.find(e => e.id === projectId && e.active !== false)) {
     selectExperiment(projectId);
   }
 });
@@ -929,7 +930,8 @@ function showConfirmState(state) {
 
 function renderExperiments() {
   const c = document.getElementById('experiment-cards');
-  c.innerHTML = EXPERIMENTS.map(exp => `
+  const activeExps = EXPERIMENTS.filter(e => e.active !== false);
+  c.innerHTML = activeExps.map(exp => `
     <div class="exp-card">
       <div class="exp-card-header">
         <span class="exp-type-badge ${exp.type}">${TYPE_ICON[exp.type] || ''} ${TYPE_LABEL[exp.type] || exp.type}</span>
