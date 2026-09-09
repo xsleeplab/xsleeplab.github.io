@@ -1601,14 +1601,16 @@ function loadSlots() {
     });
 }
 
-function showSlotFallback(message) {
-  const picker = document.getElementById('slot-picker-card');
-  const box = document.getElementById('cal-container');
-  picker.dataset.slotState = 'fallback';
-  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">' + message + '</p>' +
-    '<div id="waitlist-section" style="margin-top:24px;border-top:1px solid var(--color-border);padding-top:20px">' +
-    '<h4 style="color:var(--color-primary);margin-bottom:8px">📋 加入候补名单</h4>' +
-    '<p style="color:var(--color-text-light);font-size:0.9rem;margin-bottom:16px">留下您的联系方式，新时段开放时我们会第一时间邮件通知您。</p>' +
+function waitlistHTML(expanded) {
+  var formDisplay = expanded ? '' : 'none';
+  var arrow = expanded ? '▾' : '▸';
+  return '<div id="waitlist-section" style="margin-top:24px;border-top:1px solid var(--color-border);padding-top:20px">' +
+    '<a href="javascript:void(0)" onclick="toggleWaitlistForm()" id="waitlist-toggle" ' +
+    'style="display:flex;align-items:center;gap:6px;color:var(--color-primary);font-weight:600;font-size:0.95rem;cursor:pointer">' +
+    '<span style="font-size:0.85em" id="waitlist-arrow">' + arrow + '</span> ' +
+    '找不到合适的时间？加入候补名单</a>' +
+    '<div id="waitlist-form-wrapper" style="display:' + formDisplay + ';margin-top:16px">' +
+    '<p style="color:var(--color-text-light);font-size:0.9rem;margin-bottom:16px">留下您的联系方式，新时段开放时我们会第一时间邮件通知您，届时可通过邮件中的链接直接预约。</p>' +
     '<div id="waitlist-form">' +
     '<div class="form-group"><label class="form-label">姓名</label><input type="text" class="form-input" id="wl-name" placeholder="您的姓名"></div>' +
     '<div class="form-group"><label class="form-label">邮箱</label><input type="email" class="form-input" id="wl-email" placeholder="your@email.com"></div>' +
@@ -1626,7 +1628,28 @@ function showSlotFallback(message) {
     '<h4 style="color:var(--color-primary);margin-bottom:8px">您已在候补名单中</h4>' +
     '<p style="color:var(--color-text-light);font-size:0.9rem">无需重复登记，我们会在新时段开放时通知您。</p>' +
     '</div>' +
-    '</div>';
+    '</div></div>';
+}
+
+function toggleWaitlistForm() {
+  var wrapper = document.getElementById('waitlist-form-wrapper');
+  var arrow = document.getElementById('waitlist-arrow');
+  if (!wrapper) return;
+  if (wrapper.style.display === 'none') {
+    wrapper.style.display = '';
+    if (arrow) arrow.textContent = '▾';
+  } else {
+    wrapper.style.display = 'none';
+    if (arrow) arrow.textContent = '▸';
+  }
+}
+
+function showSlotFallback(message) {
+  const picker = document.getElementById('slot-picker-card');
+  const box = document.getElementById('cal-container');
+  picker.dataset.slotState = 'fallback';
+  box.innerHTML = '<p style="color:var(--color-text-light);font-size:0.92rem">' + message + '</p>' +
+    waitlistHTML(true);
 }
 
 function submitWaitlist() {
@@ -1769,6 +1792,8 @@ function renderCalendar() {
   h += '<span><i class="dot full"></i> 已约满</span>';
   h += '<span><i class="dot closed"></i> 暂不开放</span>';
   h += '</div>';
+
+  h += waitlistHTML(false);
 
   box.innerHTML = h;
   document.getElementById('slot-picker-card').dataset.slotState = 'ready';
