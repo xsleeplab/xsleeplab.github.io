@@ -56,36 +56,11 @@
     .main-nav a.active{color:var(--color-white)}
     .main-nav a.active::after{width:100%}
 
-    .recruit-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 60%,var(--color-primary-mid) 100%);padding:88px 32px 80px;position:relative;overflow:hidden;text-align:center}
-    .recruit-hero::after{content:'';position:absolute;right:-120px;top:-120px;width:480px;height:480px;border-radius:50%;background:rgba(138,172,191,0.08);pointer-events:none}
-    .recruit-hero::before{content:'';position:absolute;left:-80px;bottom:-100px;width:340px;height:340px;border-radius:50%;background:rgba(46,74,99,0.18);pointer-events:none}
-    .recruit-hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
-    .recruit-hero-label{display:inline-block;font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-light);background:rgba(138,172,191,0.15);border:1px solid rgba(181,207,216,0.40);padding:5px 18px;border-radius:20px;margin-bottom:24px}
-    .recruit-hero h1{font-family:var(--font-brand);font-size:2.8rem;font-weight:800;color:var(--color-white);letter-spacing:-0.025em;line-height:1.15;margin-bottom:18px;text-shadow:0 2px 16px rgba(0,0,0,0.18)}
-    .recruit-hero h1 .x-mark{color:var(--color-accent)}
-    .recruit-hero p{font-size:1.1rem;color:rgba(255,255,255,0.82);line-height:1.78;max-width:600px;margin:0 auto 32px}
-    .btn-hero{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--color-primary-dark);background:var(--color-white);padding:14px 36px;border-radius:8px;border:none;cursor:pointer;transition:var(--transition);letter-spacing:0.03em;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
-    .btn-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.22);background:var(--color-accent-light);color:var(--color-white)}
-
     .section{padding:80px 32px}.section-inner{max-width:var(--max-width);margin:0 auto}
     .section-label{font-family:var(--font-display);font-size:0.75rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-primary-mid);margin-bottom:10px}
     .section-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-primary-dark);letter-spacing:-0.02em;line-height:1.2;margin-bottom:10px}
     .section-desc{font-size:1rem;color:var(--color-text-light);max-width:560px;margin-bottom:40px}
     .section-alt{background:var(--color-bg-alt)}
-
-    .lab-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .lab-photo-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition)}
-    .lab-photo-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
-    .lab-photo-card img{width:100%;height:220px;object-fit:cover}
-    .lab-photo-card .photo-caption{padding:16px 18px;font-family:var(--font-display);font-size:0.88rem;font-weight:600;color:var(--color-primary-dark)}
-
-    .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .why-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);transition:var(--transition);position:relative;overflow:hidden}
-    .why-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-accent) 0%,var(--color-primary) 100%)}
-    .why-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-6px);border-color:var(--color-accent)}
-    .why-card-icon{font-size:2rem;margin-bottom:14px;display:block}
-    .why-card h3{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-primary-dark);margin-bottom:10px}
-    .why-card p{font-size:0.92rem;color:var(--color-text-light);line-height:1.68}
 
     .exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:24px}
     .exp-card{background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);transition:var(--transition);overflow:hidden;position:relative;display:flex;flex-direction:column}
@@ -254,8 +229,7 @@
     .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
     .menu-toggle span{width:24px;height:2px;background:var(--color-white);border-radius:2px;transition:var(--transition)}
 
-    @media(max-width:1024px){.lab-gallery{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:1fr}}
-    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.recruit-hero{padding:60px 20px 56px}.recruit-hero h1{font-size:2rem}.section{padding:56px 20px}.lab-gallery{grid-template-columns:1fr 1fr}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}/* 9×28 + 8×12 = 348px，窄至 481px 的屏幕仍是一行（可用约 401px） */
+    @media(max-width:768px){.nav-container{padding:14px 20px;flex-wrap:wrap;height:auto;gap:12px}.menu-toggle{display:flex}.main-nav{display:none;width:100%;flex-direction:column;gap:12px;padding:12px 0}.main-nav.open{display:flex}.section{padding:56px 20px}.exp-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.q-step-panel{padding:24px 20px}.guide-section{padding:24px 20px}.location-card{flex-direction:column}.location-map{width:100%}/* 9×28 + 8×12 = 348px，窄至 481px 的屏幕仍是一行（可用约 401px） */
       .step-line{width:12px}.step-circle{width:28px;height:28px;font-size:0.74rem}
       /* 16px 是 iOS Safari 的临界值：小于它，聚焦输入框会自动放大页面且不会缩回 */
       .form-input{font-size:16px}
@@ -263,7 +237,7 @@
       .radio-option label{padding:12px 16px}
       .checkbox-grid .checkbox-group{padding:12px 14px}
       .btn{padding:13px 24px}}
-    @media(max-width:480px){.lab-gallery{grid-template-columns:1fr}.recruit-hero h1{font-size:1.65rem}.radio-group{flex-direction:column}.why-grid{grid-template-columns:1fr}
+    @media(max-width:480px){.radio-group{flex-direction:column}
       /* 9 个步骤圆点必须挤进一行，否则 flex-wrap 会把连线甩到行尾。
          9×24 + 8×6 = 264px，窄至 360px 的手机仍装得下（可用约 280px）。 */
       .step-circle{width:24px;height:24px;font-size:0.68rem}
@@ -294,53 +268,8 @@
   </div>
 </header>
 
-<!-- ========== LANDING ========== -->
-<div id="landing-page">
-  <section class="recruit-hero">
-    <div class="recruit-hero-inner">
-      <span class="recruit-hero-label">被试招募</span>
-      <h1>参与睡眠科学研究<br>探索大脑的<span class="x-mark">奥秘</span></h1>
-      <p>X-Sleep Lab（中国科学院心理研究所）正在招募健康志愿者参与睡眠研究。您的参与将为理解人类大脑与睡眠做出重要贡献。</p>
-      <a href="#section-experiments" class="btn-hero">查看当前招募项目 →</a>
-    </div>
-  </section>
-
-  <section class="section" id="section-lab">
-    <div class="section-inner">
-      <div class="section-label">实验室环境</div>
-      <h2 class="section-title">舒适的睡眠实验室</h2>
-      <p class="section-desc">我们为您准备了专业、舒适的实验环境，确保您在参与研究期间拥有良好的体验。</p>
-      <div class="lab-gallery">
-        <div class="lab-photo-card"><img src="photos/room1.jpg" alt="睡眠监测室 A" loading="lazy"><div class="photo-caption">睡眠监测室 A</div></div>
-        <div class="lab-photo-card"><img src="photos/room2.jpg" alt="睡眠监测室 B" loading="lazy"><div class="photo-caption">睡眠监测室 B</div></div>
-        <div class="lab-photo-card"><img src="photos/control-room.jpg" alt="实验控制室" loading="lazy"><div class="photo-caption">实验控制室</div></div>
-        <div class="lab-photo-card"><img src="photos/washroom.jpg" alt="洗漱更衣室" loading="lazy"><div class="photo-caption">洗漱更衣室</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="section-why">
-    <div class="section-inner">
-      <div class="section-label">为什么参加</div>
-      <h2 class="section-title">参与睡眠研究的意义</h2>
-      <p class="section-desc">作为志愿者参与科学研究，您将收获的不只是报酬。</p>
-      <div class="why-grid">
-        <div class="why-card"><span class="why-card-icon">🔬</span><h3>推动科学进步</h3><p>您的参与直接帮助科学家理解睡眠与大脑功能的奥秘。每一份数据都是推进人类知识的重要一步。</p></div>
-        <div class="why-card"><span class="why-card-icon">🌙</span><h3>了解自己的睡眠</h3><p>在实验过程中，您将更深入地了解自己的睡眠模式和健康状况，获得关于睡眠质量的科学评估。</p></div>
-        <div class="why-card"><span class="why-card-icon">💰</span><h3>获得合理报酬</h3><p>我们为您的时间和付出提供合理的经济补偿。具体报酬标准在各项目详情中说明。</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="section-experiments">
-    <div class="section-inner">
-      <div class="section-label">正在招募</div>
-      <h2 class="section-title">当前实验项目</h2>
-      <p class="section-desc">每个项目独立招募被试，请根据您的时间和偏好选择适合的项目报名。</p>
-      <div class="exp-grid" id="experiment-cards"></div>
-    </div>
-  </section>
-</div>
+<!-- ========== LANDING (unused — redirected to participate.html) ========== -->
+<div id="landing-page" style="display:none"></div>
 
 <!-- ========== QUESTIONNAIRE ========== -->
 <div id="questionnaire-page" style="display:none">
@@ -870,17 +799,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  renderExperiments();
+  // 没有 ?project= 参数 → 说明直接访问，引导到参与者须知页选择实验
+  const projectId = params.get('project');
+  if (!projectId || !EXPERIMENTS.find(e => e.id === projectId && e.active !== false)) {
+    window.location.replace('../participate.html');
+    return;
+  }
+
+  // 有有效 project 参数 → 直接进入问卷
   renderPSQI();
   renderISI();
   renderRMEQ();
   renderDASS();
   renderHabit();
-  // Auto-select project from URL parameter (?project=xxx)
-  const projectId = params.get('project');
-  if (projectId && EXPERIMENTS.find(e => e.id === projectId && e.active !== false)) {
-    selectExperiment(projectId);
-  }
+  selectExperiment(projectId);
 });
 
 // ==================== CONFIRM FLOW ====================
@@ -1062,11 +994,7 @@ function selectExperiment(id) {
 }
 
 function backToLanding() {
-  document.getElementById('landing-page').style.display = 'block';
-  document.getElementById('questionnaire-page').style.display = 'none';
-  document.getElementById('results-page').style.display = 'none';
-  document.getElementById('confirm-page').style.display = 'none';
-  window.scrollTo({top:0,behavior:'smooth'});
+  window.location.replace('../participate.html');
 }
 
 function showStep(step) {
@@ -2030,25 +1958,6 @@ document.addEventListener('click', function(e) {
     btn.setAttribute('aria-expanded', nav.classList.contains('open'));
   }
 });
-
-// 实验室照片可选：缺图时隐藏对应卡片，全部缺失则隐藏整个相册，
-// 避免线上出现破图。把图片放入 signup/photos/ 后会自动显示。
-(function () {
-  const gallery = document.querySelector('.lab-gallery');
-  if (!gallery) return;
-  const imgs = gallery.querySelectorAll('img');
-  let pending = imgs.length, ok = 0;
-  const settle = (img, loaded) => {
-    if (loaded) ok++;
-    else { const card = img.closest('.lab-photo-card'); if (card) card.style.display = 'none'; }
-    if (--pending === 0 && ok === 0) gallery.style.display = 'none';
-  };
-  imgs.forEach(img => {
-    if (img.complete) { settle(img, img.naturalWidth > 0); return; }
-    img.addEventListener('load', () => settle(img, true));
-    img.addEventListener('error', () => settle(img, false));
-  });
-})();
 </script>
 </body>
 </html>
