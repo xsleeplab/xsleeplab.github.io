@@ -826,8 +826,9 @@ function showConfirmPage(token) {
   // 调用 SCF confirm action
   fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'confirm', token: token }),
-  }).then(function (res) {
+  }, 15000).then(function (res) {
     if (!res || !res.ok) {
       showConfirmState('error');
       return;
@@ -1085,8 +1086,12 @@ async function goNext() {
     try {
       const r = await checkDuplicateOnServer();
       if (r.duplicate) {
-        showErr('err-duplicate');
         var el = document.getElementById('err-duplicate');
+        if (el) {
+          var fieldLabel = r.dupField === 'name' ? '姓名' : r.dupField === 'email' ? '邮箱' : r.dupField === 'phone' ? '手机号' : '信息';
+          el.textContent = '该' + fieldLabel + '已被使用，请勿重复报名。如有疑问请联系 xsleeplab@hotmail.com';
+        }
+        showErr('err-duplicate');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -1373,7 +1378,7 @@ const SUBMISSION_TIMEOUT_MS = 65000;
 
 function fetchJSONWithTimeout(url, options, timeoutMs) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const timer = setTimeout(() => controller.abort(), timeoutMs || 15000);
   return fetch(url, Object.assign({}, options, { signal: controller.signal }))
     .then(response => {
       if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -1604,8 +1609,9 @@ function submitWaitlist() {
 
   fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ action: 'waitlist', name: name, email: email, phone: phone }),
-  }).then(function (res) {
+  }, 15000).then(function (res) {
     if (!res || !res.ok) {
       errEl.textContent = '提交失败，请稍后重试';
       errEl.style.display = '';
@@ -1792,19 +1798,20 @@ function reportEarlyExit(exit) {
   });
 }
 
-// 向服务端查询邮箱或手机号是否已被使用（重复报名检测）。
+// 向服务端查询姓名、邮箱或手机号是否已被使用（重复报名检测）。
 // 失败时 fail-open：返回 { duplicate: false }，不阻断被试。
 async function checkDuplicateOnServer() {
+  const name  = (document.getElementById('f-name').value  || '').trim();
   const email = (document.getElementById('f-email').value || '').trim();
   const phone = (document.getElementById('f-phone').value || '').trim();
-  if (!email || !phone) return { duplicate: false };
+  if (!name && !email && !phone) return { duplicate: false };
   try {
     var d = await fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'checkDuplicate', email: email, phone: phone })
+      body: JSON.stringify({ action: 'checkDuplicate', name: name, email: email, phone: phone })
     }, 10000);
-    return { duplicate: !!(d && d.duplicate) };
+    return { duplicate: !!(d && d.duplicate), dupField: (d && d.dupField) || '' };
   } catch (e) {
     console.warn('[X-Sleep] dup check failed:', e);
     return { duplicate: false };
