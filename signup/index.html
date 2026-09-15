@@ -413,6 +413,12 @@
           <div class="form-error" id="err-dye">请选择是否染过头发</div>
         </div>
 
+        <div class="q-item">
+          <label class="form-label"><span class="q-item-number">9.</span> 您平时（休息日/假期）一般几点起床？</label>
+          <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">我们会根据您平时的起床时间，在实验当天提前 1.5 小时致电提醒您起床。</p>
+          <input type="time" class="form-input short" id="habit-wake-time" style="max-width:140px">
+        </div>
+
         <div class="form-error" id="err-habit">请完整填写所有问题</div>
         <div class="step-actions"><button class="btn btn-ghost" onclick="goPrev()">← 上一步</button><button class="btn btn-primary" onclick="goNext()">下一步 →</button></div>
       </div>
@@ -1296,9 +1302,11 @@ function submitQuestionnaire() {
   const chronoPass = checkChronotypePass();
   const dyePass = checkDyePass();
   const agePass = checkAgePass();
-  const othersPass = psqi<=5 && isi<8 && dass.depression<=9 && dass.anxiety<=7 && dass.stress<=14
-    && habitPass && visionPass && chronoPass && agePass;
-  const passed = othersPass && dyePass;
+  const liePass = checkLiePass();
+  const dassPass = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
+  const napPass = selectedExpId !== 'nap-memory' || checkNapPass();
+  const passed = psqi<=5 && isi<8 && dassPass && habitPass && visionPass
+    && chronoPass && agePass && dyePass && liePass && napPass;
 
   document.getElementById('landing-page').style.display='none';
   document.getElementById('questionnaire-page').style.display='none';
@@ -1332,7 +1340,8 @@ function submitQuestionnaire() {
     if (dyeNote) {
       dyeNote.style.display = dyePass ? 'none' : 'block';
       if (!dyePass) {
-        document.getElementById('fail-dye-text').textContent = othersPass
+        document.getElementById('fail-dye-text').textContent =
+          (psqi<=5 && isi<8 && dassPass && habitPass && visionPass && chronoPass && agePass && liePass && napPass)
           ? '您其他各项均符合筛选要求。请在距上次染发满三个月后再来报名，我们很期待您的参与。'
           : '距上次染发满三个月后，欢迎您再次报名。';
       }
@@ -1472,12 +1481,15 @@ function collectSubmission() {
       answers: habitAnswers.concat([
         { q: '午睡习惯', a: getRadio('habit-nap') === 1 ? '有' : '没有' },
         { q: '午睡入睡时间', a: val('habit-nap-time') || '未填' },
-        { q: '三个月内染发', a: radioLabel('habit-dye') }
+        { q: '三个月内染发', a: radioLabel('habit-dye') },
+        { q: '平时起床时间', a: val('habit-wake-time') || '未填' }
       ]),
       conditions: conditions,
       pass: habitPass,
       napPass: checkNapPass(),
-      dyePass: dyePass
+      dyePass: dyePass,
+      wakeTime: val('habit-wake-time') || '',
+      napTime: val('habit-nap-time') || ''
     },
     detail: {
       psqi: psqiDetail,
