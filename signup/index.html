@@ -398,23 +398,14 @@
         </div>
 
         <div class="q-item">
-          <label class="form-label"><span class="q-item-number">7.</span> 您是否有午睡习惯？</label>
-          <div class="radio-group" id="habit-nap"></div>
-          <div id="habit-nap-detail" style="display:none;margin-top:8px">
-            <label class="form-label" style="font-size:0.92rem">一般几点入睡？</label>
-            <input type="time" class="form-input short" id="habit-nap-time" style="max-width:140px">
-          </div>
-        </div>
-
-        <div class="q-item">
-          <label class="form-label"><span class="q-item-number">8.</span> 最近三个月内是否染过头发？</label>
+          <label class="form-label"><span class="q-item-number">7.</span> 最近三个月内是否染过头发？</label>
           <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">染发剂中的金属成分会干扰脑电信号，因此需要距上次染发满三个月。</p>
           <div class="radio-group" id="habit-dye"></div>
           <div class="form-error" id="err-dye">请选择是否染过头发</div>
         </div>
 
         <div class="q-item">
-          <label class="form-label"><span class="q-item-number">9.</span> 您平时（休息日/假期）一般几点起床？</label>
+          <label class="form-label"><span class="q-item-number">8.</span> 您平时（休息日/假期）一般几点起床？</label>
           <p class="form-sublabel" style="color:var(--color-text-light);font-size:0.88rem;margin-bottom:8px">我们会根据您平时的起床时间，在实验当天提前 1.5 小时致电提醒您起床。</p>
           <input type="time" class="form-input short" id="habit-wake-time" style="max-width:140px">
         </div>
@@ -616,6 +607,7 @@ const EXPERIMENTS = [
     visits: '1 次',
     duration: '约 6 小时',
     reward: '共360 元',
+    active: false,
     guide: {
       scheduleSummary: [
         '上午：10:00 - 11:30 纯行为实验',
@@ -640,24 +632,25 @@ const EXPERIMENTS = [
     id: 'overnight-sleep',
     type: 'overnight',
     title: '夜间睡眠研究',
-    active: false,
-    brief: '在实验室过一夜，全程记录睡眠脑电。第二天上午完成简短测试后即可离开。',
+    brief: '晚上 7 点到达实验室，在实验室睡一夜（23:00 – 07:00），全程记录睡眠脑电。次日晨间完成简短测试后离开。',
     visits: '1 次（过夜）',
-    duration: '约 8 小时睡眠，睡前约 3 小时、睡后约 2 小时任务',
+    duration: '19:00 – 次日 07:30',
     reward: '450 元',
     guide: {
       scheduleSummary: [
-        '第一天：20:00 - 23:00 实验准备、任务与入睡（全程脑电记录）',
-        '第二天：07:30 - 09:30 晨间测试后离开',
+        '晚上：19:00 - 23:00 到达、准备与睡前实验',
+        '睡眠：23:00 - 07:00（全程脑电记录）',
+        '晨间：07:00 - 07:30 醒后实验后离开',
       ],
       timeline: [
-        { time: '第一天 20:00', desc: '到达实验室，熟悉环境，洗漱准备' },
-        { time: '第一天 20:30', desc: '佩戴脑电设备' },
-        { time: '第一天 21:00 - 22:30', desc: '完成当晚实验任务' },
-        { time: '第一天 23:00', desc: '入睡（全程脑电记录）' },
-        { time: '第二天 07:30', desc: '起床，洗漱' },
-        { time: '第二天 08:00 - 09:00', desc: '完成晨间测试任务' },
-        { time: '第二天 09:30', desc: '洗漱后离开实验室' },
+        { time: '19:00', desc: '到达实验室，熟悉环境' },
+        { time: '19:00 - 19:30', desc: '洗漱准备' },
+        { time: '19:30 - 20:00', desc: '佩戴脑电设备' },
+        { time: '20:00 - 22:30', desc: '完成睡前实验任务' },
+        { time: '22:30 - 23:00', desc: '睡前最后准备' },
+        { time: '23:00', desc: '入睡（全程脑电记录）' },
+        { time: '07:00', desc: '起床，洗漱' },
+        { time: '07:00 - 07:30', desc: '完成醒后实验任务' },
       ],
       prep: [
         '<strong>牙刷与牙膏</strong> — 出于卫生考虑，实验室不提供牙刷',
@@ -949,13 +942,6 @@ function renderHabit() {
       });
     }
   });
-  renderRadioGroup('habit-nap', 'habit-nap', [{value:1,label:'有'},{value:0,label:'没有'}]);
-  document.querySelectorAll('input[name="habit-nap"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const det = document.getElementById('habit-nap-detail');
-      det.style.display = r.value === '1' ? 'block' : 'none';
-    });
-  });
   renderRadioGroup('habit-dye', 'habit-dye', [{value:0,label:'否'},{value:1,label:'是'}]);
   // 互斥逻辑：勾选"无以上情况"则取消其他选项，反之亦然
   const noneBox = document.getElementById('habit-q5e');
@@ -1047,8 +1033,6 @@ function earlyExitReason(step) {
   if (step === 2 && visionRequired() && !checkVisionPass())
     return { where: '视力', why: visionFailReason() };
   if (step === 3) {
-    if (selectedExpId === 'nap-memory' && !checkNapPass())
-      return { where: '午睡习惯', why: '本实验仅招募有午睡习惯的参与者' };
     if (!checkDyePass()) return { where: '染发', why: '三个月内染过头发', dye: true };
     if (!checkHabitPass()) return { where: '环境适应', why: habitFailReason() };
   }
@@ -1158,7 +1142,6 @@ function validateStep(step) {
   if (step===3) {
     for (let i=0;i<HABIT_Q.length;i++) { if (!document.querySelector('input[name="habit-q'+i+'"]:checked')) { showErr('err-habit'); v=false; break; } }
     if (v) { const q5=document.querySelectorAll('#habit-q5 input:checked'); if (q5.length===0) { showErr('err-habit'); v=false; } }
-    if (!document.querySelector('input[name="habit-nap"]:checked')) { showErr('err-habit'); v=false; }
     if (!document.querySelector('input[name="habit-dye"]:checked')) { showErr('err-dye'); v=false; }
   }
   if (step===4) {
@@ -1263,11 +1246,6 @@ function checkHabitPass() {
   return true;
 }
 
-// 午睡习惯筛选：午睡实验只招收有午睡习惯的被试
-function checkNapPass() {
-  return getRadio('habit-nap') === 1;
-}
-
 // 染发单列为一道判据：它不是睡眠障碍，而是脑电信号质量问题，
 // 且属于「等三个月后可再报名」，与其他永久性排除标准性质不同。
 function checkAgePass() {
@@ -1304,9 +1282,8 @@ function submitQuestionnaire() {
   const agePass = checkAgePass();
   const liePass = checkLiePass();
   const dassPass = dass.depression <= 9 && dass.anxiety <= 7 && dass.stress <= 14;
-  const napPass = selectedExpId !== 'nap-memory' || checkNapPass();
   const passed = psqi<=5 && isi<8 && dassPass && habitPass && visionPass
-    && chronoPass && agePass && dyePass && liePass && napPass;
+    && chronoPass && agePass && dyePass && liePass;
 
   document.getElementById('landing-page').style.display='none';
   document.getElementById('questionnaire-page').style.display='none';
@@ -1341,7 +1318,7 @@ function submitQuestionnaire() {
       dyeNote.style.display = dyePass ? 'none' : 'block';
       if (!dyePass) {
         document.getElementById('fail-dye-text').textContent =
-          (psqi<=5 && isi<8 && dassPass && habitPass && visionPass && chronoPass && agePass && liePass && napPass)
+          (psqi<=5 && isi<8 && dassPass && habitPass && visionPass && chronoPass && agePass && liePass)
           ? '您其他各项均符合筛选要求。请在距上次染发满三个月后再来报名，我们很期待您的参与。'
           : '距上次染发满三个月后，欢迎您再次报名。';
       }
@@ -1455,8 +1432,7 @@ function collectSubmission() {
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
     age: document.getElementById('f-age').value,
     overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
-      && dassPass && dyePass && checkAgePass() && liePass
-      && (selectedExpId !== 'nap-memory' || checkNapPass()),
+      && dassPass && dyePass && checkAgePass() && liePass,
     scores: {
       psqi: { total: psqi, threshold: '≤5',   pass: psqi <= 5 },
       isi:  { total: isi,  threshold: '<8',   pass: isi < 8 },
@@ -1479,17 +1455,13 @@ function collectSubmission() {
     } : { required: false, pass: true },
     habit: {
       answers: habitAnswers.concat([
-        { q: '午睡习惯', a: getRadio('habit-nap') === 1 ? '有' : '没有' },
-        { q: '午睡入睡时间', a: val('habit-nap-time') || '未填' },
         { q: '三个月内染发', a: radioLabel('habit-dye') },
         { q: '平时起床时间', a: val('habit-wake-time') || '未填' }
       ]),
       conditions: conditions,
       pass: habitPass,
-      napPass: checkNapPass(),
       dyePass: dyePass,
-      wakeTime: val('habit-wake-time') || '',
-      napTime: val('habit-nap-time') || ''
+      wakeTime: val('habit-wake-time') || ''
     },
     detail: {
       psqi: psqiDetail,
