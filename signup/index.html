@@ -308,6 +308,7 @@
           <div class="form-group"><label class="form-label">邮箱 <span style="color:#c0392b">*</span></label><input type="email" class="form-input" id="f-email" placeholder="用于接收实验指引"><div class="form-error" id="err-email">请输入有效的邮箱地址</div></div>
           <div class="form-group"><label class="form-label">年龄 <span style="color:#c0392b">*</span></label><input type="number" class="form-input short" id="f-age" min="16" max="80" placeholder="本实验招募 18-24 岁"><div class="form-error" id="err-age">请输入有效年龄</div></div>
         </div>
+        <div class="form-group"><label class="form-label">微信号 <span style="color:#c0392b">*</span></label><input type="text" class="form-input" id="f-wechat" placeholder="请输入您的微信号"><p class="form-sublabel" style="color:var(--color-text-light);font-size:0.85rem;margin-top:4px">用于主试与您联系实验安排，请确保填写正确</p><div class="form-error" id="err-wechat">请输入微信号</div></div>
         <div class="form-row">
           <div class="form-group"><label class="form-label">性别 <span style="color:#c0392b">*</span></label><div class="radio-group"><div class="radio-option"><input type="radio" name="gender" id="g-m" value="男"><label for="g-m">男</label></div><div class="radio-option"><input type="radio" name="gender" id="g-f" value="女"><label for="g-f">女</label></div></div><div class="form-error" id="err-gender">请选择性别</div></div>
           <div class="form-group"><label class="form-label">身份</label><div class="radio-group"><div class="radio-option"><input type="radio" name="identity" id="id-student" value="学生"><label for="id-student">学生</label></div><div class="radio-option"><input type="radio" name="identity" id="id-work" value="在职"><label for="id-work">在职</label></div></div></div>
@@ -1078,7 +1079,7 @@ async function goNext() {
       if (r.duplicate) {
         var el = document.getElementById('err-duplicate');
         if (el) {
-          var fieldLabel = r.dupField === 'name' ? '姓名' : r.dupField === 'email' ? '邮箱' : r.dupField === 'phone' ? '手机号' : '信息';
+          var fieldLabel = r.dupField === 'name' ? '姓名' : r.dupField === 'email' ? '邮箱' : r.dupField === 'phone' ? '手机号' : r.dupField === 'wechat' ? '微信号' : '信息';
           el.textContent = '该' + fieldLabel + '已被使用，请勿重复报名。如有疑问请联系 xsleeplab@hotmail.com';
         }
         showErr('err-duplicate');
@@ -1124,6 +1125,7 @@ function validateStep(step) {
     if (!ph||ph.length<11) { showErr('err-phone'); v=false; }
     const em = document.getElementById('f-email').value.trim();
     if (!em||!em.includes('@')) { showErr('err-email'); v=false; }
+    if (!document.getElementById('f-wechat').value.trim()) { showErr('err-wechat'); v=false; }
     // 这里只做合理性校验；18–26 岁的入组要求由 earlyExitReason 判定，
     // 好让超龄的人看到明确原因，而不是一句"请输入有效年龄"。
     const ag = document.getElementById('f-age').value;
@@ -1429,6 +1431,7 @@ function collectSubmission() {
     name:  (val('confirm-name')  || val('f-name')).trim(),
     email: (val('confirm-email') || val('f-email')).trim(),
     phone: (val('confirm-phone') || val('f-phone')).trim(),
+    wechat: val('f-wechat').trim(),
     project: exp ? { id: exp.id, title: exp.title, typeLabel: TYPE_LABEL[exp.type] } : null,
     age: document.getElementById('f-age').value,
     overallPass: psqi <= 5 && isi < 8 && chronoPass && visionPass && habitPass
@@ -1785,15 +1788,16 @@ function reportEarlyExit(exit) {
 // 向服务端查询姓名、邮箱或手机号是否已被使用（重复报名检测）。
 // 失败时 fail-open：返回 { duplicate: false }，不阻断被试。
 async function checkDuplicateOnServer() {
-  const name  = (document.getElementById('f-name').value  || '').trim();
-  const email = (document.getElementById('f-email').value || '').trim();
-  const phone = (document.getElementById('f-phone').value || '').trim();
-  if (!name && !email && !phone) return { duplicate: false };
+  const name   = (document.getElementById('f-name').value  || '').trim();
+  const email  = (document.getElementById('f-email').value || '').trim();
+  const phone  = (document.getElementById('f-phone').value || '').trim();
+  const wechat = (document.getElementById('f-wechat').value || '').trim();
+  if (!name && !email && !phone && !wechat) return { duplicate: false };
   try {
     var d = await fetchJSONWithTimeout(SUBMIT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'checkDuplicate', name: name, email: email, phone: phone })
+      body: JSON.stringify({ action: 'checkDuplicate', name: name, email: email, phone: phone, wechat: wechat })
     }, 10000);
     return { duplicate: !!(d && d.duplicate), dupField: (d && d.dupField) || '' };
   } catch (e) {
