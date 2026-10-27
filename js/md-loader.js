@@ -153,6 +153,26 @@
         return _memberCard(m, lang);
       }).join('');
     }
+
+    var alumniGrid = document.getElementById('alumni-grid');
+    if (alumniGrid) {
+      var alumni = _data.members.alumni || [];
+      if (alumni.length === 0) {
+        alumniGrid.innerHTML = '';
+      } else {
+        var year = alumni[0].year;
+        var items = alumni.map(function (m) {
+          return '<span class="alumni-item">' +
+            '<strong>' + _t(m.name, lang) + '</strong> · ' + _t(m.title, lang) +
+            '</span>';
+        }).join('');
+        alumniGrid.innerHTML =
+          '<div class="alumni-block">' +
+            '<span class="alumni-year">' + year + '</span>' +
+            '<div class="alumni-list">' + items + '</div>' +
+          '</div>';
+      }
+    }
   }
 
   /* ── Expose globals ─────────────────────────────────────────────── */

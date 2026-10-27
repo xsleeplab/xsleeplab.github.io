@@ -157,15 +157,6 @@ const SITE_CONTENT = {
         photo:    'home_pic/byr.webp'
       },
       {
-        seed:     'chenjiahe',
-        name:     { en: 'Jiahe Chen 陈嘉禾', zh: 'Jiahe Chen 陈嘉禾' },
-        title:    { en: 'Visiting Graduate Student · Beijing Normal University', zh: '访问研究生 · 北京师范大学' },
-        education:'B.Sc.',
-        email:    '',
-        research: { en: 'Sleep BCI &amp; memory consolidation', zh: '睡眠脑机接口与记忆巩固' },
-        photo:    'home_pic/chenjiahe.webp'
-      },
-      {
         seed:     'zhangtiantong',
         name:     { en: 'Tiantong Zhang 张天彤', zh: 'Tiantong Zhang 张天彤' },
         title:    { en: 'Visiting Graduate Student · Beijing Forestry University', zh: '访问研究生 · 北京林业大学' },
@@ -173,6 +164,24 @@ const SITE_CONTENT = {
         email:    '',
         research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
         photo:    'home_pic/zhangtiantong.webp'
+      },
+      {
+        seed:     'majiahao',
+        name:     { en: 'Jiahao Ma 马佳豪', zh: 'Jiahao Ma 马佳豪' },
+        title:    { en: 'Visiting Graduate Student · Beijing Normal University', zh: '访问研究生 · 北京师范大学' },
+        education:'B.Sc.',
+        email:    '',
+        research: { en: 'Sleep &amp; memory modulation', zh: '睡眠与记忆调控' },
+        photo:    'home_pic/majiahao.webp'
+      },
+      {
+        seed:     'luxiaodan',
+        name:     { en: 'Xiaodan Lu 鹿小丹', zh: '鹿小丹' },
+        title:    { en: 'Visiting Graduate Student · Liaoning Normal University', zh: '访问研究生 · 辽宁师范大学' },
+        education:'B.Sc.',
+        email:    '',
+        research: { en: 'Sleep BCI &amp; emotional memory reactivation', zh: '睡眠脑机接口与情绪记忆再激活' },
+        photo:    'home_pic/luxiaodan.webp'
       },
     ],
     ra: [
@@ -217,6 +226,32 @@ const SITE_CONTENT = {
         email:    '',
         research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
         photo:    'home_pic/hanxue.webp'
+      },
+      {
+        seed:     'mogengyi',
+        name:     { en: 'Gengyi Mo 莫耿祎', zh: '莫耿祎' },
+        title:    { en: 'Undergraduate Intern · Capital Normal University', zh: '本科实习生 · 首都师范大学' },
+        education:'B.Sc. (in progress)',
+        email:    '',
+        research: { en: 'Sleep &amp; emotional memory', zh: '睡眠与情绪记忆' },
+        photo:    'home_pic/mogengyi.webp'
+      }
+    ],
+    alumni: [
+      {
+        name:     { en: 'Jiahe Chen 陈嘉禾', zh: '陈嘉禾' },
+        title:    { en: 'Visiting Graduate Student · Beijing Normal University', zh: '访问研究生 · 北京师范大学' },
+        year:     2026
+      },
+      {
+        name:     { en: 'Wenyu Chen 陈雯钰', zh: '陈雯钰' },
+        title:    { en: 'Summer Intern · Purdue University', zh: '暑期实习生 · 普渡大学' },
+        year:     2026
+      },
+      {
+        name:     { en: 'Shouheng Li 李守恒', zh: '李守恒' },
+        title:    { en: 'Summer Intern · Sorbonne University', zh: '暑期实习生 · 法国索邦大学' },
+        year:     2026
       }
     ]
   }
