@@ -70,6 +70,15 @@ const SITE_CONTENT = {
   /* ---- Preprints (newest first) ---- */
   preprints: [
     {
+      html: 'Zhang, Y., Chen, D., <strong>Xia, T.</strong>, Di, T., Yao, Z., Yue, W. W. Y., Mu, Z., &amp; Hu, X. (2026). Sleep reactivation shapes memories of event and its temporal structure. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.10.20.760365" target="_blank" rel="noopener">[DOI]</a>'
+    },
+    {
+      html: 'Zhang, Y., Yao, Z., Chen, D., <strong>Xia, T.</strong>, Zhang, L., Luo, A. F., &amp; Hu, X.* (2026). Dissociable reactivation during NREM and REM sleep supports memory consolidation and emotional dissipation. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.08.04.742295" target="_blank" rel="noopener">[DOI]</a>'
+    },
+    {
+      html: 'Yao, Z., Chen, D., Liu, J., Wei, J., <strong>Xia, T.</strong>, Zuo, X., Chen, C. X., Chan, R. N. Y., Li, S. X., Qin, P., Yuan, T., Zhang, Z., Lee, T. M. C., Ma, Y.*, &amp; Hu, X.* (2026). Sleep reactivation of positive self-evaluation reveals neural-evaluative alignment that varies with depressive symptoms. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.07.26.740831" target="_blank" rel="noopener">[DOI]</a>'
+    },
+    {
       html: '<strong>Xia, T.#*</strong>, Jin, X.#, Chen, D., Zuo, X., Yao, Y., Zhang, Y., Yuan, T., Zhang, Z., Li, X., Lai, C. S. W., &amp; Hu, X.* (2026). Closed-loop auditory stimulation during sleep shapes cortical responses and memory consolidation depending on spindle timing. <em>bioRxiv</em>. <a href="https://doi.org/10.64898/2026.05.29.728629" target="_blank" rel="noopener">[DOI]</a>'
     },
     {
