@@ -1,3 +1,26 @@
+
+
+engine.js
+/
+Users
+/
+echobao
+/
+Desktop
+/
+Sleep Lab
+/
+xsleeplab.github.io-main
+/
+signup
+/
+engine.js
+
+
+
+
+
+
 /**
  * engine.js — 共享问卷引擎
  *
@@ -27,6 +50,8 @@ let calViewMonth = null;
 // 便捷访问
 const getExp = () => PROJECT_CONFIGS[selectedExpId];
 const visionRequired = () => config && config.steps.indexOf('vision') !== -1;
+// 基本信息页是否收集手机号/微信号：默认收集，仅当项目显式设 collectContactInBasic:false 时隐藏
+const basicContactEnabled = () => !config || config.collectContactInBasic !== false;
 const lastStep = () => activeSteps[activeSteps.length - 1];
 const lastStepIndex = () => activeSteps.length - 1;
 
@@ -339,7 +364,7 @@ function renderPSQI() {
     if (it.key === 'q5j') {
       extra = '<input type="text" class="form-input" id="psqi-q5j-detail" placeholder="请简要说明其他原因" style="margin-top:8px;display:none">';
     }
-    return '<div class="q-item"><label class="form-label"><span class="q-item-number">5.' + (i + 1) + '</span> ' + it.text + '</label><div class="radio-group" id="psqi-' + it.key + '"></div>' + extra + '</div>';
+    return '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 5) + '.</span> ' + it.text + '</label><div class="radio-group" id="psqi-' + it.key + '"></div>' + extra + '</div>';
   }).join('');
   PSQI_Q5.forEach(it => renderRadioGroup('psqi-' + it.key, 'psqi-' + it.key, FREQ03));
   document.querySelectorAll('input[name="psqi-q5j"]').forEach(r => {
@@ -421,11 +446,22 @@ function renderScheduleTimeline(cfg) {
 }
 
 // ==================== NAVIGATION ====================
+// 根据项目配置显示/隐藏基本信息页的手机号、微信号字段
+function applyBasicContactVisibility() {
+  const show = basicContactEnabled() ? '' : 'none';
+  ['f-phone', 'f-wechat'].forEach(id => {
+    const el = document.getElementById(id);
+    const group = el && el.closest('.form-group');
+    if (group) group.style.display = show;
+  });
+}
+
 function selectExperiment(id) {
   selectedExpId = id;
   config = PROJECT_CONFIGS[id];
   if (!config) return;
   activeSteps = config.steps.slice();
+  applyBasicContactVisibility();
 
   document.getElementById('q-exp-badge').className = 'exp-type-badge ' + config.type;
   document.getElementById('q-exp-badge').textContent = (config.typeIcon || '') + ' ' + (config.typeLabel || config.type);
@@ -586,11 +622,13 @@ function validateStep(step) {
 
   if (stepType === 'basicInfo') {
     if (!document.getElementById('f-name').value.trim()) { showErr('err-name'); v = false; }
-    const ph = document.getElementById('f-phone').value.trim();
-    if (!ph || ph.length < 11) { showErr('err-phone'); v = false; }
+    if (basicContactEnabled()) {
+      const ph = document.getElementById('f-phone').value.trim();
+      if (!ph || ph.length < 11) { showErr('err-phone'); v = false; }
+      if (!document.getElementById('f-wechat').value.trim()) { showErr('err-wechat'); v = false; }
+    }
     const em = document.getElementById('f-email').value.trim();
     if (!em || !em.includes('@')) { showErr('err-email'); v = false; }
-    if (!document.getElementById('f-wechat').value.trim()) { showErr('err-wechat'); v = false; }
     const ag = document.getElementById('f-age').value;
     if (!ag || ag < 16 || ag > 80) { showErr('err-age'); v = false; }
     if (!document.querySelector('input[name="gender"]:checked')) { showErr('err-gender'); v = false; }
@@ -788,6 +826,10 @@ function checkAgePass() {
 }
 
 function checkDyePass() {
+  const group = document.querySelector('input[name="habit-dye"]');
+  // 本项目没有 habit 步骤（如 emotion-memory 用 customScreening Q12 做染发筛查）时，
+  // 基于 habit-dye 的检查不适用，直接放行，避免误判。
+  if (!group) return true;
   const e = document.querySelector('input[name="habit-dye"]:checked');
   return !!e && parseInt(e.value) === 0;
 }
