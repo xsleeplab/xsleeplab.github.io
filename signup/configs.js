@@ -8,10 +8,10 @@
 // ==================== 共享量表题目 ====================
 
 const PSQI_Q5 = [
-  {key:'q5a',text:'不能在 30 分钟内入睡'},{key:'q5b',text:'半夜或凌晨醒来'},
-  {key:'q5c',text:'起夜上厕所'},{key:'q5d',text:'呼吸不畅'},{key:'q5e',text:'咳嗽或鼾声大'},
-  {key:'q5f',text:'感到太冷'},{key:'q5g',text:'感到太热'},{key:'q5h',text:'做噩梦'},
-  {key:'q5i',text:'感到疼痛'},{key:'q5j',text:'其他原因而难以入睡'},
+  {key:'q5a',text:'过去一个月，您有多少次不能在 30 分钟内入睡？'},{key:'q5b',text:'过去一个月，您有多少次在半夜或凌晨醒来，睡眠被打断？'},
+  {key:'q5c',text:'过去一个月，您有多少次在夜间睡眠过程中需要起床上厕所？'},{key:'q5d',text:'过去一个月，您有多少次因夜间呼吸不畅而睡不好？'},{key:'q5e',text:'过去一个月，您有多少次因自己咳嗽或大声打鼾而睡不好？'},
+  {key:'q5f',text:'过去一个月，您有多少次因夜间感到太冷而睡不好？'},{key:'q5g',text:'过去一个月，您有多少次因夜间感到太热而睡不好？'},{key:'q5h',text:'过去一个月，您有多少次因做噩梦而睡不好？'},
+  {key:'q5i',text:'过去一个月，您有多少次因夜间疼痛而睡不好？'},{key:'q5j',text:'过去一个月，您有多少次因上述情况之外的其他原因而睡不好？'},
 ];
 const FREQ03 = [{value:0,label:'无'},{value:1,label:'每周不到一次'},{value:2,label:'每周一两次'},{value:3,label:'每周三次以上'}];
 
@@ -261,6 +261,7 @@ window.PROJECT_CONFIGS = {
     duration: '第 1 次 19:00–次日 10:00；第 2 次约 10:00',
     reward: '完整参与 450 元',
     active: true,
+    collectContactInBasic: false,   // 基本信息页不收集手机号/微信号；联系方式由 Q16a/Q16b 收集
     typeLabel: '情绪记忆实验',
     typeIcon: '💭',
 
@@ -279,7 +280,7 @@ window.PROJECT_CONFIGS = {
       dassStressMax: 14,
       visionRequired: false,
       lieCheck: true,
-      dyeCheck: true,
+      dyeCheck: false,   // 染发筛查由 customScreening Q12 处理；本项目无 habit 步骤，不能启用基于 habit-dye 的检查
       psqiBedtimeDeadline: '00:30',
     },
 
@@ -325,7 +326,7 @@ window.PROJECT_CONFIGS = {
         id: 'Q04', text: '平时睡觉时，您是否经常有以下情况？（多选）', type: 'checkbox',
         options: [
           { value: 'A', label: '持续的轻微背景声（如空调、风扇的运转声）使我难以入睡' },
-          { value: 'B', label: '偶尔出现的轻微声音（如远处的声的说话声、走动声）会把我吵醒' },
+          { value: 'B', label: '偶尔出现的轻微声音（如远处的说话声、走动声）会把我吵醒' },
           { value: 'C', label: '以上情况均无' },
         ],
         passIf: ['C'],
@@ -346,7 +347,7 @@ window.PROJECT_CONFIGS = {
           { value: 'A', label: '目前有经医生诊断的睡眠疾病（如睡眠呼吸暂停、不宁腿综合征、发作性睡病等）' },
           { value: 'B', label: '反复在睡眠中因憋气醒来，或已被告知睡觉时有呼吸停顿' },
           { value: 'C', label: '腿经常不舒服、很想活动，活动后缓解，并影响入睡或睡眠' },
-          { value: 'D', label: '平均每周因尿意醒来、起床上床超过3次' },
+          { value: 'D', label: '平均每周因尿意醒来、起床上厕所超过3次' },
           { value: 'E', label: '没有上述已知情况' },
         ],
         passIf: ['E'],
