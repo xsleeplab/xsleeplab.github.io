@@ -1,4 +1,3 @@
-
 /**
  * engine.js — 共享问卷引擎
  *
@@ -702,6 +701,11 @@ function validateStep(step) {
     }
   }
 
+  if (stepType === 'schedule') {
+    const days = document.querySelectorAll('#avail-days input:checked');
+    if (days.length === 0) { showErr('err-days'); v = false; }
+  }
+
   if (!v) {
     const e = document.querySelector('.form-error.show');
     if (e) e.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -943,7 +947,11 @@ function submitQuestionnaire() {
     document.getElementById('pass-exp-desc').textContent =
       '您的睡眠状况符合「' + config.title + '」的筛选要求。以下是该实验的详细指引。';
     renderGuide(config);
-    loadSlots();
+    if (config.bookingMode === 'waitlist') {
+      enterWaitlistMode();
+    } else {
+      loadSlots();
+    }
   } else {
     document.getElementById('result-pass').style.display = 'none';
     document.getElementById('result-fail').style.display = 'block';
@@ -964,6 +972,26 @@ function submitQuestionnaire() {
     }
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 候选池模式（overnight-sleep）：不弹日历、不走预约确认。
+// 直接把完整问卷结果以 outcome='passed'（无 booking）落主表，
+// SCF 会写「预约状态=未预约」并存入空闲时间字段，由人工筛选联系。
+function enterWaitlistMode() {
+  const picker = document.getElementById('slot-picker-card');
+  if (picker) picker.style.display = 'none';
+  const confirm = document.getElementById('confirm-info-card');
+  if (confirm) confirm.style.display = 'none';
+  const panel = document.getElementById('waitlist-success-panel');
+  if (panel) panel.style.display = '';
+  const status = document.getElementById('waitlist-submit-status');
+  if (status) { status.className = 'form-submit-status pending'; status.textContent = '正在提交报名信息…'; }
+
+  const record = collectSubmission();
+  record.outcome = 'passed';   // 无 booking → 主表记为「未预约」候选池
+  postOutcome(record);
+
+  if (status) { status.className = 'form-submit-status success'; status.textContent = '✓ 报名信息已提交，感谢您的参与！'; }
 }
 
 function renderGuide(cfg) {

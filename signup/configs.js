@@ -158,10 +158,12 @@ window.PROJECT_CONFIGS = {
     active: true,
     typeLabel: '晚睡实验',
     typeIcon: '🌙',
+    bookingMode: 'waitlist',   // 不走日历自主预约；提交后进入候选池，由人工按空闲时间筛选联系
 
     steps: [
       'consent', 'basicInfo', 'vision', 'habit',
       'psqi', 'isi', 'rmeq', 'dass',
+      'schedule',
     ],
 
     screening: {

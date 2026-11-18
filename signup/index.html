@@ -432,7 +432,7 @@
         <div class="form-group"><label class="form-label"><span class="q-item-number">4.</span> 过去一个月，您每晚实际睡眠时间有多少小时？</label><input type="number" class="form-input short" id="psqi-q4" min="0" max="24" step="0.5" placeholder="小时"></div>
         <div id="psqi-q5-items"></div>
         <div class="q-item"><label class="form-label"><span class="q-item-number">15.</span> 过去一个月，您多久服用一次助眠药物？</label><div class="radio-group" id="psqi-q6"></div></div>
-        <div class="q-item"><label class="form-label"><span class="q-item-number">16.</span> 过去一个月，您在工作、吃饭或从事社交活动时，有多少次感到难以保持清醒？</label><div class="radio-group" id="psqi-q7"></div></div>
+        <div class="q-item"><label class="form-label"><span class="q-item-number">16.</span> 过去一个月，您在开车、吃饭或从事社交活动时，有多少次感到难以保持清醒？</label><div class="radio-group" id="psqi-q7"></div></div>
         <div class="q-item"><label class="form-label"><span class="q-item-number">17.</span> 过去一个月，您在做事时保持足够热情有多大困难？</label><div class="radio-group" id="psqi-q8"></div></div>
         <div class="q-item"><label class="form-label"><span class="q-item-number">18.</span> 过去一个月，您对自己的睡眠质量总体评价如何？</label><div class="radio-group" id="psqi-q9"></div></div>
         <div class="form-error" id="err-psqi">请完整填写所有 PSQI 问题</div>
@@ -469,7 +469,6 @@
         <div id="schedule-timeline" class="schedule-timeline-card"></div>
         <div class="form-group">
           <label class="form-label">您通常哪些天可以参加实验？（可多选）<span style="color:#c0392b"> *</span></label>
-          <p class="form-sublabel" style="color:#c0392b;font-weight:600;margin-bottom:10px">⚠ 实验要求连续两天参加，请务必选择连续的两天</p>
           <div class="checkbox-grid" id="avail-days">
             <div class="checkbox-group"><input type="checkbox" id="day-mon" value="周一"><label for="day-mon">周一</label></div>
             <div class="checkbox-group"><input type="checkbox" id="day-tue" value="周二"><label for="day-tue">周二</label></div>
@@ -520,7 +519,19 @@
           <div class="form-error" id="err-slot">请选择一个日期</div>
         </div>
 
-        <div class="contact-form-card">
+        <div class="contact-form-card" id="waitlist-success-panel" style="display:none">
+          <h3>报名已收到，您已进入候选名单</h3>
+          <p style="font-size:0.95rem;color:var(--color-text);line-height:1.7;margin-bottom:12px">
+            感谢您通过初筛！我们已记录您的报名信息与您填写的空闲时间。
+            本实验<strong>不由您自行选择日期</strong>，而是由研究团队根据您的空闲时间统一协调安排。
+          </p>
+          <p style="font-size:0.95rem;color:var(--color-text);line-height:1.7">
+            筛选通过后，我们会通过<strong>邮箱和电话</strong>与您联系，确认具体的实验时间，请留意收件箱（含垃圾邮件箱）并保持电话畅通。
+          </p>
+          <div class="form-submit-status" id="waitlist-submit-status" style="margin-top:14px"></div>
+        </div>
+
+        <div class="contact-form-card" id="confirm-info-card">
           <h3>确认信息并接收实验指引</h3>
           <p style="font-size:0.92rem;color:var(--color-text-light);margin-bottom:12px">请确认您的联系方式，我们会将实验指引详情发送到您的邮箱，并安排后续实验时间。</p>
           <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:12px 16px;margin-bottom:20px;text-align:center">
