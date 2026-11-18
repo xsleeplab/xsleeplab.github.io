@@ -1108,13 +1108,11 @@ function collectSubmission() {
     } : { required: false, pass: true },
     habit: {
       answers: habitAnswers.concat([
-        { q: '三个月内染发', a: s.dyeCheck ? radioLabel('habit-dye') : '不适用' },
-        { q: '平时起床时间', a: val('habit-wake-time') || '未填' }
+        { q: '三个月内染发', a: s.dyeCheck ? radioLabel('habit-dye') : '不适用' }
       ]),
       conditions: conditions,
       pass: habitPass,
       dyePass: dyePass,
-      wakeTime: val('habit-wake-time') || '',
     },
     customScreening: config.customScreening ? config.customScreening.map((q, i) => {
       const itemEl = document.getElementById('cs-item-' + i);
