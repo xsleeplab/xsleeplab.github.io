@@ -103,7 +103,7 @@ const HABIT_Q = [
 
 // 睡眠疾病多选题（HABIT_Q 第 6 题的子选项）
 const HABIT_CONDITIONS = [
-  {id:'habit-q5a', value:'严重打鼾或曾被诊断睡眠呼吸暂停（OSA）'},
+  {id:'habit-q5a', value:'打呼噜（睡觉时打鼾）'},
   {id:'habit-q5b', value:'不宁腿综合征（腿脚酸麻痒，睡前必须活动）'},
   {id:'habit-q5c', value:'夜尿症（每晚起床排尿≥2次）'},
   {id:'habit-q5d', value:'倒班工作 / 近期跨时区旅行'},
