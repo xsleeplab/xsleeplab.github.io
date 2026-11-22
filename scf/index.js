@@ -95,8 +95,8 @@ function postJSON(url, payload, extraHeaders) {
 
 // ------------------------------------------------------------- bitable
 // 把每份报名追加成多维表格的一行，供实验室筛选、排序、导出 Excel。
-// 飞书卡片是主通道（决定给被试的成败），写表是尽力而为——配置没弄好
-// 不该让被试提交失败，但会记进函数日志。
+// 表格保存结果决定是否能确认报名已记录；群通知只作为通知及异常联系线索。
+// 保存失败时保留通知，并明确提示待核查，不能把通知成功等同于保存成功。
 
 const FEISHU_APP_ID = process.env.FEISHU_APP_ID || '';
 const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || '';
@@ -143,10 +143,11 @@ function buildFields(d) {
     '邮箱': safe(d.email, 60),
     '报名项目': safe(d.project && d.project.title, 40),
     '中止原因': d.exit ? safe(d.exit.where + '：' + d.exit.why, 100) : '',
-    '预约时段': d.booking && d.booking.key
-      ? safe('[待确认] ' + String(d.booking.key).replace('|', ' '), 40)
-      : '',
   };
+  // 未预约时不发送额外时段列，避免候选报名因表格没有该列而被整行拒绝。
+  if (d.booking && d.booking.key) {
+    f['预约时段'] = safe('[待确认] ' + String(d.booking.key).replace('|', ' '), 40);
+  }
   const age = asNumber(d.age);
   if (age !== null) f['年龄'] = age;
 
@@ -177,7 +178,7 @@ function buildFields(d) {
 }
 
 async function appendBitableRow(d) {
-  if (!bitableReady()) return 'skipped';
+  if (!bitableReady()) return { status: 'skipped' };
   const token = await tenantToken();
   const url = 'https://open.feishu.cn/open-apis/bitable/v1/apps/' +
               encodeURIComponent(BITABLE_APP_TOKEN) + '/tables/' +
@@ -192,7 +193,14 @@ async function appendBitableRow(d) {
     err.bitableCode = j.code;
     throw err;
   }
-  return 'ok';
+  // 必须拿到新记录编号才能确认归档，避免把不完整响应当成已保存。
+  const recordId = j.data && j.data.record && j.data.record.record_id;
+  if (typeof recordId !== 'string' || !recordId.trim()) {
+    const err = new Error('写表响应未提供记录编号');
+    err.bitableCode = 'missing-record-id';
+    throw err;
+  }
+  return { status: 'ok', recordId: recordId.trim() };
 }
 
 // ---------------------------------------------------------------- slots
@@ -469,6 +477,28 @@ function buildCard(d) {
   };
 }
 
+/**
+ * 把服务端实际得到的保存结果加入主试卡片。
+ * 输入为原通知卡片及保存回执；输出仍为同一张卡片，不额外发送消息。
+ * 已保存时给出记录编号，异常时改变标题及颜色，避免主试误以为答卷已归档。
+ */
+function withArchiveStatus(card, archive) {
+  const saved = archive.status === 'ok';
+  const lines = saved
+    ? ['已保存至报名表。', '记录编号：' + safe(archive.recordId, 80)]
+    : [archive.status === 'skipped'
+        ? '未配置报名表保存，本次资料尚未归档。'
+        : '未能确认本次资料已保存至报名表。',
+       '请实验员核对；当前卡片保留为联系线索，不代表完整答卷已归档。'];
+  if (archive.code !== undefined) lines.push('归档错误编号：' + safe(archive.code, 40));
+  card.card.elements.unshift(section('资料保存状态', lines), divider);
+  if (!saved) {
+    card.card.header.title.content = '⚠️ 报名资料保存待核查';
+    card.card.header.template = 'red';
+  }
+  return card;
+}
+
 // ------------------------------------------------------------- handler
 
 exports.main_handler = async (event) => {
@@ -547,38 +577,31 @@ exports.main_handler = async (event) => {
     booking: booking ? { key: booking } : null,
   });
 
-  // 写表与发卡片并行；写表失败不影响给被试的结果，但要留下日志。
-  // 把飞书返回的错误码一并带回响应，排查时不必每次去翻函数日志
-  // （只回数字码，不回含 app_id 的完整报错文本）。
-  let archiveCode = null;
-  const archiving = appendBitableRow(deliveryData)
-    .catch(e => {
-      console.error('[bitable]', e && e.message);
-      archiveCode = (e && e.bitableCode) || 'exception';
-      return 'failed';
-    });
+  // 先确认保存状态，再构造通知；这样同一张卡片就能准确说明是否需要主试核查。
+  let archive;
+  try {
+    archive = await appendBitableRow(deliveryData);
+  } catch (e) {
+    console.error('[bitable]', e && e.message);
+    archive = { status: 'failed', code: (e && e.bitableCode) || 'exception' };
+  }
 
-  const notificationFailureResponse = async () => {
-    const archived = await archiving;
-    // A confirmed booking or a completed archive is a durable receipt. Report
-    // notification delay without inviting a duplicate submission. If neither
-    // exists, the form still needs to surface a real delivery failure.
-    if (!booking && archived !== 'ok') {
-      const failedBody = { ok: false, error: 'notify failed', archived };
-      if (archiveCode !== null) failedBody.archiveCode = archiveCode;
-      return reply(502, origin, failedBody);
-    }
-    const body = { ok: true, archived, notification: 'failed' };
-    if (booking) {
-      body.booking = booking;
-      body.bookingStatus = 'pending';
-    }
-    if (archiveCode !== null) body.archiveCode = archiveCode;
-    return reply(200, origin, body);
-  };
+  // ok只代表资料确已保存。时段可能已经写入，因此异常回执也保留时段信息，
+  // 让前端提示人工核对，而不是诱导被试重复提交或重新占用名额。
+  const receipt = { ok: archive.status === 'ok', archived: archive.status };
+  if (archive.recordId) receipt.archiveRecordId = archive.recordId;
+  if (archive.code !== undefined) receipt.archiveCode = archive.code;
+  if (archive.status !== 'ok') receipt.error = 'archive-' + archive.status;
+  if (booking) {
+    receipt.booking = booking;
+    receipt.bookingStatus = 'pending';
+  }
+  const notificationFailureResponse = () => reply(
+    receipt.ok || booking ? 200 : 502, origin,
+    Object.assign({}, receipt, { notification: 'failed' }));
 
   try {
-    const res = await postJSON(FEISHU_WEBHOOK, buildCard(deliveryData));
+    const res = await postJSON(FEISHU_WEBHOOK, withArchiveStatus(buildCard(deliveryData), archive));
     let ok = res.status >= 200 && res.status < 300;
     // 飞书即使 HTTP 200 也可能在 body 里返回非零 code
     try {
@@ -590,19 +613,10 @@ exports.main_handler = async (event) => {
       console.error('飞书返回异常:', res.status, res.body);
       return notificationFailureResponse();
     }
-    // archived 便于在浏览器控制台一眼看出归档是否配好
-    const archived = await archiving;
-    const body = { ok: true, archived };
-    if (booking) {
-      body.booking = booking;
-      // Bitable has no atomic conditional update. Readback proves the request
-      // was present at that moment, but final confirmation remains manual.
-      body.bookingStatus = 'pending';
-    }
-    if (archiveCode !== null) body.archiveCode = archiveCode;
-    return reply(200, origin, body);
+    return reply(200, origin, Object.assign({}, receipt, { notification: 'ok' }));
   } catch (e) {
     console.error('转发飞书失败:', e && e.message);
     return notificationFailureResponse();
   }
 };
+
