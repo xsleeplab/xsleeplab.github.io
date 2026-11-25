@@ -499,4 +499,140 @@ window.PROJECT_CONFIGS = {
       waitlistTableId: 'tblTMIZGaTSyXHUi',
     },
   },
+
+
+  // ──────────────────────────────────────────────
+  //  午睡与记忆研究（nap-memory）
+  //  当天单次往返，含约 90 分钟午睡；候选时间由人工协调，不被试自选
+  // ──────────────────────────────────────────────
+  'nap-memory': {
+    id: 'nap-memory',
+    type: 'nap',
+    title: '午睡与记忆研究',
+    brief: '考察午睡对记忆巩固的作用。您需要在当天到访一次（北医六院昌平院区），完成行为任务后佩戴脑电午睡约 90 分钟，当天往返，无需过夜。',
+    visits: '1 次（当天往返）',
+    duration: '上午 11:30 – 下午 16:30（当天往返，不过夜）',
+    location: '北京大学第六医院 昌平院区',
+    reward: '350 元',
+    active: true,
+    typeLabel: '午睡实验',
+    typeIcon: '☀️',
+    bookingMode: 'waitlist',   // 被试填写候选时间，由研究团队统一协调、单独联系，不自主选日期
+    collectContactInBasic: true, // 基本信息收集手机号 + 微信号
+    emailDisabled: true,           // 本项目不收集邮箱
+
+    steps: [
+      'consent', 'basicInfo', 'customScreening',
+      'psqi', 'isi', 'rmeq', 'dass',
+      'schedule',
+    ],
+
+    screening: {
+      ageMin: 18, ageMax: 24,
+      psqiMax: 5,
+      isiMax: 7,
+      rmeqMin: 8, rmeqMax: 21,
+      dassDepressionMax: 9,
+      dassAnxietyMax: 7,
+      dassStressMax: 14,
+      visionRequired: false,   // 午睡当天往返，暂不设视力筛查
+      lieCheck: true,
+      dyeCheck: false,         // 午睡筛查项由 customScreening 处理，本项目无 habit 步骤
+    },
+
+    habitQuestions: null,
+    habitConditions: null,
+
+    // ── 午睡专属筛选题（复用通用 customScreening 渲染与判定）──
+    // N01 是否有午睡习惯：必须选「是」才通过筛选
+    // N02 / N03 午睡时长与时段：仅作记录，不参与通过/不通过判定
+    customScreening: [
+      {
+        id: 'N01', text: '您平时是否有午睡（白天小睡）的习惯？', type: 'radio',
+        options: [
+          { value: 'A', label: '是' },
+          { value: 'B', label: '否' },
+        ],
+        passIf: ['A'],
+      },
+      {
+        id: 'N02', text: '您一般午睡多长时间？', type: 'radio',
+        options: [
+          { value: 'A', label: '30 分钟以内' },
+          { value: 'B', label: '30–60 分钟' },
+          { value: 'C', label: '60–90 分钟' },
+          { value: 'D', label: '90 分钟以上' },
+          { value: 'E', label: '不太固定' },
+        ],
+      },
+      {
+        id: 'N03', text: '您的午睡时间通常在哪个时段？', type: 'radio',
+        options: [
+          { value: 'A', label: '上午 11:00 – 下午 13:00' },
+          { value: 'B', label: '下午 13:00 – 15:00' },
+          { value: 'C', label: '下午 15:00 – 17:00' },
+          { value: 'D', label: '其他或不固定' },
+        ],
+      },
+    ],
+
+    guide: {
+      scheduleSummary: [
+        '到场：上午 11:30 到达北京大学第六医院昌平院区',
+        '行为任务：完成记忆编码任务并佩戴脑电设备',
+        '午睡：约 90 分钟（全程脑电记录）',
+        '醒后测试：完成记忆测试与问卷，下午约 16:30 前离开',
+      ],
+      timeline: [
+        { time: '11:30', desc: '到达实验室（北医六院昌平院区），熟悉环境' },
+        { time: '11:30 – 12:00', desc: '准备与说明' },
+        { time: '12:00 – 13:30', desc: '完成记忆编码行为任务，佩戴脑电设备' },
+        { time: '13:30 – 15:00', desc: '午睡约 90 分钟（全程脑电记录）' },
+        { time: '15:00 – 16:30', desc: '醒后完成记忆测试与问卷，随后离开' },
+      ],
+      prep: [
+        '<strong>早餐与午餐</strong> — 请正常吃早餐；实验当天我们会安排午餐，如您有饮食禁忌请提前告知',
+        '<strong>身份证</strong> — 请携带本人身份证，现场需核对信息以发放被试费',
+        '<strong>舒适衣物</strong> — 建议穿宽松舒适、便于午睡的衣物',
+        '<strong>保持电话畅通</strong> — 实验当天我们会电话联系您唤醒',
+      ],
+    },
+
+    email: {
+      scheduleLines: [
+        '到场：<strong>上午 11:30</strong> 到达北京大学第六医院昌平院区',
+        '行为任务：<strong>12:00 – 13:30</strong> 完成记忆编码任务、佩戴脑电',
+        '午睡：<strong>13:30 – 15:00</strong>（约 90 分钟，全程脑电记录）',
+        '醒后测试与离开：<strong>15:00 – 16:30</strong> 完成测试后当天离开',
+      ],
+      reminders: [
+        '<strong>实验当天我们会在您平时起床时间的基础上提前约 1.5 小时给您打电话把您唤醒</strong>，以保证您当天的午睡质量，请务必保持手机畅通。',
+        '本实验当天往返，无需在实验室过夜；请预留上午 11:30 前到达的时间。',
+        '实验前一天及当天请勿摄入含咖啡因的饮品（咖啡、茶、可乐、能量饮料等），也不要饮酒。',
+        '当天请勿服用影响睡眠的药物或褪黑素等助眠产品。',
+        '<strong>请携带本人身份证</strong>，现场需核对个人信息以发放被试费。',
+        '完成当天全部流程后可获得被试费 <strong>350 元</strong>。',
+      ],
+      phoneCallReminder: true,
+    },
+
+    calendar: {
+      blockedDays: [],
+      bookingWindow: 14,
+      slotDays: 28,
+      defaultCapacity: 1,
+    },
+
+    // nap 专属飞书表 token（描述用途；真正落库路由由 SCF 环境变量 BITABLE_PROJECTS['nap-memory'] 决定，须与此保持一致）
+    bitable: {
+      appToken: 'XUSHbPcOoabkXSsrXW8cWSnrn44',
+      mainTableId: 'tblTZ57uVsIUzHjl',
+      slotTableId: '',
+      psqiTableId: 'tbllZexmUy0NlmKM',
+      isiTableId: 'tblPr7R1P1JgBSel',
+      rmeqTableId: 'tblPuOi8ZVm7sGyZ',
+      dassTableId: 'tblbuLr7FIXgMa1i',
+      waitlistTableId: '',
+    },
+  },
 };

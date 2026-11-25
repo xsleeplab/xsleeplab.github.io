@@ -431,6 +431,12 @@ function applyBasicContactVisibility() {
     const group = el && el.closest('.form-group');
     if (group) group.style.display = show;
   });
+  // 不收集邮箱的项目（如 nap-memory）：隐藏邮箱字段
+  if (config && config.emailDisabled === true) {
+    const em = document.getElementById('f-email');
+    const emGroup = em && em.closest('.form-group');
+    if (emGroup) emGroup.style.display = 'none';
+  }
 }
 
 function selectExperiment(id) {
@@ -605,7 +611,7 @@ function validateStep(step) {
       if (!document.getElementById('f-wechat').value.trim()) { showErr('err-wechat'); v = false; }
     }
     const em = document.getElementById('f-email').value.trim();
-    if (!em || !em.includes('@')) { showErr('err-email'); v = false; }
+    if (!(config && config.emailDisabled === true) && (!em || !em.includes('@'))) { showErr('err-email'); v = false; }
     const ag = document.getElementById('f-age').value;
     if (!ag || ag < 16 || ag > 80) { showErr('err-age'); v = false; }
     if (!document.querySelector('input[name="gender"]:checked')) { showErr('err-gender'); v = false; }
