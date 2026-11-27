@@ -1445,6 +1445,11 @@ function classifySubmissionResponse(data, requestedSlot) {
   if (data && data.error === 'duplicate') return { kind: 'duplicate' };
   if (data && data.ok !== true && retryableSlotErrors.includes(error)) return { kind: 'retry', error: error };
   if (data && data.ok !== true && requestedSlot && /^slot-/.test(error)) return { kind: 'unknown', error: error };
+  // 群通知成功不是保存回执。旧服务未给出保存状态时，同样不能宣称报名完成。
+  if (data && (data.archived === 'failed' || data.archived === 'skipped'
+      || (data.ok === true && data.archived !== 'ok'))) {
+    return { kind: 'archive-unconfirmed' };
+  }
   if (!data || data.ok !== true) return { kind: 'error', error: error };
   if (requestedSlot && data.booking !== requestedSlot) return { kind: 'unconfirmed' };
   if (requestedSlot && data.bookingStatus !== 'confirmed') {
@@ -1508,6 +1513,14 @@ function sendEmail() {
     })
     .then(result => {
       if (result === 'retry') return;
+      if (result === 'archive-unconfirmed') {
+        // 保存状态不明时保留已提交状态并停止重复点击，避免产生第二份报名或占位。
+        st.className = 'form-submit-status notice';
+        st.innerHTML = '报名资料的保存状态尚未确认。请勿重复提交，'
+          + '请通过 <a href="mailto:xsleeplab@hotmail.com">xsleeplab@hotmail.com</a> 联系实验室核对。';
+        btn.textContent = '保存状态待核实';
+        return;
+      }
       if (result === 'unknown') {
         st.className = 'form-submit-status notice';
         st.innerHTML = '服务器未能确认本次报名及预约状态，该时段可能已经写入。请勿重复提交，'
@@ -1579,3 +1592,4 @@ document.addEventListener('click', function(e) {
     btn.setAttribute('aria-expanded', nav.classList.contains('open'));
   }
 });
+

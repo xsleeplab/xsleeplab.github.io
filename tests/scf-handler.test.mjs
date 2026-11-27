@@ -85,7 +85,9 @@ test('unavailable slot storage cannot be reported downstream as a confirmed book
 
   const body = JSON.parse(response.body);
   assert.equal(response.statusCode, 200);
-  assert.equal(body.ok, true);
+  // 没有保存配置时仍可发送联系线索，但不能声称报名资料已保存。
+  assert.equal(body.ok, false);
+  assert.equal(body.archived, 'skipped');
   assert.equal(body.booking, undefined, 'response must not acknowledge an unreserved slot');
   assert.doesNotMatch(
     JSON.stringify(notificationPayload),
@@ -156,7 +158,8 @@ test('a read-back booking remains a pending success when only the notification f
     if (options.path.includes('/tables/submission-table/records')) {
       assert.match(body, /2026-08-12 Lab 1/);
       assert.match(body, /待确认/);
-      return { status: 200, body: '{"code":0}' };
+      // 成功归档必须具有飞书返回的真实记录编号。
+      return { status: 200, body: '{"code":0,"data":{"record":{"record_id":"recTestArchive"}}}' };
     }
     throw new Error(`Unexpected request: ${options.method} ${options.hostname}${options.path}`);
   });
@@ -239,7 +242,7 @@ test('booking acknowledgement requires a successful exact readback', async t => 
       };
     }
     if (options.path.includes('/tables/submission-table/records')) {
-      return { status: 200, body: '{"code":0}' };
+      return { status: 200, body: '{"code":0,"data":{"record":{"record_id":"recTestArchive"}}}' };
     }
     throw new Error(`Unexpected request: ${options.method} ${options.hostname}${options.path}`);
   });
@@ -320,7 +323,7 @@ test('an archived submission remains successful when only the notification fails
       return { status: 200, body: '{"code":0,"tenant_access_token":"token","expire":7200}' };
     }
     if (options.path.includes('/tables/submission-table/records')) {
-      return { status: 200, body: '{"code":0}' };
+      return { status: 200, body: '{"code":0,"data":{"record":{"record_id":"recTestArchive"}}}' };
     }
     throw new Error(`Unexpected request: ${options.method} ${options.hostname}${options.path}`);
   });
@@ -393,5 +396,8 @@ test('slot availability checks do not consume the submission quota', async t => 
   });
 
   assert.equal(submission.statusCode, 200);
-  assert.equal(JSON.parse(submission.body).ok, true);
+  // 本例未配置保存；确认报名未被限流即可，不能将通知成功当作归档成功。
+  assert.equal(JSON.parse(submission.body).archived, 'skipped');
+  assert.notEqual(JSON.parse(submission.body).error, 'too many submissions');
 });
+
