@@ -29,6 +29,7 @@ const getExp = () => PROJECT_CONFIGS[selectedExpId];
 const visionRequired = () => config && config.steps.indexOf('vision') !== -1;
 // 基本信息页是否收集手机号/微信号：默认收集，仅当项目显式设 collectContactInBasic:false 时隐藏
 const basicContactEnabled = () => !config || config.collectContactInBasic !== false;
+const isEmotion = () => selectedExpId === 'emotion-memory';
 const lastStep = () => activeSteps[activeSteps.length - 1];
 const lastStepIndex = () => activeSteps.length - 1;
 
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   config = PROJECT_CONFIGS[projectId];
   activeSteps = config.steps.slice();
 
+  if (projectId === 'emotion-memory') applyEmotionWording();
   renderPSQI();
   renderISI();
   renderRMEQ();
@@ -92,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 根据项目配置渲染 step-3（habit 或 customScreening）
   renderStep3Content();
+  if (projectId === 'emotion-memory') document.querySelector('#step-3 .btn-primary').textContent = '提交报名';
 
   selectExperiment(projectId);
 });
@@ -157,9 +160,15 @@ function renderCustomScreeningQuestions() {
       const placeholder = q.inputType === 'phone' ? '请输入手机号' : '请输入';
       inputHtml = '<label class="form-label"><span class="q-item-number">' + (i + 1) + '.</span> ' + q.text + '</label>' +
         '<input type="' + inputType + '" class="form-input" id="cs-q' + i + '" placeholder="' + placeholder + '"' +
-        (q.required ? ' required' : '') + '>';
+        (q.required ? ' required' : '') + (config.id === 'emotion-memory' ? (q.inputType === 'phone' ? ' inputmode="numeric" maxlength="40"' : ' maxlength="100"') : '') + '>';
     }
     div.innerHTML = inputHtml;
+    if (config.id === 'emotion-memory' && (q.help || q.type === 'checkbox')) {
+      const help = document.createElement('p');
+      help.className = 'form-sublabel';
+      help.textContent = [q.type === 'checkbox' ? '可多选。' : '', q.help || ''].filter(Boolean).join(' ');
+      div.insertBefore(help,div.children[1]);
+    }
     container.appendChild(div);
   });
 
@@ -205,8 +214,16 @@ function renderCheckboxGroup(cid, name, opts) {
   const qIdx = parseInt(cid.replace('cs-q', ''));
   const question = config.customScreening[qIdx];
   if (question && question.mutexWith) {
-    c.addEventListener('change', function() {
+    c.addEventListener('change', function(event) {
       const mutex = question.mutexWith;
+      if (config.id === 'emotion-memory') {
+        const last = event.target;
+        if (!last.checked) return;
+        c.querySelectorAll('input').forEach(input => {
+          if (input !== last && (last.value === mutex.value || input.value === mutex.value)) input.checked = false;
+        });
+        return;
+      }
       const checked = Array.from(c.querySelectorAll('input:checked')).map(el => el.value);
       if (checked.indexOf(mutex.value) !== -1) {
         // 选了互斥值，取消其他
@@ -264,6 +281,12 @@ function setupConditionalDisplay() {
         shouldShow = showVals.indexOf(triggerVal) !== -1;
       }
       targetEl.style.display = shouldShow ? '' : 'none';
+      if (!shouldShow && isEmotion()) {
+        targetEl.querySelectorAll('input').forEach(el => {
+          if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
+          else el.value = '';
+        });
+      }
     };
 
     // 绑定触发器的变化事件
@@ -336,18 +359,27 @@ function renderRadioGroup(cid, name, opts) {
 
 function renderPSQI() {
   const c = document.getElementById('psqi-q5-items');
+  const emotion = config.id === 'emotion-memory';
   c.innerHTML = PSQI_Q5.map((it, i) => {
     let extra = '';
     if (it.key === 'q5j') {
       extra = '<input type="text" class="form-input" id="psqi-q5j-detail" placeholder="请简要说明其他原因" style="margin-top:8px;display:none">';
     }
-    return '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 5) + '.</span> ' + it.text + '</label><div class="radio-group" id="psqi-' + it.key + '"></div>' + extra + '</div>';
+    if (emotion && it.key === 'q5j') {
+      extra = '<label for="psqi-q5j-detail" id="emotion-psqi-other" style="display:none;margin-top:8px">' +
+        EmotionRules.wording.psqi.other + '<input type="text" class="form-input" id="psqi-q5j-detail" maxlength="500"></label>';
+    }
+    const question = emotion ? EmotionRules.wording.psqi[it.key] : it.text;
+    return '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 5) + '.</span> ' + question + '</label><div class="radio-group" id="psqi-' + it.key + '"></div>' + extra + '</div>';
   }).join('');
   PSQI_Q5.forEach(it => renderRadioGroup('psqi-' + it.key, 'psqi-' + it.key, FREQ03));
   document.querySelectorAll('input[name="psqi-q5j"]').forEach(r => {
     r.addEventListener('change', () => {
       const det = document.getElementById('psqi-q5j-detail');
-      det.style.display = r.value > 0 ? 'block' : 'none';
+      if (emotion) {
+        document.getElementById('emotion-psqi-other').style.display = r.value > 0 ? 'block' : 'none';
+        if (r.value === '0') det.value = '';
+      } else det.style.display = r.value > 0 ? 'block' : 'none';
     });
   });
   renderRadioGroup('psqi-q6', 'psqi-q6', FREQ03);
@@ -359,24 +391,25 @@ function renderPSQI() {
 function renderISI() {
   const c = document.getElementById('isi-items');
   c.innerHTML = ISI_Q.map((q, i) =>
-    '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 1) + '.</span> ' + q.text + '</label><div class="radio-group" id="isi-q' + i + '"></div></div>'
+    '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 1) + '.</span> ' + (config?.id === 'emotion-memory' ? EmotionRules.wording.isi[i] : q.text) + '</label><div class="radio-group" id="isi-q' + i + '"></div></div>'
   ).join('');
   ISI_Q.forEach((q, i) => renderRadioGroup('isi-q' + i, 'isi-q' + i, q.options.map((l, v) => ({value: v, label: l}))));
 }
 
 function renderDASS() {
   const c = document.getElementById('dass-items');
-  c.innerHTML = DASS_DISPLAY.map((item, di) =>
+  const display = config?.id === 'emotion-memory' ? EmotionRules.checkDisplay : DASS_DISPLAY;
+  c.innerHTML = display.map((item, di) =>
     '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (di + 1) + '.</span> ' + item.text + '</label><div class="radio-group" id="dass-q' + di + '"></div></div>'
   ).join('');
-  DASS_DISPLAY.forEach((_, di) => renderRadioGroup('dass-q' + di, 'dass-q' + di, DASS_OPT));
+  display.forEach((item, di) => renderRadioGroup('dass-q' + di, 'dass-q' + di, item.options || DASS_OPT));
 }
 
 function renderRMEQ() {
   const c = document.getElementById('rmeq-items');
   if (!c) return;
   c.innerHTML = RMEQ_Q.map((q, i) =>
-    '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 1) + '.</span> ' + q.text + '</label><div class="radio-group" id="rmeq-q' + i + '"></div></div>'
+    '<div class="q-item"><label class="form-label"><span class="q-item-number">' + (i + 1) + '.</span> ' + (config?.id === 'emotion-memory' ? EmotionRules.wording.rmeq[i] : q.text) + '</label><div class="radio-group" id="rmeq-q' + i + '"></div></div>'
   ).join('');
   RMEQ_Q.forEach((q, i) => renderRadioGroup('rmeq-q' + i, 'rmeq-q' + i, q.options));
 }
@@ -488,6 +521,7 @@ function renderProgress() {
 }
 
 async function goNext() {
+  if (isEmotion()) return nextEmotionStep();
   if (!validateStep(currentStep)) return;
   const exit = earlyExitReason(currentStep);
   if (exit) { reportEarlyExit(exit); showEarlyExit(exit); return; }
@@ -923,6 +957,7 @@ function checkBedtimeDeadline() {
 
 // ==================== SUBMIT ====================
 function submitQuestionnaire() {
+  if (isEmotion()) return nextEmotionStep();
   if (!validateStep(currentStep)) return;
   const s = config.screening;
   const psqi = scorePSQI(), isi = scoreISI(), dass = scoreDASS();
@@ -1579,3 +1614,219 @@ document.addEventListener('click', function(e) {
     btn.setAttribute('aria-expanded', nav.classList.contains('open'));
   }
 });
+
+// emotion-memory alone submits the complete answer set before showing a result.
+let emotionSubmission = null;
+let emotionSubmitting = false;
+
+function applyEmotionWording() {
+  const {copy,wording} = EmotionRules;
+  const consent = document.querySelector('#step-0 .consent-box');
+  const paragraphs = consent.querySelectorAll('p');
+  paragraphs[1].textContent = copy.intro;
+  paragraphs[2].textContent = copy.dataUse;
+  paragraphs[4].textContent = config.compensationDetails;
+  const place = document.createElement('p');
+  place.textContent = '地点：' + config.location;
+  consent.insertBefore(place,paragraphs[4]);
+  const details = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = '预计实验时间';
+  details.appendChild(summary);
+  for (const line of config.scheduleDetails.concat('以上为预计时间，实际可能波动。')) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = line;
+    details.appendChild(paragraph);
+  }
+  consent.insertBefore(details,paragraphs[4]);
+  document.querySelector('label[for="consent-check"]').textContent = wording.basic.consent;
+  document.querySelector('#step-1 .q-step-desc').textContent = '请填写您的基本信息。';
+  for (const [key,id] of Object.entries({B01:'f-name',B02:'f-age',B03:'g-m',B04:'id-student'})) {
+    const label = document.getElementById(id).closest('.form-group').querySelector('.form-label');
+    label.textContent = wording.basic[key] + (key === 'B04' ? '（选填）' : '');
+  }
+  const age = document.getElementById('f-age');
+  age.removeAttribute('min');
+  age.removeAttribute('max');
+  document.getElementById('f-name').maxLength = 80;
+  for (const [key,placeholder] of [['q1','例如 23:00'],['q3','例如 07:00']]) {
+    const input = document.getElementById('psqi-'+key);
+    input.removeAttribute('value');
+    input.value = '';
+    input.placeholder = placeholder;
+    input.setAttribute('aria-label', wording.psqi[key] + '，' + placeholder);
+  }
+  const latency = document.getElementById('psqi-q2');
+  latency.removeAttribute('max');
+  latency.step = 'any';
+  document.getElementById('psqi-q4').step = 'any';
+  for (const key of ['q1','q2','q3','q4','q6','q7','q8','q9']) {
+    const label = document.getElementById('psqi-'+key).parentElement.querySelector('.form-label');
+    label.lastChild.textContent = ' ' + wording.psqi[key];
+  }
+  document.querySelector('#step-4 .q-step-desc').textContent = '以下问题涉及您过去一个月的睡眠习惯，请根据通常情况回答。';
+  document.querySelector('#step-5 .q-step-desc').textContent = '请根据您过去两周的实际情况评分。';
+  document.querySelector('#step-6 .q-step-desc').textContent = '请选择最符合您日常习惯的选项。';
+  document.querySelector('#step-7 .q-step-desc').textContent = '请根据过去一周的实际情况评分。';
+}
+
+function collectEmotionAnswers() {
+  const str = id => getTextValue(id);
+  const num = id => str(id) === '' ? null : Number(str(id));
+  const choiceNumber = name => {
+    const v = getRadioStr(name);
+    return v === '' ? null : Number(v);
+  };
+  const answers = {
+    basic: {consent: document.getElementById('consent-check').checked,
+      name: str('f-name'), age: num('f-age'), gender: getRadioStr('gender'), identity: getRadioStr('identity')},
+    custom:{}, psqi:{q1:str('psqi-q1'), q2:num('psqi-q2'), q3:str('psqi-q3'), q4:num('psqi-q4')},
+    isi:ISI_Q.map((_,i)=>choiceNumber('isi-q'+i)),
+    rmeq:RMEQ_Q.map((_,i)=>choiceNumber('rmeq-q'+i)), dass:[], ac:{},
+  };
+  for (const [i,q] of config.customScreening.entries()) {
+    if (!EmotionRules.visible(q,answers.custom)) continue;
+    answers.custom[q.id] = q.type === 'text' ? str('cs-q'+i)
+      : q.type === 'checkbox' ? getCheckboxValues('cs-q'+i) : getRadioStr('cs-q'+i);
+  }
+  for (const [id] of EmotionRules.PSQI.slice(4)) answers.psqi[id] = choiceNumber('psqi-'+id);
+  if (answers.psqi.q5j > 0) answers.psqi.other = str('psqi-q5j-detail');
+  EmotionRules.checkDisplay.forEach((q,i) => {
+    const v = choiceNumber('dass-q'+i);
+    if (q.type === 'dass') answers.dass[q.dassIdx] = v;
+    else answers.ac[q.id] = v;
+  });
+  return answers;
+}
+
+function emotionMessage(text) {
+  const panel = document.querySelector('.q-step-panel.active');
+  let error = panel.querySelector('.emotion-form-status');
+  if (!error) {
+    error = document.createElement('div');
+    error.className = 'form-error emotion-form-status';
+    error.setAttribute('role','alert');
+    panel.insertBefore(error,panel.querySelector('.step-actions'));
+  }
+  error.textContent = text;
+  error.classList.toggle('show',Boolean(text));
+  if (text) error.scrollIntoView({block:'nearest'});
+}
+
+function emotionValidationMessage(missing) {
+  if (missing.includes('consent')) return '请勾选同意知情同意书。';
+  if (missing.includes('Q16a')) return '请填写11位数字的手机号。';
+  if (missing.includes('PSQI-实睡时长与卧床时间矛盾')) return '请核对上床时间、起床时间与实际睡眠时长。实际睡眠时长不能超过卧床时长，卧床时长须大于零。';
+  if (missing.includes('PSQI-其他原因')) return EmotionRules.wording.psqi.other;
+  if (missing.includes('年龄')) return '请填写整数周岁。';
+  return '请完整填写当前页的必答题。';
+}
+
+function nextEmotionStep() {
+  if (emotionSubmitting) return;
+  const stage = currentStepType();
+  emotionMessage('');
+  if (emotionSubmission?.state === 'unknown') return submitEmotionQuestionnaire();
+  const result = EmotionRules.evaluateStage(collectEmotionAnswers(),stage);
+  if (result.missing.length) {
+    emotionMessage(emotionValidationMessage(result.missing));
+  } else if (result.classification) {
+    return submitEmotionQuestionnaire(result);
+  } else {
+    showStep(currentStep + 1);
+  }
+}
+
+function emotionIdentifiers() {
+  const bytes = window.crypto.getRandomValues(new Uint8Array(48));
+  bytes[6] = (bytes[6] & 15) | 64;
+  bytes[8] = (bytes[8] & 63) | 128;
+  const hex = Array.from(bytes, byte => byte.toString(16).padStart(2,'0')).join('');
+  return {
+    submissionId: [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20,32)].join('-'),
+    statusKey: hex.slice(32),
+  };
+}
+
+async function emotionRequest(body, timeout) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(),timeout);
+  try {
+    const response = await fetch(SUBMIT_ENDPOINT,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body),signal:controller.signal,
+    });
+    return await response.json();
+  } catch (_) {
+    return {state:'unknown'};
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function emotionReceipt(response, submissionId) {
+  return response.state === 'saved' && response.submissionId === submissionId &&
+    /^rec[a-zA-Z0-9]+$/.test(response.recordId || '') &&
+    Object.prototype.hasOwnProperty.call(EmotionRules.OUTCOME,response.classification) &&
+    ['early','complete'].includes(response.completion) &&
+    response.version === EmotionRules.VERSION && response.formVersion === EmotionRules.FORM_VERSION;
+}
+
+async function submitEmotionQuestionnaire(local) {
+  if (!emotionSubmission) emotionSubmission = {...emotionIdentifiers(), state:'unsaved'};
+  const attempt = emotionSubmission;
+  if (attempt.state === 'unsaved') attempt.payload = JSON.stringify({stage:local.stage,answers:local.answers});
+  const request = {projectId:EmotionRules.PROJECT,version:EmotionRules.VERSION,
+    submissionId:attempt.submissionId,statusKey:attempt.statusKey};
+  const check = () => emotionRequest({...request,action:'emotionStatus'},10000);
+  const showSaved = response => {
+    if (!emotionReceipt(response,attempt.submissionId)) return false;
+    showEmotionResult(response.classification,response.late === true);
+    return true;
+  };
+  const buttons = document.querySelectorAll('.q-step-panel.active .step-actions button');
+  emotionSubmitting = true;
+  buttons.forEach(button => {button.disabled = true;});
+  try {
+    if (attempt.state === 'unknown') {
+      emotionMessage('正在核实这次报名是否已保存，请保留此页面。');
+      const status = await check();
+      if (showSaved(status)) return;
+      if (status.state !== 'unsaved') {
+        emotionMessage('暂时无法确认是否已保存，请稍后再次点击重试。');
+        return;
+      }
+      // A pending request can still arrive late. Replay exactly its payload.
+    }
+    let response = await emotionRequest({...request,...JSON.parse(attempt.payload),action:'submitEmotion'},SUBMISSION_TIMEOUT_MS);
+    if (showSaved(response)) return;
+    if (response.state === 'unsaved') {
+      attempt.state = 'unsaved';
+      emotionMessage('报名未保存。您的答卷仍在此页面，请检查后重试。');
+      return;
+    }
+    attempt.state = 'unknown';
+    emotionMessage('正在核实这次报名是否已保存，请保留此页面。');
+    response = await check();
+    if (showSaved(response)) return;
+    emotionMessage(response.state === 'unsaved'
+      ? '暂时没有查到这次报名，请点击重试。'
+      : '暂时无法确认是否已保存，请稍后再次点击重试。');
+  } finally {
+    emotionSubmitting = false;
+    buttons.forEach(button => {button.disabled = false;});
+  }
+}
+
+function showEmotionResult(classification, late) {
+  document.getElementById('questionnaire-page').style.display = 'none';
+  document.getElementById('results-page').style.display = 'block';
+  document.getElementById('result-emotion').style.display = 'block';
+  const header = document.getElementById('emotion-result-header');
+  header.className = 'result-header '+(classification === 'failed' ? 'fail' : 'pass');
+  const message = document.getElementById('emotion-result-text');
+  const copy = EmotionRules.copy;
+  message.textContent = classification !== 'failed' ? copy.candidate : late ? copy.late : copy.failed;
+  message.focus();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
