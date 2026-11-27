@@ -501,6 +501,12 @@
 <div id="results-page" style="display:none">
   <section class="section">
     <div class="result-panel active">
+      <div id="result-emotion" style="display:none" aria-live="polite">
+        <div id="emotion-result-header" class="result-header">
+          <p id="emotion-result-text" tabindex="-1"></p>
+        </div>
+        <div style="text-align:center"><a class="btn btn-outline" href="../participate.html">返回参与研究</a></div>
+      </div>
       <div id="result-pass" style="display:none">
         <div class="result-header pass"><div class="result-icon">🎉</div><h2>恭喜，您通过了初筛！</h2><p id="pass-exp-desc"></p></div>
         <div id="guide-container"></div>
@@ -603,8 +609,9 @@
   </div>
 </footer>
 
-<script src="configs.js"></script>
-<script src="engine.js"></script>
+<script src="configs.js?v=emotion-2"></script>
+<script src="emotion-rules.js?v=emotion-2"></script>
+<script src="engine.js?v=emotion-2"></script>
 
 </body>
 </html>
